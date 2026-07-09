@@ -1,0 +1,1030 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>郑柱坚｜产品项目方向个人主页</title>
+  <meta name="description" content="郑柱坚的产品项目履历与作品集，聚焦需求分析、产品落地、软硬件协同、测试闭环与跨部门项目推进。">
+  <style>
+    :root {
+      --bg: #f5f7fa;
+      --paper: #ffffff;
+      --ink: #101318;
+      --muted: #5d6572;
+      --line: #dfe4ea;
+      --accent: #0b6e63;
+      --accent-2: #0068d9;
+      --accent-3: #6d4aff;
+      --soft: #edf8f6;
+      --shadow: 0 18px 50px rgba(16, 19, 24, 0.08);
+      --radius: 6px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      background:
+        linear-gradient(rgba(16, 19, 24, 0.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(16, 19, 24, 0.025) 1px, transparent 1px),
+        var(--bg);
+      background-size: 48px 48px;
+      font-family: "Inter", "Segoe UI Variable", "PingFang SC", "Microsoft YaHei", Arial, sans-serif;
+      line-height: 1.6;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    .shell { width: min(1120px, calc(100% - 40px)); margin: 0 auto; }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      border-bottom: 1px solid rgba(223, 228, 234, 0.9);
+      background: rgba(245, 247, 250, 0.88);
+      backdrop-filter: blur(14px);
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      min-height: 68px;
+      gap: 20px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-width: 0;
+      font-weight: 800;
+    }
+
+    .mark {
+      display: grid;
+      place-items: center;
+      flex: 0 0 38px;
+      width: 38px;
+      height: 38px;
+      color: #fff;
+      background: linear-gradient(135deg, var(--ink), #303844);
+      border-radius: 6px;
+      font-size: 14px;
+    }
+
+    .brand span:last-child {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .navlinks {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .navlinks a,
+    .navlinks button,
+    .btn {
+      min-height: 40px;
+      border: 1px solid transparent;
+      border-radius: 6px;
+      font: inherit;
+      cursor: pointer;
+    }
+
+    .navlinks a,
+    .navlinks button {
+      padding: 8px 12px;
+      background: transparent;
+      color: inherit;
+    }
+
+    .navlinks a:hover,
+    .navlinks button:hover,
+    .navlinks a:focus-visible,
+    .navlinks button:focus-visible {
+      color: var(--ink);
+      background: rgba(255, 255, 255, 0.72);
+      outline: none;
+    }
+
+    .hero {
+      min-height: calc(100svh - 68px);
+      display: grid;
+      align-items: center;
+      padding: 58px 0 84px;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.15fr) minmax(330px, 0.72fr);
+      align-items: center;
+      gap: 46px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin: 0 0 18px;
+      color: var(--accent);
+      font-size: 14px;
+      font-weight: 800;
+    }
+
+    .eyebrow::before {
+      content: "";
+      width: 32px;
+      height: 2px;
+      background: currentColor;
+    }
+
+    h1, h2, h3, p { margin-top: 0; }
+
+    h1 {
+      margin-bottom: 20px;
+      max-width: 780px;
+      font-size: clamp(42px, 7vw, 82px);
+      line-height: 0.98;
+      letter-spacing: 0;
+    }
+
+    .lead {
+      max-width: 700px;
+      color: #4f5865;
+      font-size: 19px;
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 30px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+      padding: 10px 16px;
+      font-weight: 800;
+    }
+
+    .btn.primary {
+      color: #fff;
+      background: var(--ink);
+      box-shadow: 0 10px 24px rgba(35, 33, 31, 0.18);
+    }
+
+    .btn.secondary {
+      color: var(--ink);
+      background: rgba(255, 255, 255, 0.86);
+      border-color: var(--line);
+    }
+
+    .btn:hover,
+    .btn:focus-visible {
+      transform: translateY(-1px);
+      outline: 3px solid rgba(15, 118, 110, 0.2);
+      outline-offset: 2px;
+    }
+
+    .portrait-wrap {
+      position: relative;
+      min-height: 500px;
+    }
+
+    .portrait {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      border-radius: 6px;
+      background:
+        linear-gradient(145deg, rgba(16, 19, 24, 0.12), rgba(0, 104, 217, 0.18)),
+        url("https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1200&q=85") center/cover;
+      box-shadow: var(--shadow);
+    }
+
+    .portrait::after {
+      content: "";
+      position: absolute;
+      inset: auto 0 0;
+      height: 48%;
+      background: linear-gradient(to top, rgba(10, 14, 20, 0.72), transparent);
+    }
+
+    .status {
+      position: absolute;
+      left: 24px;
+      right: 24px;
+      bottom: 24px;
+      z-index: 1;
+      padding: 18px;
+      color: #fff;
+      border: 1px solid rgba(255, 255, 255, 0.24);
+      border-radius: 6px;
+      background: rgba(10, 14, 20, 0.68);
+      backdrop-filter: blur(12px);
+    }
+
+    .status strong {
+      display: block;
+      margin-bottom: 4px;
+      font-size: 18px;
+    }
+
+    .status span { color: rgba(255, 255, 255, 0.78); }
+
+    .metrics {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: -32px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .metric {
+      padding: 18px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--paper);
+      box-shadow: 0 10px 28px rgba(16, 19, 24, 0.07);
+    }
+
+    .metric b {
+      display: block;
+      font-size: 26px;
+      line-height: 1;
+    }
+
+    .metric span {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    section { padding: 84px 0; }
+    section:nth-of-type(even) { background: rgba(255, 255, 255, 0.62); }
+
+    .section-head {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 24px;
+      margin-bottom: 28px;
+    }
+
+    .section-head h2 {
+      margin-bottom: 0;
+      font-size: clamp(28px, 4vw, 44px);
+      line-height: 1.1;
+    }
+
+    .section-head p {
+      max-width: 540px;
+      margin-bottom: 0;
+      color: var(--muted);
+    }
+
+    .summary {
+      display: grid;
+      grid-template-columns: 0.9fr 1.1fr;
+      gap: 22px;
+    }
+
+    .panel,
+    .work-card,
+    .timeline-item {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--paper);
+      box-shadow: 0 8px 22px rgba(43, 37, 31, 0.05);
+    }
+
+    .panel { padding: 24px; }
+    .panel h3 { margin-bottom: 12px; font-size: 20px; }
+    .panel p:last-child { margin-bottom: 0; }
+
+    .chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .chip {
+      padding: 7px 10px;
+      color: #155f58;
+      border: 1px solid #bfddd8;
+      border-radius: 4px;
+      background: var(--soft);
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .skill-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+      margin-top: 22px;
+    }
+
+    .skill-list {
+      margin: 0;
+      padding-left: 18px;
+      color: var(--muted);
+    }
+
+    .skill-list li + li { margin-top: 7px; }
+
+    .timeline {
+      display: grid;
+      gap: 14px;
+    }
+
+    .timeline-item {
+      display: grid;
+      grid-template-columns: 170px minmax(0, 1fr);
+      gap: 18px;
+      padding: 22px;
+    }
+
+    .time {
+      color: var(--accent-2);
+      font-weight: 900;
+    }
+
+    .timeline-item h3 {
+      margin-bottom: 6px;
+      font-size: 19px;
+    }
+
+    .timeline-item p {
+      margin-bottom: 0;
+      color: var(--muted);
+    }
+
+    .timeline-item ul {
+      margin: 10px 0 0;
+      padding-left: 18px;
+      color: var(--muted);
+    }
+
+    .filters {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 20px;
+    }
+
+    .filter {
+      padding: 8px 12px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--paper);
+      color: var(--muted);
+      cursor: pointer;
+      font: inherit;
+      font-weight: 800;
+    }
+
+    .filter.is-active,
+    .filter:focus-visible {
+      color: #fff;
+      background: var(--accent);
+      border-color: var(--accent);
+      outline: none;
+    }
+
+    .work-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .work-card { overflow: hidden; }
+
+    .thumb {
+      min-height: 176px;
+      background:
+        linear-gradient(135deg, rgba(255, 255, 255, 0.16), rgba(255, 255, 255, 0)),
+        var(--tone, #0f766e);
+      position: relative;
+    }
+
+    .thumb::before,
+    .thumb::after {
+      content: "";
+      position: absolute;
+      border: 1px solid rgba(255, 255, 255, 0.36);
+      background: rgba(255, 255, 255, 0.16);
+    }
+
+    .thumb::before {
+      left: 22px;
+      top: 26px;
+      width: 58%;
+      height: 36%;
+      border-radius: 8px;
+    }
+
+    .thumb::after {
+      right: 22px;
+      bottom: 22px;
+      width: 42%;
+      height: 28%;
+      border-radius: 8px;
+    }
+
+    .work-body { padding: 20px; }
+
+    .tagline {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      color: var(--accent-3);
+      font-size: 13px;
+      font-weight: 900;
+    }
+
+    .work-card h3 {
+      margin: 10px 0 8px;
+      font-size: 20px;
+    }
+
+    .work-card p {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .work-card ul {
+      padding-left: 18px;
+      margin: 0;
+      color: #504941;
+      font-size: 14px;
+    }
+
+    .portfolio-intro {
+      display: grid;
+      grid-template-columns: 1.4fr 0.6fr;
+      gap: 16px;
+      margin-bottom: 22px;
+    }
+
+    .portfolio-intro .panel { border-top: 4px solid var(--accent); }
+    .portfolio-intro strong { color: var(--accent); }
+
+    .case-list { display: grid; gap: 18px; }
+
+    .case-study {
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--paper);
+      box-shadow: 0 8px 24px rgba(16, 19, 24, 0.045);
+    }
+
+    .case-summary {
+      display: grid;
+      grid-template-columns: 190px minmax(0, 1fr) auto;
+      align-items: center;
+      gap: 22px;
+      padding: 24px;
+      cursor: pointer;
+      list-style: none;
+    }
+
+    .case-summary::-webkit-details-marker { display: none; }
+
+    .case-index {
+      color: var(--accent);
+      font-size: 13px;
+      font-weight: 900;
+      text-transform: uppercase;
+    }
+
+    .case-index b {
+      display: block;
+      color: var(--ink);
+      font-size: 32px;
+      line-height: 1.1;
+    }
+
+    .case-summary h3 { margin: 0 0 5px; font-size: 23px; }
+    .case-summary p { margin: 0; color: var(--muted); }
+
+    .case-toggle {
+      display: grid;
+      place-items: center;
+      width: 38px;
+      height: 38px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      font-size: 22px;
+      transition: transform 180ms ease;
+    }
+
+    .case-study[open] .case-toggle { transform: rotate(45deg); }
+
+    .case-content {
+      padding: 0 24px 26px;
+      border-top: 1px solid var(--line);
+    }
+
+    .case-facts {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 1px;
+      margin: 0 -24px 26px;
+      background: var(--line);
+    }
+
+    .case-fact { padding: 16px 24px; background: #f7f9fb; }
+    .case-fact span { display: block; color: var(--muted); font-size: 12px; }
+    .case-fact b { font-size: 14px; }
+
+    .case-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 26px;
+    }
+
+    .case-block h4 {
+      margin: 0 0 8px;
+      color: var(--accent-2);
+      font-size: 14px;
+    }
+
+    .case-block p,
+    .case-block li { color: #4f5865; font-size: 14px; }
+    .case-block ul, .case-block ol { margin: 0; padding-left: 20px; }
+    .case-block li + li { margin-top: 6px; }
+
+    .self-review {
+      margin-top: 24px;
+      padding: 18px;
+      border-left: 4px solid var(--accent-3);
+      background: #f1f4ff;
+    }
+
+    .self-review h4 { margin: 0 0 8px; color: var(--accent-3); }
+    .self-review p { margin: 0; color: #3f4b65; font-size: 14px; }
+
+    .contact-band {
+      color: #fff;
+      background:
+        linear-gradient(120deg, rgba(0, 104, 217, 0.18), transparent 55%),
+        #101318;
+      padding: 62px 0;
+    }
+
+    .contact {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: center;
+      gap: 28px;
+    }
+
+    .contact h2 {
+      margin-bottom: 10px;
+      font-size: clamp(30px, 5vw, 54px);
+      line-height: 1.04;
+    }
+
+    .contact p {
+      max-width: 680px;
+      margin-bottom: 0;
+      color: rgba(255, 255, 255, 0.72);
+    }
+
+    .contact-list {
+      display: grid;
+      gap: 10px;
+      min-width: 260px;
+    }
+
+    .contact-list a,
+    .contact-list span {
+      padding: 12px 14px;
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.08);
+      font-weight: 800;
+    }
+
+    .footer {
+      padding: 22px 0;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    @media (max-width: 900px) {
+      .nav {
+        align-items: flex-start;
+        flex-direction: column;
+        padding: 14px 0;
+      }
+
+      .navlinks {
+        width: 100%;
+        overflow-x: auto;
+        padding-bottom: 2px;
+      }
+
+      .hero { min-height: auto; }
+
+      .hero-grid,
+      .summary,
+      .contact {
+        grid-template-columns: 1fr;
+      }
+
+      .portrait-wrap { min-height: 420px; }
+      .work-grid, .skill-grid { grid-template-columns: 1fr 1fr; }
+      .portfolio-intro, .case-grid { grid-template-columns: 1fr; }
+      .case-facts { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .case-summary { grid-template-columns: 140px minmax(0, 1fr) auto; }
+
+      .section-head {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+    }
+
+    @media (max-width: 620px) {
+      .shell { width: min(100% - 28px, 1120px); }
+      h1 { font-size: 42px; }
+
+      .metrics,
+      .work-grid,
+      .skill-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .timeline-item { grid-template-columns: 1fr; }
+      .portrait-wrap { min-height: 360px; }
+      .contact-list { min-width: 0; }
+      .case-summary { grid-template-columns: 1fr auto; gap: 12px; }
+      .case-index { grid-column: 1; }
+      .case-summary > div:nth-child(2) { grid-column: 1 / -1; }
+      .case-toggle { grid-column: 2; grid-row: 1; }
+      .case-facts { grid-template-columns: 1fr; }
+    }
+
+    @media print {
+      .topbar,
+      .actions,
+      .filters,
+      .portrait-wrap,
+      .contact-band {
+        display: none;
+      }
+
+      body { background: #fff; }
+      section { padding: 24px 0; }
+      .shell { width: 100%; }
+
+      .panel,
+      .work-card,
+      .timeline-item,
+      .case-study {
+        box-shadow: none;
+        break-inside: avoid;
+      }
+
+      .case-study > .case-content { display: block; }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <nav class="shell nav" aria-label="主导航">
+      <a class="brand" href="#top" aria-label="返回首页">
+        <span class="mark">ZZJ</span>
+        <span>郑柱坚｜产品项目方向</span>
+      </a>
+      <div class="navlinks">
+        <a href="#about">简介</a>
+        <a href="#experience">履历</a>
+        <a href="#work">项目</a>
+        <a href="#skills">技能</a>
+        <a href="#contact">联系</a>
+        <button type="button" id="printBtn">打印简历</button>
+      </div>
+    </nav>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div class="shell">
+        <div class="hero-grid">
+          <div>
+            <p class="eyebrow">求职方向：产品专员 / 项目专员 / 产品项目助理</p>
+            <h1>郑柱坚，把复杂需求推进为可交付产品。</h1>
+            <p class="lead">具备从需求调研、PRD、交互原型到开发协同、测试验证和落地迭代的完整项目经验。擅长理解业务现场，连接用户、研发、设计与供应链，把分散信息转化为明确方案并持续推动闭环。</p>
+            <div class="actions">
+              <a class="btn primary" href="#work">查看项目经验</a>
+              <a class="btn secondary" href="#experience">浏览工作履历</a>
+              <a class="btn secondary" href="#skills">查看能力清单</a>
+            </div>
+          </div>
+          <div>
+            <div class="portrait-wrap" aria-label="产品项目工作场景">
+              <div class="portrait"></div>
+              <div class="status">
+                <strong>当前主导植物工厂 MES 系统需求</strong>
+                <span>推动生产流程从手动记录走向系统化、自动化与可追踪管理。</span>
+              </div>
+            </div>
+            <div class="metrics" aria-label="关键数据">
+              <div class="metric"><b>1代</b><span>产品落地量产</span></div>
+              <div class="metric"><b>3版</b><span>交互原型迭代</span></div>
+              <div class="metric"><b>61条</b><span>APP 测试用例</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="about">
+      <div class="shell">
+        <div class="section-head">
+          <h2>个人简介</h2>
+          <p>以具体交付和项目闭环为核心，呈现需求定义、产品设计、研发协同、测试验证与落地推进能力。</p>
+        </div>
+        <div class="summary">
+          <article class="panel">
+            <h3>求职定位</h3>
+            <p>目标岗位：产品专员、项目专员、产品项目助理。优先考虑智能硬件配套软件、B 端系统、设备控制与数字化项目方向。</p>
+            <div class="chips">
+              <span class="chip">需求分析</span>
+              <span class="chip">PRD 输出</span>
+              <span class="chip">原型设计</span>
+              <span class="chip">项目跟进</span>
+              <span class="chip">产品落地</span>
+              <span class="chip">HMI 配置</span>
+              <span class="chip">测试闭环</span>
+              <span class="chip">跨部门协同</span>
+            </div>
+          </article>
+          <article class="panel">
+            <h3>核心优势</h3>
+            <p>具备需求、原型、开发协同、测试和落地迭代的全流程经验，能够从现场反馈中识别问题、澄清业务规则并形成研发可执行的方案。</p>
+            <p>具备技术转译与跨部门推进能力，既能与用户确认真实需求，也能协调研发、设计、供应链完成资料、样机、版本和产品交付。</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="experience">
+      <div class="shell">
+        <div class="section-head">
+          <h2>工作履历</h2>
+          <p>职业路径从一线业务执行延伸到产品支持与项目推进，形成了理解现场、定义需求和推动交付的复合能力。</p>
+        </div>
+        <div class="timeline">
+          <article class="timeline-item">
+            <div class="time">2021.03 - 至今</div>
+            <div>
+              <h3>中实创科技（广东）有限公司｜市场助理</h3>
+              <p>负责 LED 植物生长灯、种植集装箱及植物工厂解决方案的宣传内容策划、市场活动支持、跨境电商运营和产品项目支持。</p>
+              <ul>
+                <li>主导产品画册、安装指南、开箱视频等物料制作，结合应用场景提炼技术亮点。</li>
+                <li>制定《新品推介需求流程》，规范市场、研发、设计协作，缩短资料交付周期。</li>
+                <li>参与农业智能控制器需求调研与原型设计，协助输出 PRD 并跟进开发流程。</li>
+              </ul>
+            </div>
+          </article>
+          <article class="timeline-item">
+            <div class="time">2019.06 - 2021.02</div>
+            <div>
+              <h3>中实创科技（广东）有限公司｜农业技术员</h3>
+              <p>负责植物工厂育苗、水培系统运维和自动化设备管理，为后续产品与项目工作积累了真实生产场景经验。</p>
+              <ul>
+                <li>负责生菜、羽衣甘蓝等 10+ 品种工厂化育苗，通过光照、温湿度调控实现幼苗成活率 98%。</li>
+                <li>主导 NFT 水培系统日常维护，监测营养液 EC/pH 值，保障作物生长环境稳定。</li>
+                <li>管理 LED 补光系统和环控设备，保障种植环境参数精准控制。</li>
+              </ul>
+            </div>
+          </article>
+          <article class="timeline-item">
+            <div class="time">教育背景</div>
+            <div>
+              <h3>广东海洋大学｜本科</h3>
+              <p>本科学历。具备从业务现场理解问题、梳理信息并推动跨团队沟通的基础能力。</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="work">
+      <div class="shell">
+        <div class="section-head">
+          <h2>个人作品集</h2>
+          <p>以下案例从业务问题、个人职责、推进过程、交付结果和复盘五个维度展开，重点呈现我如何把复杂现场问题转化为产品方案并推动落地。</p>
+        </div>
+        <div class="portfolio-intro">
+          <article class="panel">
+            <h3>我的产品工作方法</h3>
+            <p><strong>现场观察 → 问题拆解 → 需求定义 → 原型或测试 → 跨团队推进 → 落地复盘</strong></p>
+            <p>我的核心价值是能理解业务、用户操作和技术交付之间的关系，在不同角色之间建立共同语言，并把项目持续推进到可验收结果。</p>
+          </article>
+          <article class="panel">
+            <h3>证据说明</h3>
+            <p>案例仅使用履历中可确认的职责与数据；涉及公司内部文档、界面和经营数据的部分，以过程说明代替敏感材料。</p>
+          </article>
+        </div>
+        <div class="filters" aria-label="项目筛选">
+          <button class="filter is-active" type="button" data-filter="all">全部</button>
+          <button class="filter" type="button" data-filter="product">产品</button>
+          <button class="filter" type="button" data-filter="test">测试</button>
+          <button class="filter" type="button" data-filter="market">市场</button>
+        </div>
+        <div class="case-list">
+          <details class="case-study work-card" data-category="product" open>
+            <summary class="case-summary">
+              <div class="case-index">Case <b>01</b>核心案例</div>
+              <div><h3>植物工厂 MES 系统开发</h3><p>把自动化生产现场的分散信息，转化为可追踪、可迭代的软件需求。</p></div>
+              <span class="case-toggle" aria-hidden="true">+</span>
+            </summary>
+            <div class="case-content">
+              <div class="case-facts">
+                <div class="case-fact"><span>周期</span><b>2024.04 - 至今</b></div>
+                <div class="case-fact"><span>角色</span><b>需求负责人 / 项目推进</b></div>
+                <div class="case-fact"><span>对象</span><b>终端用户、研发团队</b></div>
+                <div class="case-fact"><span>领域</span><b>植物工厂数字化生产</b></div>
+              </div>
+              <div class="case-grid">
+                <div class="case-block"><h4>01 业务背景与问题</h4><p>植物工厂生产包含种植任务、设备动作、人员操作和现场异常。依赖人工记录时，信息容易分散，问题定位与过程追溯成本较高。项目目标是用 MES 承接自动化生产业务，并让系统真正适配现场。</p></div>
+                <div class="case-block"><h4>02 我的职责</h4><ul><li>对接终端使用方，收集实际操作反馈和新增需求。</li><li>将现场语言整理为研发可执行的功能与流程要求。</li><li>维护需求清单，跟踪开发、调试、反馈和后续优化。</li></ul></div>
+                <div class="case-block"><h4>03 推进过程</h4><ol><li>按生产流程拆解角色、任务、状态与异常节点。</li><li>区分核心流程、体验优化与现场适配问题，明确优先级。</li><li>与研发同步业务规则，跟进实现情况并组织使用方验证。</li><li>把落地反馈重新纳入需求池，形成持续迭代闭环。</li></ol></div>
+                <div class="case-block"><h4>04 交付与价值</h4><ul><li>形成面向自动化生产业务的软件需求框架。</li><li>建立终端使用方与研发团队之间的稳定反馈通道。</li><li>持续推动产品迭代、现场调试与实际业务适配。</li></ul></div>
+              </div>
+              <div class="self-review"><h4>自评与下一轮优化</h4><p><b>优势：</b>能用农业生产经验识别真实操作约束，并持续跟进到落地。<b>不足：</b>履历中尚缺少上线前后效率、错误率等量化对比。<b>改进：</b>后续建立“需求来源—优先级—版本—验收指标”台账，并补充工时、操作步骤和异常闭环时长等基线数据。</p></div>
+            </div>
+          </details>
+
+          <details class="case-study work-card" data-category="product">
+            <summary class="case-summary">
+              <div class="case-index">Case <b>02</b>产品落地</div>
+              <div><h3>农业智能控制器项目</h3><p>从需求调研、PRD 和交互原型，到第一代产品量产与第二代迭代。</p></div>
+              <span class="case-toggle" aria-hidden="true">+</span>
+            </summary>
+            <div class="case-content">
+              <div class="case-facts">
+                <div class="case-fact"><span>周期</span><b>2022.07 - 至今</b></div>
+                <div class="case-fact"><span>角色</span><b>产品项目协同</b></div>
+                <div class="case-fact"><span>工具</span><b>PRD、墨刀、Easybuilder</b></div>
+                <div class="case-fact"><span>结果</span><b>第一代落地量产</b></div>
+              </div>
+              <div class="case-grid">
+                <div class="case-block"><h4>01 产品挑战</h4><p>农业控制器连接传感器、执行设备与现场人员，既要满足控制逻辑，也要降低非专业用户的操作门槛。产品工作需要同时协调 UI、软件、硬件和 PLC 侧限制。</p></div>
+                <div class="case-block"><h4>02 我的职责</h4><ul><li>开展需求调研与功能梳理，撰写 PRD。</li><li>使用墨刀制作交互原型，先验证信息架构和操作路径。</li><li>对接 UI、软硬件团队，跟进开发问题和版本进度。</li><li>学习 Easybuilder，参与 HMI 页面配置和流程优化。</li></ul></div>
+                <div class="case-block"><h4>03 关键做法</h4><ol><li>围绕设备状态、参数设置、手动控制和异常提示组织功能。</li><li>把复杂参数转化为清晰的页面层级与操作反馈。</li><li>在原型阶段暴露流程冲突，降低进入开发后的反复沟通。</li><li>根据一代落地经验推进二代原型迭代。</li></ol></div>
+                <div class="case-block"><h4>04 交付与价值</h4><ul><li>完成需求文档与多轮交互原型输出。</li><li>协同推动第一代智能控制器落地量产。</li><li>形成第二代产品原型与持续优化方向。</li><li>建立从软件交互到 HMI 控制界面的跨端理解。</li></ul></div>
+              </div>
+              <div class="self-review"><h4>自评与下一轮优化</h4><p><b>优势：</b>学习速度快，能跨越农业业务、交互设计和硬件控制边界。<b>不足：</b>当前案例缺少用户访谈样本量、版本节点和量产后的使用反馈。<b>改进：</b>补建版本路线图，记录关键决策依据，并用任务成功率、误操作次数和完成时长验证二代交互。</p></div>
+            </div>
+          </details>
+
+          <details class="case-study work-card" data-category="test">
+            <summary class="case-summary">
+              <div class="case-index">Case <b>03</b>质量保障</div>
+              <div><h3>PAR 传感器配套 APP 测试</h3><p>用 61 条测试用例和 3 轮回归测试，覆盖核心功能与异常场景。</p></div>
+              <span class="case-toggle" aria-hidden="true">+</span>
+            </summary>
+            <div class="case-content">
+              <div class="case-facts">
+                <div class="case-fact"><span>周期</span><b>2024 - 2025</b></div>
+                <div class="case-fact"><span>角色</span><b>产品定义 / 测试执行</b></div>
+                <div class="case-fact"><span>测试用例</span><b>61 条</b></div>
+                <div class="case-fact"><span>回归轮次</span><b>3 轮</b></div>
+              </div>
+              <div class="case-grid">
+                <div class="case-block"><h4>01 测试目标</h4><p>PAR 传感器面向农业科研场景，配套 APP 不仅要正确展示数据，还要处理设备连接、状态变化、输入边界和异常操作，避免界面问题影响测量使用。</p></div>
+                <div class="case-block"><h4>02 用例设计</h4><ul><li>按核心功能、界面交互、数据展示和异常场景拆分测试范围。</li><li>明确前置条件、操作步骤、预期结果和实际结果。</li><li>对发现的问题进行复现描述，便于研发定位。</li></ul></div>
+                <div class="case-block"><h4>03 闭环过程</h4><ol><li>完成 61 条全量测试用例并执行首轮验证。</li><li>汇总 UI 与功能缺陷，同步研发修复。</li><li>针对修复项及关联功能开展 3 轮回归。</li><li>持续确认问题状态，避免修复引入新的影响。</li></ol></div>
+                <div class="case-block"><h4>04 交付与价值</h4><ul><li>形成结构化测试表与问题反馈记录。</li><li>推动修复多项 UI 和功能缺陷。</li><li>通过多轮回归提升版本交付前的稳定性。</li><li>把农业使用场景纳入软件质量验证。</li></ul></div>
+              </div>
+              <div class="self-review"><h4>自评与下一轮优化</h4><p><b>优势：</b>测试执行完整，能够从科研用户和农业场景识别边界问题。<b>不足：</b>缺陷总量、严重程度分布与最终关闭率尚未沉淀。<b>改进：</b>引入缺陷等级、模块覆盖率、通过率和遗留风险清单，让测试结论更可衡量。</p></div>
+            </div>
+          </details>
+
+          <details class="case-study work-card" data-category="market">
+            <summary class="case-summary">
+              <div class="case-index">Case <b>04</b>协同推进</div>
+              <div><h3>理疗灯系列产品开发</h3><p>围绕概念、外观、样机和市场物料，协调设计、研发与供应链推进。</p></div>
+              <span class="case-toggle" aria-hidden="true">+</span>
+            </summary>
+            <div class="case-content">
+              <div class="case-grid">
+                <div class="case-block"><h4>工作范围</h4><ul><li>统筹家用款、手持款外观设计及样机测试。</li><li>推进概念画册制作，统一产品表达。</li><li>协调设计、研发和供应链资源，跟踪项目事项。</li></ul></div>
+                <div class="case-block"><h4>能力体现</h4><p>该项目体现了我在产品概念尚未完全确定时，能够同步推进方案表达、样机验证和跨部门协作，并持续收拢反馈。</p></div>
+              </div>
+              <div class="self-review"><h4>自评</h4><p>项目仍在推进，现阶段不把过程工作包装成最终成果。下一步应明确产品定位、目标用户、测试标准与里程碑，使设计选择和项目进度具备可验收依据。</p></div>
+            </div>
+          </details>
+
+          <details class="case-study work-card" data-category="market">
+            <summary class="case-summary">
+              <div class="case-index">Case <b>05</b>完整交付</div>
+              <div><h3>园艺小礼品订单</h3><p>独立覆盖需求沟通、合同、生产、验收和发货的订单闭环。</p></div>
+              <span class="case-toggle" aria-hidden="true">+</span>
+            </summary>
+            <div class="case-content">
+              <div class="case-grid">
+                <div class="case-block"><h4>项目过程</h4><ol><li>承接礼品公司需求并确认交付范围。</li><li>推进合同签订与生产安排。</li><li>跟踪生产状态，协调问题处理。</li><li>完成验收、发货与订单闭环。</li></ol></div>
+                <div class="case-block"><h4>能力体现</h4><p>这是一次独立承担客户和内部协同责任的完整实践，证明我能持续跟踪多环节事项，并以最终交付为目标推进工作。</p></div>
+              </div>
+              <div class="self-review"><h4>自评</h4><p>案例的流程完整，但履历缺少订单规模、准时率和客户反馈。后续应保留关键节点、风险处理和验收结果，使项目管理能力有更强的事实支撑。</p></div>
+            </div>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <section id="skills">
+      <div class="shell">
+        <div class="section-head">
+          <h2>核心能力</h2>
+          <p>能力结构覆盖产品定义、项目推进和技术协同，能够从问题识别持续跟进到版本交付与验证。</p>
+        </div>
+        <div class="skill-grid">
+          <article class="panel">
+            <h3>产品方向</h3>
+            <ul class="skill-list">
+              <li>从业务需求中提炼功能点，输出 PRD。</li>
+              <li>使用墨刀完成可交互原型，独立完成 3 版智能控制器原型迭代。</li>
+              <li>参与需求、原型、评审、开发、测试全流程，推动产品落地量产。</li>
+              <li>搭建飞书文档体系，进行项目建档与资料归档。</li>
+            </ul>
+          </article>
+          <article class="panel">
+            <h3>市场方向</h3>
+            <ul class="skill-list">
+              <li>策划产品画册、安装指南和演示视频脚本。</li>
+              <li>定期调研植物照明市场，输出数据报告。</li>
+              <li>负责阿里国际站运营，支持亚马逊选品与上新。</li>
+              <li>支持展台物料、演讲 PPT 与现场产品讲解。</li>
+            </ul>
+          </article>
+          <article class="panel">
+            <h3>技术方向</h3>
+            <ul class="skill-list">
+              <li>编写全量测试表，组织多轮回归测试。</li>
+              <li>进行 HMI 界面配置，交付绑定 PLC 的控制屏界面。</li>
+              <li>熟悉植物工厂生产、水培系统和设备运行场景。</li>
+              <li>借助 AI 完成翻译、文档撰写和任务拆分。</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="contact-band" id="contact">
+      <div class="shell contact">
+        <div>
+          <h2>期待产品项目方向的合适机会。</h2>
+          <p>关注智能硬件配套软件、B 端系统、设备控制、产品支持与项目推进类岗位。适合需要理解现场、转译需求并推动多团队完成交付的团队。</p>
+        </div>
+        <div class="contact-list" aria-label="联系方式">
+          <span>郑柱坚</span>
+          <span>产品专员 / 项目专员</span>
+          <span>需求分析 · 产品落地 · 项目推进</span>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="shell footer">
+    <span>© 2026 郑柱坚。个人履历与项目作品集。</span>
+  </footer>
+
+  <script>
+    const filters = document.querySelectorAll(".filter");
+    const cards = document.querySelectorAll(".case-study");
+    const printBtn = document.querySelector("#printBtn");
+
+    filters.forEach((button) => {
+      button.addEventListener("click", () => {
+        const active = button.dataset.filter;
+        filters.forEach((item) => item.classList.toggle("is-active", item === button));
+        cards.forEach((card) => {
+          const visible = active === "all" || card.dataset.category === active;
+          card.style.display = visible ? "" : "none";
+        });
+      });
+    });
+
+    printBtn.addEventListener("click", () => window.print());
+  </script>
+</body>
+</html>
