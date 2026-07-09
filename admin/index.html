@@ -1,0 +1,465 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>网站后台管理</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#0f1218;color:#e4e7ec;font-family:system-ui,sans-serif;line-height:1.5;min-height:100vh}
+.hidden{display:none!important}
+.login{display:grid;place-items:center;min-height:100vh;padding:20px}
+.login-box{width:100%;max-width:380px;padding:32px;background:#1a1f2a;border-radius:10px}
+.login-box h1{margin-bottom:6px;font-size:22px}
+.login-box p{margin-bottom:20px;color:#9098a5;font-size:14px}
+input{width:100%;padding:10px 12px;border:1px solid #2e3544;border-radius:6px;background:#232836;color:#e4e7ec;font:inherit;font-size:14px}
+input:focus{outline:2px solid #0b6e63;border-color:transparent}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;padding:10px 18px;border:none;border-radius:6px;font:inherit;font-weight:700;cursor:pointer}
+.btn.primary{background:#0b6e63;color:#fff}
+.btn.primary:hover{background:#0d8a7c}
+.btn.secondary{background:#2e3544;color:#e4e7ec}
+.btn.secondary:hover{background:#3a4355}
+.btn.danger{background:#b91c1c;color:#fff}
+.btn.danger:hover{background:#dc2626}
+.btn:disabled{opacity:.5;cursor:not-allowed}
+.mt-2{margin-top:12px}
+.mt-3{margin-top:18px}
+.mb-2{margin-bottom:12px}
+.gap-2{display:flex;gap:8px}
+.w-full{width:100%}
+.flex{display:flex}
+.flex-between{display:flex;justify-content:space-between;align-items:center}
+
+.app{max-width:1200px;margin:0 auto;padding:20px}
+.topbar{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;padding:14px 18px;background:#1a1f2a;border-radius:8px}
+.topbar h1{font-size:18px}
+.topbar .user{color:#9098a5;font-size:13px}
+
+.tabs{display:flex;gap:4px;margin-bottom:16px;overflow-x:auto}
+.tab{padding:10px 18px;border:none;border-radius:6px 6px 0 0;background:#232836;color:#9098a5;font:inherit;font-weight:600;cursor:pointer;white-space:nowrap}
+.tab.active{background:#0b6e63;color:#fff}
+
+.editor{background:#1a1f2a;border-radius:8px;overflow:hidden}
+.editor-toolbar{display:flex;gap:6px;padding:12px 16px;border-bottom:1px solid #2e3544;flex-wrap:wrap}
+.editor-toolbar .btn{font-size:12px;padding:6px 12px}
+
+.field-group{padding:16px}
+.field{margin-bottom:14px}
+.field:last-child{margin-bottom:0}
+.field label{display:block;margin-bottom:4px;color:#9098a5;font-size:12px;font-weight:700}
+.field textarea,.field input[type="text"]{width:100%;padding:8px 10px;border:1px solid #2e3544;border-radius:5px;background:#232836;color:#e4e7ec;font:inherit;font-size:13px;line-height:1.5}
+.field textarea{resize:vertical;min-height:44px}
+.field textarea.code{font-family:monospace;font-size:12px;min-height:100px}
+.field textarea.large{min-height:80px}
+
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);padding:12px 24px;border-radius:6px;font-weight:700;font-size:14px;z-index:100;animation:slideUp .3s}
+.toast.success{background:#0b6e63;color:#fff}
+.toast.error{background:#b91c1c;color:#fff}
+@keyframes slideUp{from{opacity:0;transform:translateX(-50%) translateY(20px)}to{opacity:1;transform:translateX(-50%) translateY(0)}}
+
+.array-field{margin-bottom:14px}
+.array-item{display:flex;gap:6px;margin-bottom:4px;align-items:center}
+.array-item textarea{flex:1}
+.array-item .btn{flex:0 0 32px;padding:6px;font-size:16px}
+.array-add{font-size:12px;padding:4px 10px;margin-top:2px}
+</style>
+</head>
+<body>
+<div id="loginView" class="login">
+  <div class="login-box">
+    <h1>后台管理</h1>
+    <p>输入密码进入内容编辑器</p>
+    <input type="password" id="pwdInput" placeholder="管理密码" autocomplete="off" />
+    <button class="btn primary w-full mt-2" onclick="login()">进入后台</button>
+  </div>
+</div>
+
+<div id="appView" class="app hidden">
+  <div class="topbar">
+    <h1>✏️ 网站内容管理</h1>
+    <div class="flex" style="gap:8px;align-items:center">
+      <span class="user" id="statusText">已加载</span>
+      <button class="btn secondary" onclick="savePage()" id="saveBtn" style="font-size:12px;padding:6px 14px">💾 保存到 GitHub</button>
+      <button class="btn danger" onclick="logout()" style="font-size:12px;padding:6px 14px">退出</button>
+    </div>
+  </div>
+
+  <div class="tabs" id="tabBar">
+    <button class="tab active" data-page="index" onclick="switchPage('index')">🏠 首页</button>
+    <button class="tab" data-page="portfolio" onclick="switchPage('portfolio')">📂 作品集</button>
+    <button class="tab" data-page="resume" onclick="switchPage('resume')">📄 简历</button>
+  </div>
+
+  <div class="editor" id="editorArea"></div>
+</div>
+
+<script>
+// ===== 配置 =====
+const REPO_OWNER = 'vincentzozo';
+const REPO_NAME = 'product-portfolio';
+const BRANCH = 'main';
+
+// ===== 状态 =====
+let token = '';
+let pages = { index: null, portfolio: null, resume: null };
+let currentPage = 'index';
+let currentSha = null;
+
+// ===== 登录 =====
+function login() {
+  const pwd = document.getElementById('pwdInput').value;
+  if (!pwd) return showToast('请输入密码', 'error');
+  token = pwd;
+  document.getElementById('loginView').classList.add('hidden');
+  document.getElementById('appView').classList.remove('hidden');
+  loadAllPages();
+}
+
+function logout() {
+  token = '';
+  document.getElementById('pwdInput').value = '';
+  document.getElementById('appView').classList.add('hidden');
+  document.getElementById('loginView').classList.remove('hidden');
+}
+
+// ===== 加载页面 =====
+async function loadAllPages() {
+  setStatus('加载中...');
+  for (const name of ['index', 'portfolio', 'resume']) {
+    const url = `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${name}.html?ref=${BRANCH}`;
+    try {
+      const res = await fetch(url, {
+        headers: { Authorization: `Bearer ${token}`, Accept: 'application/vnd.github.v3+json' }
+      });
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      const data = await res.json();
+      pages[name] = { content: atob(data.content), sha: data.sha };
+    } catch(e) {
+      console.error(`Failed to load ${name}.html:`, e);
+      pages[name] = { content: '<h1>加载失败</h1>', sha: null };
+    }
+  }
+  setStatus('已加载');
+  renderEditor('index');
+}
+
+// ===== 切换页面 =====
+function switchPage(name) {
+  currentPage = name;
+  document.querySelectorAll('.tab').forEach(t => t.classList.toggle('active', t.dataset.page === name));
+  renderEditor(name);
+}
+
+// ===== 解析 & 渲染编辑界面 =====
+function renderEditor(pageName) {
+  const html = pages[pageName]?.content || '';
+  const area = document.getElementById('editorArea');
+  // 提取可编辑区域
+  const fields = extractEditableFields(html, pageName);
+  area.innerHTML = buildEditorForm(fields, pageName);
+}
+
+function extractEditableFields(html, pageName) {
+  const fields = [];
+  const doc = document.createElement('div');
+  doc.innerHTML = html;
+
+  if (pageName === 'index') {
+    // Hero
+    fields.push({ key: 'hero_eyebrow', label: '求职方向', type: 'text', value: safeText(doc, '.eyebrow') });
+    fields.push({ key: 'hero_title', label: '主标题', type: 'textarea', value: safeText(doc, 'h1') });
+    fields.push({ key: 'hero_lead', label: '副标题/简介', type: 'textarea', value: safeText(doc, '.lead') });
+    fields.push({ key: 'hero_status_title', label: '当前状态 - 标题', type: 'text', value: safeText(doc, '.status strong') });
+    fields.push({ key: 'hero_status_desc', label: '当前状态 - 描述', type: 'textarea', value: safeText(doc, '.status span') });
+
+    // Metrics
+    const metrics = doc.querySelectorAll('.metric');
+    if (metrics.length >= 4) {
+      fields.push({ key: 'metric1_kicker', label: '数据卡1 - 标签', type: 'text', value: safeText(metrics[0], '.metric-kicker') });
+      fields.push({ key: 'metric1_val', label: '数据卡1 - 数值', type: 'text', value: safeText(metrics[0], 'b') });
+      fields.push({ key: 'metric1_desc', label: '数据卡1 - 描述', type: 'text', value: safeText(metrics[0], 'span') });
+      fields.push({ key: 'metric1_badge', label: '数据卡1 - 脚标', type: 'text', value: safeText(metrics[0], '.metric-proof') });
+      fields.push({ key: 'metric2_kicker', label: '数据卡2 - 标签', type: 'text', value: safeText(metrics[1], '.metric-kicker') });
+      fields.push({ key: 'metric2_val', label: '数据卡2 - 数值', type: 'text', value: safeText(metrics[1], 'b') });
+      fields.push({ key: 'metric2_desc', label: '数据卡2 - 描述', type: 'text', value: safeText(metrics[1], 'span') });
+      fields.push({ key: 'metric2_badge', label: '数据卡2 - 脚标', type: 'text', value: safeText(metrics[1], '.metric-proof') });
+      fields.push({ key: 'metric3_kicker', label: '数据卡3 - 标签', type: 'text', value: safeText(metrics[2], '.metric-kicker') });
+      fields.push({ key: 'metric3_val', label: '数据卡3 - 数值', type: 'text', value: safeText(metrics[2], 'b') });
+      fields.push({ key: 'metric3_desc', label: '数据卡3 - 描述', type: 'text', value: safeText(metrics[2], 'span') });
+      fields.push({ key: 'metric3_badge', label: '数据卡3 - 脚标', type: 'text', value: safeText(metrics[2], '.metric-proof') });
+      fields.push({ key: 'metric4_kicker', label: '数据卡4 - 标签', type: 'text', value: safeText(metrics[3], '.metric-kicker') });
+      fields.push({ key: 'metric4_val', label: '数据卡4 - 数值', type: 'text', value: safeText(metrics[3], 'b') + ' ' + safeText(metrics[3], 'em') });
+      fields.push({ key: 'metric4_desc', label: '数据卡4 - 描述', type: 'text', value: safeText(metrics[3], 'span') });
+      fields.push({ key: 'metric4_badge', label: '数据卡4 - 脚标', type: 'text', value: safeText(metrics[3], '.metric-proof') });
+    }
+
+    // About section
+    const aboutSec = doc.querySelector('#about');
+    if (aboutSec) {
+      const panels = aboutSec.querySelectorAll('.panel');
+      if (panels.length >= 1) {
+        const h3 = panels[0].querySelector('h3');
+        if (h3) fields.push({ key: 'about_title1', label: '简介 - 求职定位标题', type: 'text', value: h3.textContent.trim() });
+        const p = panels[0].querySelector('p');
+        if (p) fields.push({ key: 'about_desc1', label: '简介 - 求职定位内容', type: 'textarea', value: p.textContent.trim() });
+      }
+      if (panels.length >= 2) {
+        const h3 = panels[1].querySelector('h3');
+        if (h3) fields.push({ key: 'about_title2', label: '简介 - 核心优势标题', type: 'text', value: h3.textContent.trim() });
+        const ps = panels[1].querySelectorAll('p');
+        if (ps.length >= 1) fields.push({ key: 'about_adv1', label: '简介 - 优势1', type: 'textarea', value: ps[0].textContent.trim() });
+        if (ps.length >= 2) fields.push({ key: 'about_adv2', label: '简介 - 优势2', type: 'textarea', value: ps[1].textContent.trim() });
+      }
+    }
+
+    // Contact
+    const contact = doc.querySelector('.contact-band h2');
+    if (contact) fields.push({ key: 'contact_title', label: '联系 - 标题', type: 'text', value: contact.textContent.trim() });
+    const contactP = doc.querySelector('.contact-band .contact p');
+    if (contactP) fields.push({ key: 'contact_desc', label: '联系 - 描述', type: 'textarea', value: contactP.textContent.trim() });
+    const contactLinks = doc.querySelectorAll('.contact-list a');
+    if (contactLinks.length >= 1) fields.push({ key: 'contact_email1', label: '联系 - 邮箱1', type: 'text', value: contactLinks[0].textContent.trim() });
+    if (contactLinks.length >= 2) fields.push({ key: 'contact_email2', label: '联系 - 邮箱2', type: 'text', value: contactLinks[1].textContent.trim() });
+  }
+
+  if (pageName === 'portfolio') {
+    fields.push({ key: 'hero_title', label: '主标题', type: 'textarea', value: safeText(doc, 'h1') });
+    fields.push({ key: 'hero_desc', label: '简介描述', type: 'textarea', value: safeText(doc, '.hero p') });
+    // Contact
+    const contactH2 = doc.querySelector('#contact h2');
+    if (contactH2) fields.push({ key: 'contact_title', label: '联系标题', type: 'text', value: contactH2.textContent.trim() });
+    const contactP = doc.querySelector('#contact p');
+    if (contactP) fields.push({ key: 'contact_desc', label: '联系描述', type: 'text', value: contactP.textContent.trim() });
+    const links = doc.querySelectorAll('.contact-links a');
+    if (links.length >= 1) fields.push({ key: 'contact_email1', label: '邮箱1', type: 'text', value: links[0].textContent.trim() });
+    if (links.length >= 2) fields.push({ key: 'contact_email2', label: '邮箱2', type: 'text', value: links[1].textContent.trim() });
+  }
+
+  if (pageName === 'resume') {
+    fields.push({ key: 'name', label: '姓名', type: 'text', value: safeText(doc, 'h1') });
+    fields.push({ key: 'position', label: '求职方向', type: 'text', value: safeText(doc, '.position') });
+    fields.push({ key: 'email1', label: '邮箱1', type: 'text', value: safeTextAll(doc, '.contact span', 0) });
+    fields.push({ key: 'email2', label: '邮箱2', type: 'text', value: safeTextAll(doc, '.contact span', 1) });
+    fields.push({ key: 'summary', label: '个人总结', type: 'textarea', value: safeText(doc, '.summary') });
+  }
+
+  // 如果没有提取到任何字段，提供一个纯 HTML 编辑器兜底
+  if (fields.length === 0) {
+    // 尝试用 body 内容
+    const body = doc.querySelector('body') || doc;
+    const bodyHTML = body.innerHTML || html;
+    fields.push({ key: '_raw', label: '⛔ 未能自动解析。请直接编辑 HTML 源码', type: 'code', value: bodyHTML.substring(0, 5000) });
+  }
+
+  return fields;
+}
+
+function safeText(parent, sel) {
+  if (typeof parent === 'string') {
+    const d = document.createElement('div');
+    d.innerHTML = parent;
+    parent = d;
+  }
+  const el = parent.querySelector(sel);
+  return el ? el.textContent.trim() : '';
+}
+
+function safeTextAll(parent, sel, idx) {
+  const d = document.createElement('div');
+  d.innerHTML = parent;
+  const els = d.querySelectorAll(sel);
+  return els[idx] ? els[idx].textContent.trim() : '';
+}
+
+function buildEditorForm(fields, pageName) {
+  let html = `<div class="field-group">`;
+  html += `<p style="color:#9098a5;font-size:13px;margin-bottom:14px">编辑 <strong>${pageName}.html</strong> 的内容。修改后点击右上角「保存到 GitHub」。</p>`;
+  for (const f of fields) {
+    if (f.type === 'code') {
+      html += `<div class="field"><label>${f.label}</label><textarea class="code large" data-key="${f.key}" data-page="${pageName}">${escHtml(f.value)}</textarea></div>`;
+    } else if (f.type === 'textarea') {
+      html += `<div class="field"><label>${f.label}</label><textarea class="large" data-key="${f.key}" data-page="${pageName}">${escHtml(f.value)}</textarea></div>`;
+    } else {
+      html += `<div class="field"><label>${f.label}</label><input type="text" value="${escHtml(f.value)}" data-key="${f.key}" data-page="${pageName}" /></div>`;
+    }
+  }
+  html += `</div>`;
+  return html;
+}
+
+function escHtml(s) {
+  if (!s) return '';
+  return String(s).replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+// ===== 保存 =====
+async function savePage() {
+  const btn = document.getElementById('saveBtn');
+  btn.disabled = true;
+  btn.textContent = '⏳ 保存中...';
+  setStatus('正在保存...');
+
+  try {
+    // 收集所有页面的表单数据
+    for (const pageName of ['index', 'portfolio', 'resume']) {
+      if (!pages[pageName]) continue;
+      switchPage(pageName);
+      // 稍等 DOM 更新
+      await sleep(50);
+
+      const inputs = document.querySelectorAll('#editorArea [data-key]');
+      const formData = {};
+      inputs.forEach(inp => {
+        formData[inp.dataset.key] = inp.tagName === 'TEXTAREA' ? inp.value : inp.value;
+      });
+
+      // 现在应用修改到原始 HTML
+      let newHtml = applyChanges(pages[pageName].content, formData, pageName);
+
+      // 通过 GitHub API 保存
+      const res = await fetch(`https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${pageName}.html`, {
+        method: 'PUT',
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          message: `后台更新 ${pageName}.html`,
+          content: btoa(unescape(encodeURIComponent(newHtml))),
+          sha: pages[pageName].sha,
+          branch: BRANCH
+        })
+      });
+
+      if (!res.ok) {
+        const err = await res.json();
+        throw new Error(`${pageName}.html 保存失败: ${err.message}`);
+      }
+
+      const result = await res.json();
+      pages[pageName].sha = result.content.sha;
+      pages[pageName].content = newHtml;
+    }
+
+    showToast('✅ 全部页面已保存，GitHub Pages 约 1 分钟后自动更新', 'success');
+    setStatus('已保存');
+  } catch(e) {
+    showToast('❌ ' + e.message, 'error');
+    console.error(e);
+    setStatus('保存失败');
+  } finally {
+    btn.disabled = false;
+    btn.textContent = '💾 保存到 GitHub';
+  }
+}
+
+function applyChanges(html, formData, pageName) {
+  const d = document.createElement('div');
+  d.innerHTML = html;
+
+  if (pageName === 'index') {
+    setText(d, '.eyebrow', formData.hero_eyebrow);
+    setText(d, 'h1', formData.hero_title);
+    setText(d, '.lead', formData.hero_lead);
+    setText(d, '.status strong', formData.hero_status_title);
+    setText(d, '.status span', formData.hero_status_desc);
+
+    const metrics = d.querySelectorAll('.metric');
+    if (metrics.length >= 4) {
+      setText(metrics[0], '.metric-kicker', formData.metric1_kicker);
+      setText(metrics[0], 'b', formData.metric1_val);
+      setText(metrics[0], 'span', formData.metric1_desc);
+      setText(metrics[0], '.metric-proof', formData.metric1_badge);
+      setText(metrics[1], '.metric-kicker', formData.metric2_kicker);
+      setText(metrics[1], 'b', formData.metric2_val);
+      setText(metrics[1], 'span', formData.metric2_desc);
+      setText(metrics[1], '.metric-proof', formData.metric2_badge);
+      setText(metrics[2], '.metric-kicker', formData.metric3_kicker);
+      setText(metrics[2], 'b', formData.metric3_val);
+      setText(metrics[2], 'span', formData.metric3_desc);
+      setText(metrics[2], '.metric-proof', formData.metric3_badge);
+      setText(metrics[3], '.metric-kicker', formData.metric4_kicker);
+      setText(metrics[3], 'span', formData.metric4_desc);
+      setText(metrics[3], '.metric-proof', formData.metric4_badge);
+    }
+
+    const aboutSec = d.querySelector('#about');
+    if (aboutSec) {
+      const panels = aboutSec.querySelectorAll('.panel');
+      if (panels.length >= 1) {
+        const h3 = panels[0].querySelector('h3');
+        if (h3) h3.textContent = formData.about_title1 || h3.textContent;
+        const p = panels[0].querySelector('p');
+        if (p) p.textContent = formData.about_desc1 || p.textContent;
+      }
+      if (panels.length >= 2) {
+        const h3 = panels[1].querySelector('h3');
+        if (h3) h3.textContent = formData.about_title2 || h3.textContent;
+        const ps = panels[1].querySelectorAll('p');
+        if (ps.length >= 1) ps[0].textContent = formData.about_adv1 || ps[0].textContent;
+        if (ps.length >= 2) ps[1].textContent = formData.about_adv2 || ps[1].textContent;
+      }
+    }
+
+    const contactH2 = d.querySelector('.contact-band h2');
+    if (contactH2) contactH2.textContent = formData.contact_title || contactH2.textContent;
+    const contactP = d.querySelector('.contact-band .contact > div p');
+    if (contactP) contactP.textContent = formData.contact_desc || contactP.textContent;
+    const contactLinks = d.querySelectorAll('.contact-list a');
+    if (contactLinks.length >= 1) contactLinks[0].textContent = formData.contact_email1 || contactLinks[0].textContent;
+    if (contactLinks.length >= 2) contactLinks[1].textContent = formData.contact_email2 || contactLinks[1].textContent;
+  }
+
+  if (pageName === 'portfolio') {
+    setText(d, 'h1', formData.hero_title);
+    setText(d, '.hero p', formData.hero_desc);
+    const contactH2 = d.querySelector('#contact h2');
+    if (contactH2) contactH2.textContent = formData.contact_title || contactH2.textContent;
+    const contactP = d.querySelector('#contact p');
+    if (contactP) contactP.textContent = formData.contact_desc || contactP.textContent;
+    const links = d.querySelectorAll('.contact-links a');
+    if (links.length >= 1) links[0].textContent = formData.contact_email1 || links[0].textContent;
+    if (links.length >= 2) links[1].textContent = formData.contact_email2 || links[1].textContent;
+  }
+
+  if (pageName === 'resume') {
+    setText(d, 'h1', formData.name);
+    setText(d, '.position', formData.position);
+    const cSpans = d.querySelectorAll('.contact span');
+    if (cSpans.length >= 1) cSpans[0].textContent = formData.email1 || cSpans[0].textContent;
+    if (cSpans.length >= 2) cSpans[1].textContent = formData.email2 || cSpans[1].textContent;
+    setText(d, '.summary', formData.summary);
+  }
+
+  // 清理
+  const s = d.innerHTML;
+  // 如果 formData 中有 _raw 字段，直接用它
+  if (formData._raw) return formData._raw;
+  return s;
+}
+
+function setText(parent, sel, val) {
+  if (!val) return;
+  const el = parent.querySelector(sel);
+  if (el) el.textContent = val;
+}
+
+function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
+
+// ===== UI 工具 =====
+function showToast(msg, type) {
+  const existing = document.querySelector('.toast');
+  if (existing) existing.remove();
+  const t = document.createElement('div');
+  t.className = `toast ${type}`;
+  t.textContent = msg;
+  document.body.appendChild(t);
+  setTimeout(() => t.remove(), 4000);
+}
+
+function setStatus(text) {
+  document.getElementById('statusText').textContent = text;
+}
+</script>
+</body>
+</html>
