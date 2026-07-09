@@ -261,35 +261,45 @@
     .metrics {
       display: grid;
       grid-template-columns: repeat(4, minmax(0, 1fr));
-      gap: 0;
-      margin-top: 28px;
+      gap: 12px;
+      margin-top: 32px;
       position: relative;
       z-index: 2;
-      overflow: hidden;
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      background: var(--paper);
-      box-shadow: 0 14px 36px rgba(16, 19, 24, 0.06);
     }
 
     .metric {
-      min-height: 104px;
-      padding: 18px 20px;
-      border-right: 1px solid var(--line);
-      background: transparent;
+      position: relative;
+      min-height: 172px;
+      overflow: hidden;
+      padding: 20px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: rgba(255, 255, 255, 0.94);
+      box-shadow: 0 12px 30px rgba(16, 19, 24, 0.06);
     }
 
-    .metric:last-child { border-right: 0; }
+    .metric::after {
+      content: "";
+      position: absolute;
+      right: -22px;
+      bottom: -28px;
+      width: 86px;
+      height: 86px;
+      border: 18px solid rgba(0, 104, 217, 0.08);
+      border-radius: 50%;
+    }
 
     .metric b {
       display: block;
-      margin-bottom: 9px;
+      margin-bottom: 8px;
       color: var(--ink);
-      font-size: 23px;
+      font-size: 27px;
       line-height: 1.05;
     }
 
     .metric span {
+      display: block;
+      min-height: 36px;
       color: var(--muted);
       font-size: 12px;
       font-weight: 700;
@@ -297,11 +307,15 @@
 
     .metric:first-child {
       color: #fff;
-      background: #101318;
+      border-color: #101318;
+      background:
+        linear-gradient(145deg, rgba(11, 110, 99, 0.35), transparent 58%),
+        #101318;
     }
 
     .metric:first-child b,
     .metric:first-child span { color: #fff; }
+    .metric:first-child::after { border-color: rgba(124, 227, 213, 0.16); }
 
     .metric-kicker {
       display: block;
@@ -321,6 +335,39 @@
       font-style: normal;
       font-weight: 900;
     }
+
+    .metric-proof {
+      position: absolute;
+      left: 20px;
+      bottom: 18px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      min-height: 25px;
+      padding: 4px 8px;
+      color: #155f58;
+      border: 1px solid #bfddd8;
+      border-radius: 4px;
+      background: var(--soft);
+      font-size: 10px;
+      font-weight: 900;
+    }
+
+    .metric-proof::before {
+      content: "";
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--accent);
+    }
+
+    .metric:first-child .metric-proof {
+      color: #d9fffa;
+      border-color: rgba(124, 227, 213, 0.32);
+      background: rgba(124, 227, 213, 0.1);
+    }
+
+    .metric:first-child .metric-proof::before { background: #7ce3d5; }
 
     section { padding: 84px 0; }
     section:nth-of-type(even) { background: rgba(255, 255, 255, 0.62); }
@@ -720,11 +767,10 @@
       }
 
       .metrics {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
+        grid-template-columns: 1fr;
       }
 
-      .metric:nth-child(2) { border-right: 0; }
-      .metric:nth-child(-n + 2) { border-bottom: 1px solid var(--line); }
+      .metric { min-height: 148px; }
 
       .timeline-item { grid-template-columns: 1fr; }
       .portrait-wrap { min-height: 360px; }
@@ -808,21 +854,25 @@
             <small class="metric-kicker">Delivery</small>
             <b>从 0 到 1</b>
             <span>智能控制器落地量产</span>
+            <small class="metric-proof">已完成首代量产</small>
           </div>
           <div class="metric">
             <small class="metric-kicker">Portfolio</small>
             <b>5 类项目</b>
             <span>产品、系统、测试与交付</span>
+            <small class="metric-proof">覆盖完整项目链路</small>
           </div>
           <div class="metric">
             <small class="metric-kicker">Prototype</small>
             <b>3 版迭代</b>
             <span>交互原型持续验证优化</span>
+            <small class="metric-proof">需求到原型闭环</small>
           </div>
           <div class="metric">
             <small class="metric-kicker">Quality</small>
             <b>61 条 <em>/ 3 轮</em></b>
             <span>测试用例与回归闭环</span>
+            <small class="metric-proof">覆盖功能与异常场景</small>
           </div>
         </div>
       </div>
