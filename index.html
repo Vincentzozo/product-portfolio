@@ -119,14 +119,15 @@
       min-height: calc(100svh - 68px);
       display: grid;
       align-items: center;
-      padding: 58px 0 84px;
+      overflow: hidden;
+      padding: 54px 0 64px;
     }
 
     .hero-grid {
       display: grid;
-      grid-template-columns: minmax(0, 1.15fr) minmax(330px, 0.72fr);
+      grid-template-columns: minmax(0, 1.08fr) minmax(360px, 0.82fr);
       align-items: center;
-      gap: 46px;
+      gap: 56px;
     }
 
     .eyebrow {
@@ -151,8 +152,8 @@
     h1 {
       margin-bottom: 20px;
       max-width: 780px;
-      font-size: clamp(42px, 7vw, 82px);
-      line-height: 0.98;
+      font-size: clamp(44px, 6.4vw, 76px);
+      line-height: 1.02;
       letter-spacing: 0;
     }
 
@@ -199,7 +200,7 @@
 
     .portrait-wrap {
       position: relative;
-      min-height: 500px;
+      min-height: 460px;
     }
 
     .portrait {
@@ -211,6 +212,20 @@
         linear-gradient(145deg, rgba(16, 19, 24, 0.12), rgba(0, 104, 217, 0.18)),
         url("https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1200&q=85") center/cover;
       box-shadow: var(--shadow);
+    }
+
+    .portrait::before {
+      content: "PRODUCT / PROJECT";
+      position: absolute;
+      top: 22px;
+      right: 22px;
+      z-index: 2;
+      padding: 7px 9px;
+      color: #fff;
+      border: 1px solid rgba(255, 255, 255, 0.42);
+      background: rgba(10, 14, 20, 0.48);
+      font-size: 10px;
+      font-weight: 900;
     }
 
     .portrait::after {
@@ -245,30 +260,66 @@
 
     .metrics {
       display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 14px;
-      margin-top: -32px;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 0;
+      margin-top: 28px;
       position: relative;
       z-index: 2;
-    }
-
-    .metric {
-      padding: 18px;
+      overflow: hidden;
       border: 1px solid var(--line);
       border-radius: var(--radius);
       background: var(--paper);
-      box-shadow: 0 10px 28px rgba(16, 19, 24, 0.07);
+      box-shadow: 0 14px 36px rgba(16, 19, 24, 0.06);
     }
+
+    .metric {
+      min-height: 104px;
+      padding: 18px 20px;
+      border-right: 1px solid var(--line);
+      background: transparent;
+    }
+
+    .metric:last-child { border-right: 0; }
 
     .metric b {
       display: block;
-      font-size: 26px;
-      line-height: 1;
+      margin-bottom: 9px;
+      color: var(--ink);
+      font-size: 23px;
+      line-height: 1.05;
     }
 
     .metric span {
       color: var(--muted);
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .metric:first-child {
+      color: #fff;
+      background: #101318;
+    }
+
+    .metric:first-child b,
+    .metric:first-child span { color: #fff; }
+
+    .metric-kicker {
+      display: block;
+      margin-bottom: 8px;
+      color: var(--accent);
+      font-size: 10px;
+      font-weight: 900;
+      letter-spacing: 0;
+      text-transform: uppercase;
+    }
+
+    .metric:first-child .metric-kicker { color: #7ce3d5; }
+
+    .metric em {
+      color: var(--accent-2);
       font-size: 13px;
+      font-style: normal;
+      font-weight: 900;
     }
 
     section { padding: 84px 0; }
@@ -668,6 +719,13 @@
         grid-template-columns: 1fr;
       }
 
+      .metrics {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .metric:nth-child(2) { border-right: 0; }
+      .metric:nth-child(-n + 2) { border-bottom: 1px solid var(--line); }
+
       .timeline-item { grid-template-columns: 1fr; }
       .portrait-wrap { min-height: 360px; }
       .contact-list { min-width: 0; }
@@ -716,7 +774,7 @@
         <a href="#work">项目</a>
         <a href="#skills">技能</a>
         <a href="#contact">联系</a>
-        <button type="button" id="printBtn">打印简历</button>
+        <a href="resume.html">打印简历</a>
       </div>
     </nav>
   </header>
@@ -731,7 +789,7 @@
             <p class="lead">具备从需求调研、PRD、交互原型到开发协同、测试验证和落地迭代的完整项目经验。擅长理解业务现场，连接用户、研发、设计与供应链，把分散信息转化为明确方案并持续推动闭环。</p>
             <div class="actions">
               <a class="btn primary" href="#work">查看项目经验</a>
-              <a class="btn secondary" href="#experience">浏览工作履历</a>
+              <a class="btn secondary" href="resume.html">打开精简简历</a>
               <a class="btn secondary" href="#skills">查看能力清单</a>
             </div>
           </div>
@@ -743,11 +801,28 @@
                 <span>推动生产流程从手动记录走向系统化、自动化与可追踪管理。</span>
               </div>
             </div>
-            <div class="metrics" aria-label="关键数据">
-              <div class="metric"><b>1代</b><span>产品落地量产</span></div>
-              <div class="metric"><b>3版</b><span>交互原型迭代</span></div>
-              <div class="metric"><b>61条</b><span>APP 测试用例</span></div>
-            </div>
+          </div>
+        </div>
+        <div class="metrics" aria-label="关键成果">
+          <div class="metric">
+            <small class="metric-kicker">Delivery</small>
+            <b>从 0 到 1</b>
+            <span>智能控制器落地量产</span>
+          </div>
+          <div class="metric">
+            <small class="metric-kicker">Portfolio</small>
+            <b>5 类项目</b>
+            <span>产品、系统、测试与交付</span>
+          </div>
+          <div class="metric">
+            <small class="metric-kicker">Prototype</small>
+            <b>3 版迭代</b>
+            <span>交互原型持续验证优化</span>
+          </div>
+          <div class="metric">
+            <small class="metric-kicker">Quality</small>
+            <b>61 条 <em>/ 3 轮</em></b>
+            <span>测试用例与回归闭环</span>
           </div>
         </div>
       </div>
@@ -1011,7 +1086,6 @@
   <script>
     const filters = document.querySelectorAll(".filter");
     const cards = document.querySelectorAll(".case-study");
-    const printBtn = document.querySelector("#printBtn");
 
     filters.forEach((button) => {
       button.addEventListener("click", () => {
@@ -1023,8 +1097,6 @@
         });
       });
     });
-
-    printBtn.addEventListener("click", () => window.print());
   </script>
 </body>
 </html>
