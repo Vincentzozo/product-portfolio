@@ -153,15 +153,15 @@ window.SITE_DATA = {
         "label": "项目实践"
       },
       {
-        "value": "3版",
+        "value": "3版+",
         "label": "原型迭代"
       },
       {
-        "value": "61条",
+        "value": "200条+",
         "label": "测试用例"
       },
       {
-        "value": "3轮",
+        "value": "3轮+",
         "label": "回归验证"
       }
     ],
