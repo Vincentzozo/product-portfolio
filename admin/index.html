@@ -365,6 +365,72 @@
       margin-bottom: 10px;
     }
 
+    .array-head-actions,
+    .inline-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .mini-btn {
+      padding: 6px 10px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fff;
+      color: var(--ink);
+      font-size: 12px;
+      font-weight: 800;
+      cursor: pointer;
+    }
+
+    .mini-btn:hover {
+      border-color: var(--accent);
+      color: var(--accent-strong);
+    }
+
+    .array-card-meta {
+      margin: 0 0 10px;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.6;
+    }
+
+    .validation-list {
+      display: grid;
+      gap: 10px;
+      margin-top: 12px;
+    }
+
+    .validation-item {
+      padding: 12px 14px;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: #f9fbfc;
+    }
+
+    .validation-item strong {
+      display: block;
+      margin-bottom: 4px;
+      font-size: 13px;
+    }
+
+    .validation-item p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .validation-item.warn {
+      border-color: #f1c87a;
+      background: #fff8e8;
+    }
+
+    .validation-item.error {
+      border-color: #f3b2b2;
+      background: #fff1f1;
+    }
+
     .danger-text { color: var(--danger); }
 
     .preview-shell {
@@ -721,6 +787,36 @@
       `;
     }
 
+    function renderArrayHead(path, index, title) {
+      return `
+        <div class="array-head">
+          <strong>${title}</strong>
+          <div class="array-head-actions">
+            <button class="mini-btn" type="button" data-move="${path}" data-index="${index}" data-direction="up">上移</button>
+            <button class="mini-btn" type="button" data-move="${path}" data-index="${index}" data-direction="down">下移</button>
+            <button class="mini-btn" type="button" data-duplicate="${path}" data-index="${index}">复制</button>
+            <button class="btn ghost danger-text" type="button" data-remove="${path}" data-index="${index}">删除</button>
+          </div>
+        </div>
+      `;
+    }
+
+    function renderValidationList(items, emptyText = "当前没有需要处理的问题。") {
+      if (!items.length) {
+        return `<div class="notice">${emptyText}</div>`;
+      }
+      return `
+        <div class="validation-list">
+          ${items.map((item) => `
+            <div class="validation-item ${item.level}">
+              <strong>${escapeHtml(item.title)}</strong>
+              <p>${escapeHtml(item.detail)}</p>
+            </div>
+          `).join("")}
+        </div>
+      `;
+    }
+
     function renderMetricsEditor(path, items) {
       return `
         <div class="panel">
@@ -777,20 +873,19 @@
       return `
         <div class="panel">
           <h3>作品集定位卡片</h3>
+          <p class="helper">适合写职业定位、可交付内容、适配岗位。建议控制在 3 到 4 张。</p>
           <div class="array-list">
             ${items.map((item, index) => `
               <div class="array-item">
-                <div class="array-head">
-                  <strong>卡片 ${index + 1}</strong>
-                  <button class="btn ghost danger-text" type="button" data-remove="${path}" data-index="${index}">删除</button>
-                </div>
+                ${renderArrayHead(path, index, `卡片 ${index + 1}`)}
                 ${renderField("标题", `${path}.${index}.title`, item.title)}
                 ${renderField("摘要", `${path}.${index}.summary`, item.summary, "textarea")}
               </div>
             `).join("")}
           </div>
-          <div style="margin-top:12px">
+          <div class="inline-actions" style="margin-top:12px">
             <button class="btn" type="button" data-add="${path}" data-kind="capability-block">新增卡片</button>
+            <button class="btn ghost" type="button" data-template="capability-block">插入推荐模板</button>
           </div>
         </div>
       `;
@@ -800,13 +895,12 @@
       return `
         <div class="panel">
           <h3>代表工作样本</h3>
+          <p class="helper">每个样本只讲一项核心能力，不要写成项目流水账。</p>
           <div class="array-list">
             ${items.map((item, index) => `
               <div class="array-item">
-                <div class="array-head">
-                  <strong>样本 ${index + 1}</strong>
-                  <button class="btn ghost danger-text" type="button" data-remove="${path}" data-index="${index}">删除</button>
-                </div>
+                ${renderArrayHead(path, index, `样本 ${index + 1}`)}
+                <p class="array-card-meta">建议顺序：背景 -> 产出物 -> 关键判断 -> 协作方式 -> 证明价值。</p>
                 <div class="field-grid">
                   ${renderField("标题", `${path}.${index}.title`, item.title)}
                   ${renderField("角色", `${path}.${index}.role`, item.role)}
@@ -821,8 +915,9 @@
               </div>
             `).join("")}
           </div>
-          <div style="margin-top:12px">
+          <div class="inline-actions" style="margin-top:12px">
             <button class="btn" type="button" data-add="${path}" data-kind="portfolio-work">新增样本</button>
+            <button class="btn ghost" type="button" data-template="portfolio-work">插入推荐样本</button>
           </div>
         </div>
       `;
@@ -832,20 +927,19 @@
       return `
         <div class="panel">
           <h3>可展示产物</h3>
+          <p class="helper">这里放你真能展示的文档、原型、清单和测试材料，不写空泛概念。</p>
           <div class="array-list">
             ${items.map((item, index) => `
               <div class="array-item">
-                <div class="array-head">
-                  <strong>分组 ${index + 1}</strong>
-                  <button class="btn ghost danger-text" type="button" data-remove="${path}" data-index="${index}">删除</button>
-                </div>
+                ${renderArrayHead(path, index, `分组 ${index + 1}`)}
                 ${renderField("分组标题", `${path}.${index}.title`, item.title)}
                 ${renderField("条目", `${path}.${index}.items`, joinLines(item.items), "textarea", "一行一个条目")}
               </div>
             `).join("")}
           </div>
-          <div style="margin-top:12px">
+          <div class="inline-actions" style="margin-top:12px">
             <button class="btn" type="button" data-add="${path}" data-kind="artifact-group">新增分组</button>
+            <button class="btn ghost" type="button" data-template="artifact-group">插入推荐分组</button>
           </div>
         </div>
       `;
@@ -967,6 +1061,7 @@
       }
 
       if (currentEditor === "publish") {
+        const validation = validateState(state);
         editorBody.innerHTML = `
           <div class="publish-grid">
             <div class="panel">
@@ -991,6 +1086,12 @@
               <h2>发布日志</h2>
               <div class="log" id="publish-log">等待操作...</div>
             </div>
+          </div>
+          <div class="panel">
+            <h2>发布前校验</h2>
+            <p class="helper">错误项建议先修复，提醒项按需要决定是否继续发布。</p>
+            ${renderValidationList(validation.errors, "没有阻断发布的错误项。")}
+            ${renderValidationList(validation.warnings, "没有额外提醒项。")}
           </div>
           <div class="panel">
             <h2>输出文件</h2>
@@ -1075,6 +1176,78 @@
       target.push(factory[kind]());
       saveDraft();
       render();
+    }
+
+    function moveArrayItem(path, index, direction) {
+      const parts = path.split(".");
+      let target = state;
+      for (const part of parts) target = target[part];
+      const nextIndex = direction === "up" ? index - 1 : index + 1;
+      if (nextIndex < 0 || nextIndex >= target.length) return;
+      const [item] = target.splice(index, 1);
+      target.splice(nextIndex, 0, item);
+      saveDraft();
+      render();
+    }
+
+    function duplicateArrayItem(path, index) {
+      const parts = path.split(".");
+      let target = state;
+      for (const part of parts) target = target[part];
+      target.splice(index + 1, 0, deepClone(target[index]));
+      saveDraft();
+      render();
+    }
+
+    function insertTemplate(kind) {
+      if (kind === "capability-block") {
+        state.portfolio.capabilityBlocks.push(
+          { title: "我主要解决什么问题", summary: "把现场问题整理成需求，把需求推进成可执行方案和交付结果。" },
+          { title: "我能交付什么产物", summary: "PRD、交互原型、需求清单、测试用例、联调反馈和交付复盘。" }
+        );
+      }
+      if (kind === "portfolio-work") {
+        state.portfolio.works.push({
+          title: "需求推进样本",
+          role: "需求梳理 / 推进协同",
+          context: "面对现场流程混乱、口头需求分散、跨团队理解不一致的场景，需要先把问题讲清楚。",
+          outputs: "需求清单、流程拆解、状态定义、联调问题反馈。",
+          judgement: "先拆清角色、状态、异常和边界，再进入功能设计，能显著降低返工。",
+          collaboration: "持续连接业务、研发、测试与现场反馈，保证需求不是一次性文档。",
+          value: "证明我能把模糊问题推进成团队可执行的交付闭环。"
+        });
+      }
+      if (kind === "artifact-group") {
+        state.portfolio.artifacts.push({
+          title: "需求与定义类",
+          items: ["需求清单", "PRD 文档", "流程拆解", "角色职责说明"]
+        });
+      }
+      saveDraft();
+      render();
+    }
+
+    function validateState(data) {
+      const errors = [];
+      const warnings = [];
+      if (!data.site.siteName.trim()) errors.push({ level: "error", title: "网站名称为空", detail: "首页和导航会缺少站点名称。" });
+      if (!data.site.personName.trim()) errors.push({ level: "error", title: "姓名为空", detail: "个人品牌识别会缺失。" });
+      if (!data.site.role.trim()) warnings.push({ level: "warn", title: "岗位定位未填写", detail: "建议明确写出求职方向。" });
+      if (!data.site.emails.filter((item) => String(item || "").trim()).length) errors.push({ level: "error", title: "联系方式为空", detail: "至少保留一个邮箱。" });
+      if (!data.portfolio.title.trim()) errors.push({ level: "error", title: "作品集标题为空", detail: "作品集页首屏缺少主标题。" });
+      if (!data.portfolio.works.length) errors.push({ level: "error", title: "没有作品样本", detail: "作品集至少需要 1 个代表工作样本。" });
+      data.portfolio.works.forEach((item, index) => {
+        if (!item.title.trim()) errors.push({ level: "error", title: `样本 ${index + 1} 缺标题`, detail: "建议直接写能力场景名称。" });
+        if (!item.context.trim()) warnings.push({ level: "warn", title: `样本 ${index + 1} 缺背景`, detail: "读者很难理解你处理的是哪类问题。" });
+        if (!item.value.trim()) warnings.push({ level: "warn", title: `样本 ${index + 1} 缺证明价值`, detail: "建议补一句这个样本说明了什么能力。" });
+      });
+      if (!data.portfolio.artifacts.length) warnings.push({ level: "warn", title: "可展示产物为空", detail: "建议至少给出 1 组可展示文档或原型。" });
+      data.portfolio.artifacts.forEach((item, index) => {
+        if (!item.title.trim()) warnings.push({ level: "warn", title: `产物分组 ${index + 1} 缺标题`, detail: "建议写成文档类型或产物类型。" });
+        if (!item.items.length) warnings.push({ level: "warn", title: `产物分组 ${index + 1} 为空`, detail: "建议至少写 2 到 4 条具体产物。" });
+      });
+      if (!data.resume.summary.trim()) warnings.push({ level: "warn", title: "简历摘要为空", detail: "打印简历页顶部会比较空。" });
+      return { errors, warnings };
     }
 
     function downloadJson() {
@@ -1178,6 +1351,12 @@
       const commitMessage = document.getElementById("commit-message").value.trim() || "更新网站内容";
       if (!githubToken) {
         setLog("请先输入 GitHub token。");
+        return;
+      }
+      const validation = validateState(state);
+      if (validation.errors.length) {
+        const details = validation.errors.map((item, index) => `${index + 1}. ${item.title}`).join("\n");
+        setLog(`发布已拦截。\n请先修复这些错误项：\n${details}`);
         return;
       }
 
@@ -1561,9 +1740,27 @@
         return;
       }
 
+      const moveBtn = event.target.closest("[data-move]");
+      if (moveBtn) {
+        moveArrayItem(moveBtn.dataset.move, Number(moveBtn.dataset.index), moveBtn.dataset.direction);
+        return;
+      }
+
+      const duplicateBtn = event.target.closest("[data-duplicate]");
+      if (duplicateBtn) {
+        duplicateArrayItem(duplicateBtn.dataset.duplicate, Number(duplicateBtn.dataset.index));
+        return;
+      }
+
       const addBtn = event.target.closest("[data-add]");
       if (addBtn) {
         addArrayItem(addBtn.dataset.add, addBtn.dataset.kind);
+        return;
+      }
+
+      const templateBtn = event.target.closest("[data-template]");
+      if (templateBtn) {
+        insertTemplate(templateBtn.dataset.template);
         return;
       }
 
