@@ -3,388 +3,99 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>郑柱坚｜产品项目简历</title>
+  <title>郑柱坚产品项目简历</title>
   <style>
-    :root {
-      --ink: #12161c;
-      --muted: #59616d;
-      --line: #d9dee5;
-      --accent: #0b6e63;
-      --soft: #edf7f5;
-    }
-
-    * { box-sizing: border-box; }
-
-    body {
-      margin: 0;
-      color: var(--ink);
-      background: #e9edf2;
-      font-family: "Segoe UI Variable", "PingFang SC", "Microsoft YaHei", Arial, sans-serif;
-      line-height: 1.45;
-    }
-
-    .toolbar {
-      position: sticky;
-      top: 0;
-      z-index: 10;
-      display: flex;
-      justify-content: center;
-      gap: 10px;
-      padding: 12px;
-      background: rgba(18, 22, 28, 0.94);
-    }
-
-    .toolbar a,
-    .toolbar button {
-      min-height: 38px;
-      padding: 8px 14px;
-      color: #fff;
-      border: 1px solid rgba(255, 255, 255, 0.24);
-      border-radius: 5px;
-      background: transparent;
-      font: inherit;
-      font-weight: 700;
-      cursor: pointer;
-      text-decoration: none;
-    }
-
-    .toolbar button { color: #101318; background: #fff; }
-
-    .page {
-      position: relative;
-      width: 210mm;
-      min-height: 297mm;
-      margin: 20px auto;
-      overflow: hidden;
-      padding: 16mm 16mm 14mm 20mm;
-      background: #fff;
-      box-shadow: 0 18px 50px rgba(20, 28, 38, 0.14);
-    }
-
-    .page::before {
-      content: "";
-      position: absolute;
-      inset: 0 auto 0 0;
-      width: 5mm;
-      background:
-        linear-gradient(to bottom, #101318 0 88mm, var(--accent) 88mm 100%);
-    }
-
-    header {
-      display: grid;
-      grid-template-columns: 1fr auto;
-      gap: 24px;
-      margin: -16mm -16mm 0 -15mm;
-      padding: 14mm 16mm 12mm 15mm;
-      color: #fff;
-      background:
-        linear-gradient(120deg, rgba(11, 110, 99, 0.36), transparent 55%),
-        #101318;
-    }
-
-    h1, h2, h3, p { margin-top: 0; }
-    h1 { margin-bottom: 5px; font-size: 30px; line-height: 1; }
-
-    .position {
-      margin: 0;
-      color: #86e3d7;
-      font-size: 14px;
-      font-weight: 800;
-    }
-
-    .contact {
-      display: grid;
-      align-content: end;
-      gap: 3px;
-      color: rgba(255, 255, 255, 0.72);
-      font-size: 11px;
-      text-align: right;
-    }
-
-    .summary {
-      margin: 14px 0 13px;
-      padding: 10px 12px;
-      color: #343b45;
-      border-left: 3px solid var(--accent);
-      background: #f5f9f8;
-      font-size: 11.5px;
-    }
-
-    .proof {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      margin-bottom: 15px;
-      border: 1px solid #cfd6df;
-      background: #fff;
-    }
-
-    .proof div { padding: 8px 10px; border-right: 1px solid var(--line); }
-    .proof div:last-child { border-right: 0; }
-    .proof b { display: block; margin-bottom: 2px; font-size: 14px; }
-    .proof span { color: var(--muted); font-size: 9.5px; }
-
-    .layout {
-      display: grid;
-      grid-template-columns: 1.55fr 0.75fr;
-      gap: 20px;
-    }
-
-    section { margin-bottom: 14px; }
-
-    h2 {
-      margin-bottom: 8px;
-      padding-bottom: 5px;
-      color: var(--ink);
-      border-bottom: 2px solid var(--ink);
-      font-size: 14px;
-    }
-
-    .item { margin-bottom: 11px; break-inside: avoid; }
-
-    .item-head {
-      display: grid;
-      grid-template-columns: 1fr auto;
-      gap: 12px;
-      align-items: baseline;
-      margin-bottom: 3px;
-    }
-
-    h3 { margin-bottom: 0; font-size: 11.5px; }
-    .date { color: var(--muted); font-size: 9.5px; font-weight: 700; }
-
-    ul {
-      margin: 4px 0 0;
-      padding-left: 16px;
-      color: #343b45;
-      font-size: 10.2px;
-    }
-
-    li + li { margin-top: 2px; }
-
-    .project {
-      position: relative;
-      padding: 9px 10px 9px 13px;
-      border-left: 3px solid var(--accent);
-      background: linear-gradient(90deg, #f4f8f7, transparent);
-    }
-
-    .project p {
-      margin-bottom: 4px;
-      color: var(--muted);
-      font-size: 10px;
-    }
-
-    .side-block {
-      padding: 11px;
-      border: 1px solid var(--line);
-      border-top: 3px solid var(--accent);
-      background: #f8fafb;
-    }
-
-    .side-block + .side-block { margin-top: 10px; }
-    .side-block h2 { border-color: var(--line); }
-
-    .tags { display: flex; flex-wrap: wrap; gap: 5px; }
-
-    .tag {
-      padding: 3px 6px;
-      color: #155f58;
-      border: 1px solid #c6dfdb;
-      background: var(--soft);
-      font-size: 9.5px;
-      font-weight: 700;
-    }
-
-    .compact-list { margin-top: 0; font-size: 9.8px; }
-
-    .education p {
-      margin-bottom: 2px;
-      font-size: 10.5px;
-      font-weight: 700;
-    }
-
-    .education span { color: var(--muted); font-size: 9.5px; }
-
-    .note {
-      margin-top: 8px;
-      color: var(--muted);
-      font-size: 8.5px;
-    }
-
-    @media (max-width: 850px) {
-      .page { width: 100%; min-height: 0; margin: 0; padding: 22px 18px; box-shadow: none; }
-      .layout { grid-template-columns: 1fr; }
-      header { grid-template-columns: 1fr; }
-      .contact { text-align: left; }
-      .proof { grid-template-columns: repeat(2, 1fr); }
-      .proof div:nth-child(2) { border-right: 0; }
-      .proof div:nth-child(-n + 2) { border-bottom: 1px solid var(--line); }
-    }
-
-    @page { size: A4; margin: 0; }
-
-    @media print {
-      body { background: #fff; }
-      .toolbar { display: none; }
-      .page {
-        width: 210mm;
-        min-height: 297mm;
-        margin: 0;
-        padding: 14mm 15mm 12mm 19mm;
-        box-shadow: none;
-      }
-    }
+    :root{--ink:#12161c;--muted:#59616d;--line:#d9dee5;--accent:#0b6e63;--soft:#edf7f5}
+    *{box-sizing:border-box}body{margin:0;color:var(--ink);background:#e9edf2;font-family:"Segoe UI Variable","PingFang SC","Microsoft YaHei",Arial,sans-serif;line-height:1.45}
+    .toolbar{position:sticky;top:0;z-index:10;display:flex;justify-content:center;gap:10px;padding:12px;background:rgba(18,22,28,.94)}.toolbar a,.toolbar button{min-height:38px;padding:8px 14px;color:#fff;border:1px solid rgba(255,255,255,.24);border-radius:5px;background:transparent;font:inherit;font-weight:700;cursor:pointer;text-decoration:none}.toolbar button{color:#101318;background:#fff}
+    .page{position:relative;width:210mm;min-height:297mm;margin:20px auto;overflow:hidden;padding:16mm 16mm 14mm 20mm;background:#fff;box-shadow:0 18px 50px rgba(20,28,38,.14)}.page:before{content:"";position:absolute;inset:0 auto 0 0;width:5mm;background:linear-gradient(to bottom,#101318 0 88mm,var(--accent) 88mm 100%)}
+    header{display:grid;grid-template-columns:1fr auto;gap:24px;margin:-16mm -16mm 0 -15mm;padding:14mm 16mm 12mm 15mm;color:#fff;background:linear-gradient(120deg,rgba(11,110,99,.36),transparent 55%),#101318}h1,h2,h3,p{margin-top:0}h1{margin-bottom:5px;font-size:30px;line-height:1}.position{margin:0;color:#86e3d7;font-size:14px;font-weight:800}.contact{display:grid;align-content:end;gap:3px;color:rgba(255,255,255,.72);font-size:11px;text-align:right}
+    .summary{margin:14px 0 13px;padding:10px 12px;color:#343b45;border-left:3px solid var(--accent);background:#f5f9f8;font-size:11.5px}.proof{display:grid;grid-template-columns:repeat(4,1fr);margin-bottom:15px;border:1px solid #cfd6df;background:#fff}.proof div{padding:8px 10px;border-right:1px solid var(--line)}.proof div:last-child{border-right:0}.proof b{display:block;margin-bottom:2px;font-size:14px}.proof span{color:var(--muted);font-size:9.5px}
+    .layout{display:grid;grid-template-columns:1.55fr .75fr;gap:20px}section{margin-bottom:14px}h2{margin-bottom:8px;padding-bottom:5px;color:var(--ink);border-bottom:2px solid var(--ink);font-size:14px}.item{margin-bottom:11px;break-inside:avoid}.item-head{display:grid;grid-template-columns:1fr auto;gap:12px;align-items:baseline;margin-bottom:3px}h3{margin-bottom:0;font-size:11.5px}.date{color:var(--muted);font-size:9.5px;font-weight:700}ul{margin:4px 0 0;padding-left:16px;color:#343b45;font-size:10.2px}li+li{margin-top:2px}
+    .project{position:relative;padding:9px 10px 9px 13px;border-left:3px solid var(--accent);background:linear-gradient(90deg,#f4f8f7,transparent)}.project p{margin-bottom:4px;color:var(--muted);font-size:10px}.side-block{padding:11px;border:1px solid var(--line);border-top:3px solid var(--accent);background:#f8fafb}.side-block+.side-block{margin-top:10px}.side-block h2{border-color:var(--line)}.tags{display:flex;flex-wrap:wrap;gap:5px}.tag{padding:3px 6px;color:#155f58;border:1px solid #c6dfdb;background:var(--soft);font-size:9.5px;font-weight:700}.compact-list{margin-top:0;font-size:9.8px}.education p{margin-bottom:2px;font-size:10.5px;font-weight:700}.education span{color:var(--muted);font-size:9.5px}.note{margin-top:8px;color:var(--muted);font-size:8.5px}
+    @media (max-width:850px){.page{width:100%;min-height:0;margin:0;padding:22px 18px;box-shadow:none}.layout{grid-template-columns:1fr}header{grid-template-columns:1fr}.contact{text-align:left}.proof{grid-template-columns:repeat(2,1fr)}.proof div:nth-child(2){border-right:0}}
+    @media print{body{background:#fff}.toolbar{display:none}.page{margin:0;box-shadow:none}}
   </style>
 </head>
 <body>
   <div class="toolbar">
-    <a href="index.html">返回个人网站</a>
-    <a href="admin/" style="opacity:0.2;font-size:11px" title="后台管理">⚙</a>
-    <button type="button" id="printResume">打印 / 导出 PDF</button>
+    <a href="index.html">返回网站</a>
+    <a href="portfolio.html">查看作品集</a>
+    <button onclick="window.print()">打印 / 导出 PDF</button>
   </div>
-
-  <main class="page">
+  <article class="page">
     <header>
       <div>
         <h1>郑柱坚</h1>
-        <p class="position">产品专员 · 项目专员 · 产品项目助理</p>
+        <p class="position">产品开发 / 项目推进</p>
       </div>
-      <div class="contact">
-        <span>835771382@qq.com</span>
-        <span>zzj13414967756@gmail.com</span>
-      </div>
+      <div class="contact"><span>835771382@qq.com</span><span>zzj13414967756@gmail.com</span></div>
     </header>
-
-    <p class="summary">具备需求调研、PRD、交互原型、开发协同、测试验证和产品落地的完整项目经验。擅长从业务现场识别问题，连接用户、研发、设计与供应链，将分散信息转化为明确方案并推动交付闭环。</p>
-
+    <p class="summary">适合产品开发、项目推进、解决方案交付类岗位。优势在于把现场问题转成需求，把需求推进成原型、测试和可交付结果，能在业务、研发、测试之间持续做闭环。</p>
     <div class="proof">
-      <div><b>从 0 到 1</b><span>智能控制器落地量产</span></div>
-      <div><b>5 类项目</b><span>产品、系统、测试与交付</span></div>
-      <div><b>3 版原型</b><span>持续验证交互方案</span></div>
-      <div><b>61 条 / 3 轮</b><span>测试用例与回归闭环</span></div>
-    </div>
-
+        <div><b>5类</b><span>项目实践</span></div>
+      
+        <div><b>3版</b><span>原型迭代</span></div>
+      
+        <div><b>61条</b><span>测试用例</span></div>
+      
+        <div><b>3轮</b><span>回归验证</span></div>
+      </div>
     <div class="layout">
       <div>
         <section>
           <h2>工作经历</h2>
-          <article class="item">
-            <div class="item-head">
-              <h3>中实创科技（广东）有限公司｜市场助理</h3>
-              <span class="date">2021.03 - 至今</span>
-            </div>
-            <ul>
-              <li>参与智能控制器、MES、传感器配套 APP 等产品项目，承担需求梳理、原型、测试及跨部门推进。</li>
-              <li>制定新品推介需求流程，规范市场、研发与设计协作，推动资料和产品事项按节点交付。</li>
-              <li>主导产品画册、安装指南及演示内容制作，将技术信息转化为客户可理解的价值表达。</li>
-            </ul>
-          </article>
-          <article class="item">
-            <div class="item-head">
-              <h3>中实创科技（广东）有限公司｜农业技术员</h3>
-              <span class="date">2019.06 - 2021.02</span>
-            </div>
-            <ul>
-              <li>负责植物工厂育苗、水培系统维护与自动化设备管理，积累真实生产现场和设备运行经验。</li>
-              <li>负责 10+ 品种工厂化育苗，通过环境参数管理实现幼苗成活率 98%。</li>
-            </ul>
-          </article>
+          
+        <div class="item">
+          <div class="item-head"><h3>广东云山农业科技有限公司｜产品专员 / 项目推进</h3><span class="date">2022.06 - 至今</span></div>
+          <ul><li>主导植物工厂 MES 系统需求梳理，连接现场、产品和研发推进开发。</li><li>参与智能控制器从需求调研、PRD、交互原型到 HMI 配置的全过程。</li><li>围绕 APP 与硬件配套场景设计测试用例，执行回归并推动问题收口。</li></ul>
+        </div>
+      
+        <div class="item">
+          <div class="item-head"><h3>园艺业务项目经历｜订单与项目执行</h3><span class="date">2021.04 - 2021.11</span></div>
+          <ul><li>独立负责客户需求沟通、订单确认、生产跟进与发货闭环。</li><li>处理过程异常和协作问题，保证交付节奏与验收质量。</li></ul>
+        </div>
+      
         </section>
-
         <section>
-          <h2>核心项目</h2>
-          <article class="item project">
-            <div class="item-head">
-              <h3>植物工厂 MES 系统开发｜需求负责人 / 项目推进</h3>
-              <span class="date">2024.04 - 至今</span>
-            </div>
-            <p>围绕自动化生产流程，将现场操作、任务状态和异常反馈转化为软件需求。</p>
-            <ul>
-              <li>对接终端用户收集反馈，拆解角色、任务、状态和异常节点，维护需求清单与优先级。</li>
-              <li>同步研发并跟踪开发、调试和验证，形成从需求到落地反馈的持续迭代闭环。</li>
-            </ul>
-          </article>
-          <article class="item project">
-            <div class="item-head">
-              <h3>农业智能控制器｜产品项目协同</h3>
-              <span class="date">2022.07 - 至今</span>
-            </div>
-            <p>覆盖需求调研、PRD、交互原型、HMI 配置及软硬件协同。</p>
-            <ul>
-              <li>使用墨刀独立完成 3 版交互原型，协调 UI、软件、硬件团队推进开发。</li>
-              <li>推动第一代产品落地量产，并根据落地经验推进第二代控制器原型迭代。</li>
-            </ul>
-          </article>
-          <article class="item project">
-            <div class="item-head">
-              <h3>PAR 传感器配套 APP｜产品测试</h3>
-              <span class="date">2024 - 2025</span>
-            </div>
-            <ul>
-              <li>编写 61 条测试用例，覆盖核心功能、界面交互、数据展示和异常场景。</li>
-              <li>组织 3 轮回归测试，推动修复多项 UI 与功能缺陷并持续确认问题状态。</li>
-            </ul>
-          </article>
-          <article class="item project">
-            <div class="item-head">
-              <h3>理疗灯系列产品开发｜跨部门项目协同</h3>
-              <span class="date">2022.06 - 至今</span>
-            </div>
-            <ul>
-              <li>统筹家用款、手持款外观设计、概念画册及样机测试，协调设计、研发和供应链资源。</li>
-            </ul>
-          </article>
+          <h2>项目经历</h2>
+          
+        <div class="project item">
+          <div class="item-head"><h3>植物工厂 MES 系统</h3><span class="date">2024.04 - 至今</span></div>
+          <p>生产流程数字化与需求推进</p>
+          <ul><li>梳理生产流程、异常节点和角色职责，维护系统需求清单。</li><li>跟进研发、测试和现场反馈，推动需求落地与迭代。</li></ul>
+        </div>
+      
+        <div class="project item">
+          <div class="item-head"><h3>智能控制器产品开发</h3><span class="date">2022.07 - 至今</span></div>
+          <p>0-1 产品定义与协同落地</p>
+          <ul><li>输出 PRD、3版交互原型，参与 HMI 页面逻辑和软硬件协同。</li><li>推动一代产品量产，并继续跟进二代产品迭代。</li></ul>
+        </div>
+      
+        <div class="project item">
+          <div class="item-head"><h3>PAR 传感器配套 APP 测试</h3><span class="date">项目测试阶段</span></div>
+          <p>测试设计与回归验证</p>
+          <ul><li>设计 61 条测试用例，执行 3 轮回归，覆盖主流程与异常场景。</li><li>推动问题修复确认，提升版本交付稳定性。</li></ul>
+        </div>
+      
         </section>
       </div>
-
       <aside>
         <section class="side-block">
-          <h2>核心能力</h2>
-          <div class="tags">
-            <span class="tag">需求分析</span>
-            <span class="tag">PRD</span>
-            <span class="tag">交互原型</span>
-            <span class="tag">项目推进</span>
-            <span class="tag">测试闭环</span>
-            <span class="tag">产品落地</span>
-            <span class="tag">软硬件协同</span>
-            <span class="tag">HMI 配置</span>
-          </div>
+          <h2>核心技能</h2>
+          <div class="tags"><span class="tag">需求分析</span><span class="tag">PRD 编写</span><span class="tag">交互原型</span><span class="tag">项目推进</span><span class="tag">测试用例设计</span><span class="tag">回归测试</span><span class="tag">跨团队协作</span><span class="tag">问题闭环</span></div>
         </section>
-
         <section class="side-block">
-          <h2>工具与方法</h2>
-          <ul class="compact-list">
-            <li>墨刀：交互原型设计</li>
-            <li>飞书：项目文档与任务管理</li>
-            <li>Easybuilder：HMI 页面配置</li>
-            <li>测试用例与回归测试</li>
-            <li>竞品调研与产品资料策划</li>
-            <li>AI：文案、翻译与任务拆解</li>
-          </ul>
+          <h2>工具与协作</h2>
+          <ul class="compact-list"><li>墨刀</li><li>XMind</li><li>Word / Excel / PPT</li><li>基础 HMI 配置</li><li>需求清单管理</li></ul>
         </section>
-
         <section class="side-block education">
-          <h2>教育背景</h2>
-          <p>广东海洋大学</p>
-          <span>本科</span>
+          <h2>教育</h2>
+          <p>华南农业大学珠江学院</p>
+          <span>本科｜2017 - 2021</span>
         </section>
-
-        <section class="side-block">
-          <h2>补充项目</h2>
-          <ul class="compact-list">
-            <li>园艺小礼品订单：独立完成需求、合同、生产、验收和发货闭环。</li>
-            <li>产品市场支持：产品画册、安装指南、演示视频及展会资料。</li>
-          </ul>
-        </section>
-
-        <p class="note">本页为公开求职版本，未展示公司敏感资料。详细案例见个人网站作品集。</p>
       </aside>
     </div>
-  </main>
-
-  <script>
-    document.querySelector("#printResume").addEventListener("click", () => window.print());
-  </script>
+  </article>
 </body>
 </html>
