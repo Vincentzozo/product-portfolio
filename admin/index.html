@@ -1146,14 +1146,15 @@
       } catch (error) {
         sha = null;
       }
+      const payload = {
+        message,
+        content: toBase64Utf8(content),
+        branch: BRANCH
+      };
+      if (sha) payload.sha = sha;
       return githubRequest(`/repos/${REPO_OWNER}/${REPO_NAME}/contents/${encodePath(path)}`, {
         method: "PUT",
-        body: JSON.stringify({
-          message,
-          content: toBase64Utf8(content),
-          branch: BRANCH,
-          sha
-        })
+        body: JSON.stringify(payload)
       });
     }
 
