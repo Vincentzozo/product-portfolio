@@ -520,7 +520,8 @@
     const REPO_OWNER = "Vincentzozo";
     const REPO_NAME = "product-portfolio";
     const BRANCH = "main";
-    const STORAGE_KEY = "zzj-site-admin-draft-v1";
+    const STORAGE_KEY = "zzj-site-admin-draft-v2";
+    const LEGACY_STORAGE_KEYS = ["zzj-site-admin-draft-v1"];
     const PAGES = [
       { key: "home", label: "首页内容" },
       { key: "portfolio", label: "作品集内容" },
@@ -533,9 +534,9 @@
       { key: "resume", label: "简历预览" }
     ];
 
-    const publishedData = deepClone(window.SITE_DATA);
+    const publishedData = normalizeState(window.SITE_DATA);
     const savedDraft = readDraft();
-    let state = savedDraft || deepClone(window.SITE_DATA);
+    let state = savedDraft || deepClone(publishedData);
     let currentEditor = "home";
     let currentPreview = "home";
     let githubToken = "";
@@ -551,10 +552,112 @@
       return JSON.parse(JSON.stringify(value));
     }
 
+    function normalizeStringArray(value, fallback = []) {
+      if (!Array.isArray(value)) return deepClone(fallback);
+      return value.map((item) => String(item ?? "").trim()).filter(Boolean);
+    }
+
+    function normalizeObjectArray(value, fallback = [], mapper = (item) => item) {
+      if (!Array.isArray(value)) return deepClone(fallback);
+      const mapped = value.map((item) => mapper(item)).filter(Boolean);
+      return mapped.length ? mapped : deepClone(fallback);
+    }
+
+    function normalizeState(input) {
+      const base = deepClone(window.SITE_DATA);
+      const data = input && typeof input === "object" ? deepClone(input) : {};
+      const oldCases = Array.isArray(data.portfolio?.cases) ? data.portfolio.cases : [];
+
+      return {
+        site: {
+          ...base.site,
+          ...(data.site || {}),
+          emails: normalizeStringArray(data.site?.emails, base.site.emails)
+        },
+        home: {
+          ...base.home,
+          ...(data.home || {}),
+          metrics: normalizeObjectArray(data.home?.metrics, base.home.metrics, (item) => ({
+            value: String(item?.value ?? ""),
+            label: String(item?.label ?? ""),
+            note: String(item?.note ?? "")
+          })),
+          highlights: normalizeObjectArray(data.home?.highlights, base.home.highlights, (item) => ({
+            title: String(item?.title ?? ""),
+            summary: String(item?.summary ?? ""),
+            proof: String(item?.proof ?? "")
+          })),
+          strengths: normalizeStringArray(data.home?.strengths, base.home.strengths)
+        },
+        portfolio: {
+          ...base.portfolio,
+          ...(data.portfolio || {}),
+          metrics: normalizeObjectArray(data.portfolio?.metrics, base.portfolio.metrics, (item) => ({
+            value: String(item?.value ?? ""),
+            label: String(item?.label ?? ""),
+            note: String(item?.note ?? "")
+          })),
+          capabilityBlocks: normalizeObjectArray(data.portfolio?.capabilityBlocks, base.portfolio.capabilityBlocks, (item) => ({
+            title: String(item?.title ?? ""),
+            summary: String(item?.summary ?? "")
+          })),
+          works: normalizeObjectArray(data.portfolio?.works || oldCases, base.portfolio.works, (item) => ({
+            title: String(item?.title ?? ""),
+            role: String(item?.role ?? item?.proof ?? ""),
+            context: String(item?.context ?? item?.summary ?? ""),
+            outputs: String(item?.outputs ?? item?.result ?? ""),
+            judgement: String(item?.judgement ?? item?.decision ?? ""),
+            collaboration: String(item?.collaboration ?? item?.process ?? ""),
+            value: String(item?.value ?? item?.proof ?? "")
+          })),
+          artifacts: normalizeObjectArray(data.portfolio?.artifacts, base.portfolio.artifacts, (item) => ({
+            title: String(item?.title ?? ""),
+            items: normalizeStringArray(item?.items, [])
+          })),
+          method: normalizeStringArray(data.portfolio?.method, base.portfolio.method)
+        },
+        resume: {
+          ...base.resume,
+          ...(data.resume || {}),
+          proofs: normalizeObjectArray(data.resume?.proofs, base.resume.proofs, (item) => ({
+            value: String(item?.value ?? ""),
+            label: String(item?.label ?? "")
+          })),
+          experience: normalizeObjectArray(data.resume?.experience, base.resume.experience, (item) => ({
+            company: String(item?.company ?? ""),
+            role: String(item?.role ?? ""),
+            date: String(item?.date ?? ""),
+            bullets: normalizeStringArray(item?.bullets, [])
+          })),
+          projects: normalizeObjectArray(data.resume?.projects, base.resume.projects, (item) => ({
+            title: String(item?.title ?? ""),
+            summary: String(item?.summary ?? ""),
+            date: String(item?.date ?? ""),
+            bullets: normalizeStringArray(item?.bullets, [])
+          })),
+          skills: normalizeStringArray(data.resume?.skills, base.resume.skills),
+          tools: normalizeStringArray(data.resume?.tools, base.resume.tools),
+          education: {
+            ...base.resume.education,
+            ...(data.resume?.education || {})
+          }
+        }
+      };
+    }
+
     function readDraft() {
       try {
-        const raw = localStorage.getItem(STORAGE_KEY);
-        return raw ? JSON.parse(raw) : null;
+        const keys = [STORAGE_KEY, ...LEGACY_STORAGE_KEYS];
+        for (const key of keys) {
+          const raw = localStorage.getItem(key);
+          if (!raw) continue;
+          const normalized = normalizeState(JSON.parse(raw));
+          if (key !== STORAGE_KEY) {
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(normalized));
+          }
+          return normalized;
+        }
+        return null;
       } catch (error) {
         return null;
       }
@@ -1493,6 +1596,7 @@
     document.getElementById("reset-draft").addEventListener("click", () => {
       state = deepClone(publishedData);
       localStorage.removeItem(STORAGE_KEY);
+      LEGACY_STORAGE_KEYS.forEach((key) => localStorage.removeItem(key));
       render();
     });
 
@@ -1500,7 +1604,7 @@
       const file = importFile.files[0];
       if (!file) return;
       try {
-        state = await readImportedFile(file);
+        state = normalizeState(await readImportedFile(file));
         saveDraft();
         render();
       } catch (error) {
