@@ -7,55 +7,58 @@
   <meta name="robots" content="noindex, nofollow">
   <style>
     :root {
-      --bg: #f4f6f8;
-      --panel: #ffffff;
-      --ink: #141820;
-      --muted: #68707d;
-      --line: #dfe4ea;
-      --green: #0b6e63;
-      --blue: #005fcc;
-      --amber: #9a5b00;
-      --red: #b42318;
-      --shadow: 0 18px 48px rgba(20, 24, 32, 0.08);
-      --radius: 8px;
+      --bg: #eef2f6;
+      --paper: #ffffff;
+      --ink: #16202b;
+      --muted: #667383;
+      --line: #d9e1ea;
+      --accent: #0f766e;
+      --accent-strong: #0b5d57;
+      --accent-soft: #e8f6f3;
+      --blue: #155eef;
+      --warn: #9a6700;
+      --danger: #b42318;
+      --shadow: 0 18px 50px rgba(22, 32, 43, 0.08);
+      --radius: 10px;
     }
 
     * { box-sizing: border-box; }
-
+    html, body { height: 100%; }
     body {
       margin: 0;
       color: var(--ink);
       background:
-        linear-gradient(rgba(20, 24, 32, 0.035) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(20, 24, 32, 0.035) 1px, transparent 1px),
+        linear-gradient(rgba(22, 32, 43, 0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(22, 32, 43, 0.04) 1px, transparent 1px),
         var(--bg);
-      background-size: 44px 44px;
+      background-size: 42px 42px;
       font-family: "Segoe UI Variable", "PingFang SC", "Microsoft YaHei", Arial, sans-serif;
-      line-height: 1.6;
+      line-height: 1.5;
     }
 
     a { color: inherit; text-decoration: none; }
+    button, input, textarea, select { font: inherit; }
 
     .shell {
-      width: min(1180px, calc(100% - 40px));
+      width: min(1400px, calc(100% - 32px));
       margin: 0 auto;
     }
 
     .topbar {
       position: sticky;
       top: 0;
-      z-index: 10;
-      border-bottom: 1px solid rgba(223, 228, 234, 0.92);
-      background: rgba(244, 246, 248, 0.9);
-      backdrop-filter: blur(14px);
+      z-index: 40;
+      border-bottom: 1px solid rgba(217, 225, 234, 0.92);
+      background: rgba(238, 242, 246, 0.88);
+      backdrop-filter: blur(16px);
     }
 
-    .nav {
+    .topbar-inner {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      min-height: 68px;
-      gap: 18px;
+      gap: 16px;
+      min-height: 72px;
     }
 
     .brand {
@@ -63,546 +66,1367 @@
       align-items: center;
       gap: 12px;
       min-width: 0;
-      font-weight: 900;
     }
 
     .mark {
       display: grid;
       place-items: center;
-      width: 38px;
-      height: 38px;
-      flex: 0 0 38px;
+      width: 40px;
+      height: 40px;
       color: #fff;
-      background: #141820;
-      border-radius: 7px;
+      background: linear-gradient(135deg, #13212b, #21576f);
+      border-radius: 9px;
       font-size: 13px;
-      letter-spacing: 0;
+      font-weight: 900;
     }
 
-    .nav-actions {
+    .brand-copy b,
+    .brand-copy span {
+      display: block;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .brand-copy span {
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .actions {
       display: flex;
       align-items: center;
+      flex-wrap: wrap;
       gap: 8px;
-      color: var(--muted);
-      font-size: 14px;
+    }
+
+    .btn,
+    .segmented button {
+      min-height: 40px;
+      padding: 9px 14px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fff;
+      color: var(--ink);
+      cursor: pointer;
     }
 
     .btn {
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      min-height: 40px;
-      padding: 9px 13px;
-      border: 1px solid var(--line);
-      border-radius: 7px;
-      background: #fff;
-      color: var(--ink);
-      font: inherit;
-      font-weight: 760;
-      cursor: pointer;
-      box-shadow: 0 8px 20px rgba(20, 24, 32, 0.04);
+      gap: 8px;
+      box-shadow: 0 10px 24px rgba(22, 32, 43, 0.05);
+      font-weight: 800;
     }
 
     .btn.primary {
-      border-color: #141820;
-      background: #141820;
+      border-color: var(--accent-strong);
+      background: var(--accent);
       color: #fff;
     }
 
-    .btn:hover,
-    .btn:focus-visible {
-      border-color: #aeb7c2;
-      outline: none;
-      transform: translateY(-1px);
+    .btn.ghost {
+      background: rgba(255, 255, 255, 0.72);
+    }
+
+    .btn.warn {
+      border-color: #f3dca5;
+      background: #fff8e7;
+      color: #6a4300;
     }
 
     .hero {
-      padding: 46px 0 28px;
+      padding: 22px 0 18px;
     }
 
     .hero-grid {
       display: grid;
-      grid-template-columns: minmax(0, 1.1fr) 360px;
-      gap: 24px;
-      align-items: stretch;
+      grid-template-columns: minmax(0, 1fr) 380px;
+      gap: 16px;
     }
 
-    .intro {
-      padding: 34px;
-      color: #fff;
-      background:
-        radial-gradient(circle at 84% 16%, rgba(0, 95, 204, 0.35), transparent 34%),
-        linear-gradient(135deg, #101318, #242b35);
+    .hero-card,
+    .status-card,
+    .panel,
+    .editor-shell,
+    .preview-shell {
+      border: 1px solid var(--line);
       border-radius: var(--radius);
+      background: var(--paper);
       box-shadow: var(--shadow);
     }
 
-    .eyebrow {
-      margin: 0 0 14px;
-      color: #7de0d3;
-      font-size: 13px;
-      font-weight: 900;
+    .hero-card {
+      padding: 28px;
+      color: #fff;
+      background:
+        radial-gradient(circle at 84% 12%, rgba(21, 94, 239, 0.32), transparent 32%),
+        radial-gradient(circle at 12% 86%, rgba(15, 118, 110, 0.18), transparent 38%),
+        linear-gradient(135deg, #13212b, #24394c);
     }
 
-    h1 {
-      margin: 0;
-      font-size: clamp(34px, 5vw, 58px);
-      line-height: 1.05;
+    .hero-card p:first-child {
+      margin: 0 0 12px;
+      color: #84e0d5;
+      font-size: 13px;
+      font-weight: 900;
       letter-spacing: 0;
     }
 
-    .intro p {
+    h1, h2, h3, p { margin-top: 0; }
+    h1 {
+      margin-bottom: 14px;
+      font-size: clamp(30px, 4vw, 52px);
+      line-height: 1.04;
+      letter-spacing: 0;
+    }
+
+    .hero-card p:last-child {
       max-width: 760px;
-      margin: 18px 0 0;
-      color: rgba(255, 255, 255, 0.72);
+      margin-bottom: 0;
+      color: rgba(255, 255, 255, 0.78);
       font-size: 16px;
     }
 
-    .status {
+    .status-card {
+      padding: 20px;
       display: grid;
       gap: 12px;
-      padding: 22px;
-      background: var(--panel);
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
     }
 
-    .status h2,
-    .section-head h2,
-    .card h3,
-    .panel h3 {
-      margin: 0;
-      letter-spacing: 0;
-    }
-
-    .status-row {
-      display: grid;
-      grid-template-columns: 84px 1fr;
-      gap: 12px;
-      padding-top: 12px;
-      border-top: 1px solid var(--line);
-      font-size: 14px;
-    }
-
-    .status-row b {
-      color: var(--muted);
-      font-size: 12px;
+    .status-card h2,
+    .panel h2 {
+      margin-bottom: 0;
+      font-size: 18px;
     }
 
     .pill {
       display: inline-flex;
       align-items: center;
       width: fit-content;
-      min-height: 26px;
-      padding: 3px 9px;
-      border: 1px solid #b9e3dc;
+      min-height: 28px;
+      padding: 4px 10px;
+      color: var(--accent-strong);
+      border: 1px solid #b6e1da;
       border-radius: 999px;
-      color: var(--green);
-      background: #edf8f6;
+      background: var(--accent-soft);
       font-size: 12px;
       font-weight: 900;
     }
 
-    .section {
-      padding: 26px 0;
+    .status-list {
+      display: grid;
+      gap: 10px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
     }
 
-    .section-head {
-      display: flex;
-      justify-content: space-between;
-      align-items: end;
-      gap: 24px;
-      margin-bottom: 16px;
+    .status-list li {
+      display: grid;
+      grid-template-columns: 88px 1fr;
+      gap: 12px;
+      padding-top: 10px;
+      border-top: 1px solid var(--line);
+      font-size: 14px;
     }
 
-    .section-head p {
-      max-width: 620px;
-      margin: 7px 0 0;
+    .status-list b {
       color: var(--muted);
+      font-size: 12px;
     }
 
-    .grid {
+    .workspace {
       display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
+      grid-template-columns: minmax(0, 1.1fr) minmax(420px, 0.9fr);
       gap: 16px;
+      padding-bottom: 22px;
     }
 
-    .card,
-    .panel {
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      background: var(--panel);
-      box-shadow: 0 12px 32px rgba(20, 24, 32, 0.05);
-    }
-
-    .card {
-      display: grid;
-      grid-template-rows: auto 1fr auto;
-      min-height: 250px;
+    .editor-shell,
+    .preview-shell {
+      min-height: 760px;
       overflow: hidden;
     }
 
-    .card-top {
+    .section-tabs,
+    .preview-tabs {
       display: flex;
-      justify-content: space-between;
-      gap: 12px;
-      padding: 20px 20px 0;
-    }
-
-    .tag {
-      min-width: 54px;
-      height: 30px;
-      display: inline-grid;
-      place-items: center;
-      border: 1px solid var(--line);
-      border-radius: 999px;
-      color: var(--muted);
-      background: #f8fafc;
-      font-size: 12px;
-      font-weight: 900;
-    }
-
-    .card-body {
-      padding: 12px 20px 18px;
-    }
-
-    .card-body p {
-      margin: 9px 0 0;
-      color: var(--muted);
-      font-size: 14px;
-    }
-
-    .fields {
-      display: grid;
       gap: 8px;
-      margin-top: 16px;
-      color: #3e4652;
-      font-size: 13px;
+      padding: 16px 16px 0;
+      overflow-x: auto;
     }
 
-    .fields span {
+    .segmented {
       display: flex;
-      justify-content: space-between;
-      gap: 10px;
-      padding: 8px 0;
-      border-top: 1px solid #edf0f4;
+      gap: 8px;
+      flex-wrap: wrap;
     }
 
-    .fields em {
-      color: var(--muted);
-      font-style: normal;
-    }
-
-    .card-actions {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 1px;
-      border-top: 1px solid var(--line);
-      background: var(--line);
-    }
-
-    .card-actions a {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      min-height: 48px;
-      padding: 10px;
-      background: #fff;
-      color: var(--blue);
-      font-size: 14px;
+    .segmented button.active {
+      border-color: var(--accent);
+      background: var(--accent-soft);
+      color: var(--accent-strong);
       font-weight: 900;
     }
 
-    .card-actions a:first-child {
-      color: #fff;
-      background: var(--blue);
-    }
-
-    .workbench {
+    .editor-body {
+      padding: 16px;
       display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 16px;
+      gap: 14px;
+      align-content: start;
     }
 
     .panel {
-      padding: 22px;
+      padding: 16px;
     }
 
-    .steps {
-      display: grid;
-      gap: 12px;
-      margin: 16px 0 0;
-      padding: 0;
-      list-style: none;
-      counter-reset: step;
+    .panel h3 {
+      margin-bottom: 10px;
+      font-size: 16px;
     }
 
-    .steps li {
-      position: relative;
-      display: grid;
-      grid-template-columns: 34px 1fr;
-      gap: 12px;
-      align-items: start;
-      color: #3e4652;
-      font-size: 14px;
-    }
-
-    .steps li::before {
-      counter-increment: step;
-      content: counter(step);
-      display: grid;
-      place-items: center;
-      width: 30px;
-      height: 30px;
-      color: #fff;
-      background: #141820;
-      border-radius: 7px;
-      font-size: 12px;
-      font-weight: 900;
-    }
-
-    .notice {
-      margin-top: 16px;
-      padding: 14px;
-      border: 1px solid #f1d7a4;
-      border-radius: 7px;
-      color: #5c3900;
-      background: #fff8e7;
-      font-size: 14px;
-    }
-
-    .danger {
-      border-color: #f4b3ad;
-      color: var(--red);
-      background: #fff4f3;
-    }
-
-    .quick-links {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 10px;
-      margin-top: 16px;
-    }
-
-    .quick-links a {
-      min-height: 48px;
-      padding: 12px;
-      border: 1px solid var(--line);
-      border-radius: 7px;
-      background: #fff;
-      color: var(--blue);
-      font-size: 13px;
-      font-weight: 900;
-      text-align: center;
-    }
-
-    footer {
-      padding: 30px 0 44px;
+    .helper {
       color: var(--muted);
       font-size: 13px;
     }
 
-    @media (max-width: 920px) {
-      .hero-grid,
-      .workbench {
-        grid-template-columns: 1fr;
-      }
+    .field-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+    }
 
-      .grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
+    .field-grid.three {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .field,
+    .array-item {
+      display: grid;
+      gap: 6px;
+    }
+
+    .field label,
+    .array-head strong {
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    .field input,
+    .field textarea,
+    .field select,
+    .token-row input {
+      width: 100%;
+      padding: 10px 12px;
+      color: var(--ink);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fff;
+    }
+
+    .field textarea {
+      min-height: 108px;
+      resize: vertical;
+    }
+
+    .field input:focus,
+    .field textarea:focus,
+    .field select:focus,
+    .token-row input:focus {
+      border-color: var(--accent);
+      outline: 3px solid rgba(15, 118, 110, 0.14);
+      outline-offset: 1px;
+    }
+
+    .field small {
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .array-list {
+      display: grid;
+      gap: 12px;
+    }
+
+    .array-item {
+      padding: 14px;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: #f9fbfc;
+    }
+
+    .array-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 10px;
+    }
+
+    .danger-text { color: var(--danger); }
+
+    .preview-shell {
+      display: grid;
+      grid-template-rows: auto auto 1fr;
+    }
+
+    .preview-meta {
+      padding: 8px 16px 0;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .preview-frame {
+      width: calc(100% - 20px);
+      height: calc(100% - 20px);
+      margin: 10px;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: #fff;
+    }
+
+    .publish-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+
+    .token-row {
+      display: grid;
+      gap: 10px;
+    }
+
+    .notice {
+      padding: 12px 14px;
+      border: 1px solid #f1d9a2;
+      border-radius: 8px;
+      background: #fff8e6;
+      color: #684100;
+      font-size: 13px;
+    }
+
+    .notice.danger {
+      border-color: #f4b6b1;
+      background: #fff4f3;
+      color: #8b1e1e;
+    }
+
+    .log {
+      min-height: 120px;
+      padding: 12px 14px;
+      color: #d7e2ee;
+      border-radius: 8px;
+      background: #16202b;
+      font-size: 13px;
+      white-space: pre-wrap;
+    }
+
+    .footer-space { height: 6px; }
+
+    @media (max-width: 1100px) {
+      .hero-grid,
+      .workspace,
+      .publish-grid {
+        grid-template-columns: 1fr;
       }
     }
 
-    @media (max-width: 640px) {
-      .shell {
-        width: min(100% - 28px, 1180px);
+    @media (max-width: 760px) {
+      .shell { width: min(100% - 20px, 1400px); }
+      .topbar-inner,
+      .field-grid,
+      .field-grid.three {
+        grid-template-columns: 1fr;
+        display: grid;
       }
-
-      .nav,
-      .section-head {
-        align-items: flex-start;
-        flex-direction: column;
+      .topbar-inner {
+        align-items: start;
+        padding: 12px 0;
       }
-
-      .nav-actions,
-      .quick-links {
+      .actions {
         width: 100%;
-        overflow-x: auto;
       }
-
-      .hero {
-        padding-top: 28px;
+      .btn { width: 100%; }
+      .editor-shell,
+      .preview-shell {
+        min-height: auto;
       }
-
-      .intro {
-        padding: 24px;
-      }
-
-      .grid,
-      .quick-links {
-        grid-template-columns: 1fr;
-      }
-
-      .card-actions {
-        grid-template-columns: 1fr;
+      .preview-frame {
+        min-height: 700px;
       }
     }
   </style>
 </head>
 <body>
   <header class="topbar">
-    <nav class="shell nav" aria-label="后台导航">
-      <a class="brand" href="../index.html">
-        <span class="mark">ZZJ</span>
-        <span>郑柱坚个人网站后台</span>
-      </a>
-      <div class="nav-actions">
-        <a class="btn" href="../index.html">查看网站</a>
-        <a class="btn primary" href="https://github.com/Vincentzozo/product-portfolio" target="_blank" rel="noreferrer">打开仓库</a>
+    <div class="shell topbar-inner">
+      <div class="brand">
+        <div class="mark">ZZJ</div>
+        <div class="brand-copy">
+          <b>郑柱坚个人网站后台</b>
+          <span>表单化编辑、实时预览、直接发布</span>
+        </div>
       </div>
-    </nav>
+      <div class="actions">
+        <a class="btn ghost" href="../index.html" target="_blank" rel="noreferrer">查看线上网站</a>
+        <button class="btn ghost" id="export-json" type="button">导出内容备份</button>
+        <button class="btn ghost" id="import-trigger" type="button">导入内容备份</button>
+        <button class="btn warn" id="reset-draft" type="button">恢复已发布内容</button>
+        <input id="import-file" type="file" accept=".json" hidden>
+      </div>
+    </div>
   </header>
 
-  <main>
+  <main class="shell">
     <section class="hero">
-      <div class="shell hero-grid">
-        <div class="intro">
-          <p class="eyebrow">CONTENT ADMIN</p>
-          <h1>集中管理首页、作品集和打印简历。</h1>
-          <p>这里是网站维护入口。登录有权限的 GitHub 账号后，可以直接编辑对应页面并发布到线上；没有仓库权限的人只能查看，不能保存。</p>
-        </div>
-        <aside class="status" aria-label="网站状态">
-          <h2>站点状态</h2>
-          <span class="pill">GitHub Pages 在线</span>
-          <div class="status-row">
-            <b>公开网站</b>
-            <a href="https://vincentzozo.github.io/product-portfolio/" target="_blank" rel="noreferrer">vincentzozo.github.io/product-portfolio</a>
-          </div>
-          <div class="status-row">
-            <b>编辑权限</b>
-            <span>GitHub 仓库协作者</span>
-          </div>
-          <div class="status-row">
-            <b>发布方式</b>
-            <span>提交修改后自动发布，通常等待 1-3 分钟</span>
-          </div>
+      <div class="hero-grid">
+        <article class="hero-card">
+          <p>VISUAL CONTENT ADMIN</p>
+          <h1>给小白用的内容后台，不再直接改 HTML。</h1>
+          <p>左边按表单改内容，右边看页面实时预览。确认无误后，在发布页填入 GitHub token，就能直接更新 `index.html`、`portfolio.html`、`resume.html` 和内容配置文件。</p>
+        </article>
+        <aside class="status-card">
+          <h2>当前状态</h2>
+          <span class="pill">本地草稿实时保存</span>
+          <ul class="status-list">
+            <li><b>编辑方式</b><span>表单化内容编辑</span></li>
+            <li><b>预览方式</b><span>后台右侧 iframe 实时预览</span></li>
+            <li><b>发布目标</b><span>GitHub Pages / `main` 分支</span></li>
+            <li><b>安全原则</b><span>Token 不写入仓库，不存浏览器</span></li>
+          </ul>
         </aside>
       </div>
     </section>
 
-    <section class="section">
-      <div class="shell">
-        <div class="section-head">
-          <div>
-            <h2>内容编辑</h2>
-            <p>按页面选择入口。建议每次只改一个页面，提交说明写清楚本次改动，方便以后回滚和协作。</p>
+    <section class="workspace">
+      <section class="editor-shell">
+        <div class="section-tabs segmented" id="editor-tabs"></div>
+        <div class="editor-body" id="editor-body"></div>
+      </section>
+
+      <section class="preview-shell">
+        <div class="preview-tabs segmented" id="preview-tabs"></div>
+        <div class="preview-meta" id="preview-meta">预览会随着左侧输入自动更新。</div>
+        <iframe class="preview-frame" id="preview-frame" title="页面预览"></iframe>
+      </section>
+    </section>
+    <div class="footer-space"></div>
+  </main>
+
+  <script src="site-data.js"></script>
+  <script>
+    const REPO_OWNER = "Vincentzozo";
+    const REPO_NAME = "product-portfolio";
+    const BRANCH = "main";
+    const STORAGE_KEY = "zzj-site-admin-draft-v1";
+    const PAGES = [
+      { key: "home", label: "首页内容" },
+      { key: "portfolio", label: "作品集内容" },
+      { key: "resume", label: "打印简历内容" },
+      { key: "publish", label: "发布" }
+    ];
+    const PREVIEWS = [
+      { key: "home", label: "首页预览" },
+      { key: "portfolio", label: "作品集预览" },
+      { key: "resume", label: "简历预览" }
+    ];
+
+    const publishedData = deepClone(window.SITE_DATA);
+    const savedDraft = readDraft();
+    let state = savedDraft || deepClone(window.SITE_DATA);
+    let currentEditor = "home";
+    let currentPreview = "home";
+    let githubToken = "";
+
+    const editorTabs = document.getElementById("editor-tabs");
+    const previewTabs = document.getElementById("preview-tabs");
+    const editorBody = document.getElementById("editor-body");
+    const previewFrame = document.getElementById("preview-frame");
+    const previewMeta = document.getElementById("preview-meta");
+    const importFile = document.getElementById("import-file");
+
+    function deepClone(value) {
+      return JSON.parse(JSON.stringify(value));
+    }
+
+    function readDraft() {
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        return raw ? JSON.parse(raw) : null;
+      } catch (error) {
+        return null;
+      }
+    }
+
+    function saveDraft() {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+    }
+
+    function escapeHtml(value) {
+      return String(value ?? "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#39;");
+    }
+
+    function joinLines(list) {
+      return Array.isArray(list) ? list.join("\n") : "";
+    }
+
+    function splitLines(value) {
+      return String(value || "")
+        .split(/\r?\n/)
+        .map((item) => item.trim())
+        .filter(Boolean);
+    }
+
+    function updateAtPath(path, value) {
+      const parts = path.split(".");
+      let target = state;
+      for (let i = 0; i < parts.length - 1; i += 1) {
+        target = target[parts[i]];
+      }
+      target[parts[parts.length - 1]] = value;
+      saveDraft();
+      renderPreview();
+    }
+
+    function renderTabs() {
+      editorTabs.innerHTML = PAGES.map((item) => `
+        <button type="button" class="${item.key === currentEditor ? "active" : ""}" data-editor-tab="${item.key}">${item.label}</button>
+      `).join("");
+      previewTabs.innerHTML = PREVIEWS.map((item) => `
+        <button type="button" class="${item.key === currentPreview ? "active" : ""}" data-preview-tab="${item.key}">${item.label}</button>
+      `).join("");
+    }
+
+    function renderField(label, path, value, type = "text", hint = "") {
+      const safeValue = escapeHtml(value);
+      const input = type === "textarea"
+        ? `<textarea data-path="${path}">${safeValue}</textarea>`
+        : `<input type="${type}" data-path="${path}" value="${safeValue}">`;
+      return `
+        <div class="field">
+          <label>${label}</label>
+          ${input}
+          ${hint ? `<small>${hint}</small>` : ""}
+        </div>
+      `;
+    }
+
+    function renderMetricsEditor(path, items) {
+      return `
+        <div class="panel">
+          <h3>数据卡片</h3>
+          <div class="array-list">
+            ${items.map((item, index) => `
+              <div class="array-item">
+                <div class="array-head">
+                  <strong>卡片 ${index + 1}</strong>
+                  <button class="btn ghost danger-text" type="button" data-remove="${path}" data-index="${index}">删除</button>
+                </div>
+                <div class="field-grid three">
+                  ${renderField("数字", `${path}.${index}.value`, item.value)}
+                  ${renderField("标题", `${path}.${index}.label`, item.label)}
+                  ${renderField("说明", `${path}.${index}.note`, item.note || "")}
+                </div>
+              </div>
+            `).join("")}
           </div>
-          <a class="btn" href="https://github.com/Vincentzozo/product-portfolio/commits/main" target="_blank" rel="noreferrer">查看修改记录</a>
+          <div style="margin-top:12px">
+            <button class="btn" type="button" data-add="${path}" data-kind="metric">新增数据卡片</button>
+          </div>
         </div>
+      `;
+    }
 
-        <div class="grid">
-          <article class="card">
-            <div class="card-top">
-              <h3>首页</h3>
-              <span class="tag">index</span>
+    function renderHighlightsEditor(path, items) {
+      return `
+        <div class="panel">
+          <h3>首页亮点案例</h3>
+          <div class="array-list">
+            ${items.map((item, index) => `
+              <div class="array-item">
+                <div class="array-head">
+                  <strong>亮点 ${index + 1}</strong>
+                  <button class="btn ghost danger-text" type="button" data-remove="${path}" data-index="${index}">删除</button>
+                </div>
+                <div class="field-grid">
+                  ${renderField("标题", `${path}.${index}.title`, item.title)}
+                  ${renderField("证明语", `${path}.${index}.proof`, item.proof)}
+                </div>
+                ${renderField("摘要", `${path}.${index}.summary`, item.summary, "textarea")}
+              </div>
+            `).join("")}
+          </div>
+          <div style="margin-top:12px">
+            <button class="btn" type="button" data-add="${path}" data-kind="highlight">新增亮点</button>
+          </div>
+        </div>
+      `;
+    }
+
+    function renderPortfolioCases(path, items) {
+      return `
+        <div class="panel">
+          <h3>作品集案例</h3>
+          <div class="array-list">
+            ${items.map((item, index) => `
+              <div class="array-item">
+                <div class="array-head">
+                  <strong>案例 ${index + 1}</strong>
+                  <button class="btn ghost danger-text" type="button" data-remove="${path}" data-index="${index}">删除</button>
+                </div>
+                <div class="field-grid three">
+                  ${renderField("角标", `${path}.${index}.badge`, item.badge)}
+                  ${renderField("主数字", `${path}.${index}.metric`, item.metric)}
+                  ${renderField("时间", `${path}.${index}.duration`, item.duration)}
+                </div>
+                ${renderField("案例标题", `${path}.${index}.title`, item.title)}
+                ${renderField("摘要", `${path}.${index}.summary`, item.summary, "textarea")}
+                <div class="field-grid">
+                  ${renderField("问题", `${path}.${index}.problem`, item.problem, "textarea")}
+                  ${renderField("动作", `${path}.${index}.action`, item.action, "textarea")}
+                </div>
+                ${renderField("结果", `${path}.${index}.result`, item.result, "textarea")}
+              </div>
+            `).join("")}
+          </div>
+          <div style="margin-top:12px">
+            <button class="btn" type="button" data-add="${path}" data-kind="portfolio-case">新增案例</button>
+          </div>
+        </div>
+      `;
+    }
+
+    function renderExperienceEditor(path, items, title) {
+      const isProject = path.includes("projects");
+      return `
+        <div class="panel">
+          <h3>${title}</h3>
+          <div class="array-list">
+            ${items.map((item, index) => `
+              <div class="array-item">
+                <div class="array-head">
+                  <strong>${title} ${index + 1}</strong>
+                  <button class="btn ghost danger-text" type="button" data-remove="${path}" data-index="${index}">删除</button>
+                </div>
+                <div class="field-grid three">
+                  ${isProject
+                    ? renderField("项目标题", `${path}.${index}.title`, item.title)
+                    : renderField("公司 / 经历主体", `${path}.${index}.company`, item.company)}
+                  ${renderField(isProject ? "项目摘要" : "岗位", `${path}.${index}.${isProject ? "summary" : "role"}`, isProject ? item.summary : item.role)}
+                  ${renderField("时间", `${path}.${index}.date`, item.date)}
+                </div>
+                ${renderField("要点", `${path}.${index}.bullets`, joinLines(item.bullets), "textarea", "一行一个要点")}
+              </div>
+            `).join("")}
+          </div>
+          <div style="margin-top:12px">
+            <button class="btn" type="button" data-add="${path}" data-kind="${isProject ? "project" : "experience"}">新增${title}</button>
+          </div>
+        </div>
+      `;
+    }
+
+    function renderEditor() {
+      if (currentEditor === "home") {
+        editorBody.innerHTML = `
+          <div class="panel">
+            <h2>基础信息</h2>
+            <p class="helper">这部分会同步影响首页、作品集和简历页顶部信息。</p>
+            <div class="field-grid">
+              ${renderField("网站名称", "site.siteName", state.site.siteName)}
+              ${renderField("姓名", "site.personName", state.site.personName)}
+              ${renderField("岗位定位", "site.role", state.site.role)}
+              ${renderField("联系标题", "site.contactTitle", state.site.contactTitle)}
             </div>
-            <div class="card-body">
-              <p>管理首屏定位、履历摘要、项目案例、技能模块和邮箱联系方式。</p>
-              <div class="fields">
-                <span><strong>适合修改</strong><em>招聘展示重点</em></span>
-                <span><strong>更新频率</strong><em>中</em></span>
-                <span><strong>影响范围</strong><em>网站首页</em></span>
+            ${renderField("个人一句话定位", "site.tagline", state.site.tagline, "textarea")}
+            <div class="field-grid">
+              ${renderField("邮箱 1", "site.emails.0", state.site.emails[0] || "")}
+              ${renderField("邮箱 2", "site.emails.1", state.site.emails[1] || "")}
+            </div>
+          </div>
+          <div class="panel">
+            <h2>首页首屏</h2>
+            <div class="field-grid">
+              ${renderField("上方英文标签", "home.eyebrow", state.home.eyebrow)}
+              ${renderField("状态卡标题", "home.heroStatusTitle", state.home.heroStatusTitle)}
+            </div>
+            ${renderField("首页主标题", "home.title", state.home.title, "textarea")}
+            ${renderField("首页介绍", "home.lead", state.home.lead, "textarea")}
+            ${renderField("状态卡说明", "home.heroStatusText", state.home.heroStatusText, "textarea")}
+          </div>
+          ${renderMetricsEditor("home.metrics", state.home.metrics)}
+          ${renderHighlightsEditor("home.highlights", state.home.highlights)}
+          <div class="panel">
+            <h2>个人优势</h2>
+            ${renderField("优势列表", "home.strengths", joinLines(state.home.strengths), "textarea", "一行一个优势")}
+          </div>
+        `;
+      }
+
+      if (currentEditor === "portfolio") {
+        editorBody.innerHTML = `
+          <div class="panel">
+            <h2>作品集头图</h2>
+            <div class="field-grid">
+              ${renderField("英文标签", "portfolio.eyebrow", state.portfolio.eyebrow)}
+              ${renderField("标题", "portfolio.title", state.portfolio.title)}
+            </div>
+            ${renderField("作品集导语", "portfolio.lead", state.portfolio.lead, "textarea")}
+          </div>
+          ${renderMetricsEditor("portfolio.metrics", state.portfolio.metrics)}
+          ${renderPortfolioCases("portfolio.cases", state.portfolio.cases)}
+          <div class="panel">
+            <h2>方法步骤</h2>
+            ${renderField("步骤列表", "portfolio.method", joinLines(state.portfolio.method), "textarea", "一行一个步骤")}
+          </div>
+        `;
+      }
+
+      if (currentEditor === "resume") {
+        editorBody.innerHTML = `
+          <div class="panel">
+            <h2>简历摘要</h2>
+            ${renderField("摘要", "resume.summary", state.resume.summary, "textarea")}
+          </div>
+          ${renderMetricsEditor("resume.proofs", state.resume.proofs)}
+          ${renderExperienceEditor("resume.experience", state.resume.experience, "经历")}
+          ${renderExperienceEditor("resume.projects", state.resume.projects, "项目")}
+          <div class="panel">
+            <h2>技能与工具</h2>
+            <div class="field-grid">
+              ${renderField("技能标签", "resume.skills", joinLines(state.resume.skills), "textarea", "一行一个技能")}
+              ${renderField("工具标签", "resume.tools", joinLines(state.resume.tools), "textarea", "一行一个工具")}
+            </div>
+          </div>
+          <div class="panel">
+            <h2>教育信息</h2>
+            <div class="field-grid three">
+              ${renderField("学校", "resume.education.school", state.resume.education.school)}
+              ${renderField("学历", "resume.education.degree", state.resume.education.degree)}
+              ${renderField("时间", "resume.education.date", state.resume.education.date)}
+            </div>
+          </div>
+        `;
+      }
+
+      if (currentEditor === "publish") {
+        editorBody.innerHTML = `
+          <div class="publish-grid">
+            <div class="panel">
+              <h2>发布到 GitHub Pages</h2>
+              <p class="helper">这里只提交内容文件，不会把 token 写进仓库。发布时会更新 `admin/site-data.js`、`index.html`、`portfolio.html`、`resume.html`。</p>
+              <div class="token-row">
+                <input id="github-token" type="password" placeholder="粘贴 GitHub token，仅当前会话使用">
+                <input id="commit-message" type="text" placeholder="提交说明，例如：更新首页和简历内容" value="更新网站内容">
+              </div>
+              <div class="actions" style="margin-top:12px">
+                <button class="btn ghost" id="verify-token" type="button">验证 GitHub 连接</button>
+                <button class="btn primary" id="publish-all" type="button">发布全部页面</button>
+              </div>
+              <div class="notice" style="margin-top:12px">
+                适合小白的流程：先在左侧改内容，看右侧预览，满意后再来这里发布。
+              </div>
+              <div class="notice danger" style="margin-top:12px">
+                你的 token 之前已经暴露过，建议在 GitHub 设置里撤销旧 token，再使用新的 token。
               </div>
             </div>
-            <div class="card-actions">
-              <a href="https://github.com/Vincentzozo/product-portfolio/edit/main/index.html" target="_blank" rel="noreferrer">编辑首页</a>
-              <a href="../index.html" target="_blank" rel="noreferrer">预览</a>
+            <div class="panel">
+              <h2>发布日志</h2>
+              <div class="log" id="publish-log">等待操作...</div>
             </div>
-          </article>
+          </div>
+          <div class="panel">
+            <h2>输出文件</h2>
+            <p class="helper">后台发布时会自动生成三个页面。你也可以先导出内容 JSON 做备份，再继续编辑。</p>
+            <div class="actions">
+              <button class="btn ghost" type="button" data-open-preview="home">查看首页预览</button>
+              <button class="btn ghost" type="button" data-open-preview="portfolio">查看作品集预览</button>
+              <button class="btn ghost" type="button" data-open-preview="resume">查看简历预览</button>
+            </div>
+          </div>
+        `;
+      }
+    }
 
-          <article class="card">
-            <div class="card-top">
-              <h3>作品集</h3>
-              <span class="tag">portfolio</span>
-            </div>
-            <div class="card-body">
-              <p>管理项目案例、过程方法、成果表达和面试可展开讲述的作品内容。</p>
-              <div class="fields">
-                <span><strong>适合修改</strong><em>案例细节</em></span>
-                <span><strong>更新频率</strong><em>高</em></span>
-                <span><strong>影响范围</strong><em>作品集页面</em></span>
-              </div>
-            </div>
-            <div class="card-actions">
-              <a href="https://github.com/Vincentzozo/product-portfolio/edit/main/portfolio.html" target="_blank" rel="noreferrer">编辑作品集</a>
-              <a href="../portfolio.html" target="_blank" rel="noreferrer">预览</a>
-            </div>
-          </article>
+    function renderPreview() {
+      const pages = {
+        home: generateHomeHtml(state),
+        portfolio: generatePortfolioHtml(state),
+        resume: generateResumeHtml(state)
+      };
+      previewFrame.srcdoc = pages[currentPreview];
+      previewMeta.textContent = currentPreview === "home"
+        ? "首页预览：适合先确认首屏、数据卡片和亮点案例。"
+        : currentPreview === "portfolio"
+          ? "作品集预览：适合检查案例表达、文案长短和版式平衡。"
+          : "简历预览：适合检查 1-2 页打印版的压缩与阅读密度。";
+      window.__generatedPages = pages;
+    }
 
-          <article class="card">
-            <div class="card-top">
-              <h3>打印简历</h3>
-              <span class="tag">resume</span>
-            </div>
-            <div class="card-body">
-              <p>管理 1-2 页紧凑简历，用于投递、PDF 打印和面试前快速发送。</p>
-              <div class="fields">
-                <span><strong>适合修改</strong><em>履历浓缩</em></span>
-                <span><strong>更新频率</strong><em>中</em></span>
-                <span><strong>影响范围</strong><em>打印版简历</em></span>
-              </div>
-            </div>
-            <div class="card-actions">
-              <a href="https://github.com/Vincentzozo/product-portfolio/edit/main/resume.html" target="_blank" rel="noreferrer">编辑简历</a>
-              <a href="../resume.html" target="_blank" rel="noreferrer">预览</a>
-            </div>
-          </article>
+    function render() {
+      renderTabs();
+      renderEditor();
+      renderPreview();
+    }
+
+    function removeArrayItem(path, index) {
+      const parts = path.split(".");
+      let target = state;
+      for (const part of parts) target = target[part];
+      target.splice(index, 1);
+      saveDraft();
+      render();
+    }
+
+    function addArrayItem(path, kind) {
+      const parts = path.split(".");
+      let target = state;
+      for (const part of parts) target = target[part];
+      const factory = {
+        metric: () => ({ value: "新数据", label: "新标题", note: "补充说明" }),
+        highlight: () => ({ title: "新亮点", summary: "补充这个亮点的工作内容。", proof: "补一条证明语" }),
+        "portfolio-case": () => ({
+          badge: "CASE",
+          metric: "新值",
+          duration: "时间",
+          title: "新案例标题",
+          summary: "写清楚这个案例做了什么。",
+          problem: "问题背景",
+          action: "采取的动作",
+          result: "最后结果"
+        }),
+        experience: () => ({
+          company: "新公司或经历",
+          role: "岗位名称",
+          date: "时间",
+          bullets: ["补充一条经历要点"]
+        }),
+        project: () => ({
+          title: "新项目",
+          summary: "项目摘要",
+          date: "时间",
+          bullets: ["补充一条项目要点"]
+        })
+      };
+      target.push(factory[kind]());
+      saveDraft();
+      render();
+    }
+
+    function downloadJson() {
+      const blob = new Blob([JSON.stringify(state, null, 2)], { type: "application/json;charset=utf-8" });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = "zzj-site-content.json";
+      link.click();
+      URL.revokeObjectURL(url);
+    }
+
+    function readImportedFile(file) {
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = () => {
+          try {
+            resolve(JSON.parse(reader.result));
+          } catch (error) {
+            reject(error);
+          }
+        };
+        reader.onerror = reject;
+        reader.readAsText(file, "utf-8");
+      });
+    }
+
+    function setLog(message) {
+      const log = document.getElementById("publish-log");
+      if (log) log.textContent = message;
+    }
+
+    function toBase64Utf8(text) {
+      const bytes = new TextEncoder().encode(text);
+      let binary = "";
+      for (const byte of bytes) binary += String.fromCharCode(byte);
+      return btoa(binary);
+    }
+
+    function encodePath(path) {
+      return path.split("/").map((part) => encodeURIComponent(part)).join("/");
+    }
+
+    async function githubRequest(path, options = {}) {
+      const response = await fetch(`https://api.github.com${path}`, {
+        ...options,
+        headers: {
+          Accept: "application/vnd.github+json",
+          Authorization: `Bearer ${githubToken}`,
+          ...(options.headers || {})
+        }
+      });
+      if (!response.ok) {
+        const text = await response.text();
+        throw new Error(`${response.status} ${response.statusText}\n${text}`);
+      }
+      return response.status === 204 ? null : response.json();
+    }
+
+    async function getFileSha(path) {
+      const result = await githubRequest(`/repos/${REPO_OWNER}/${REPO_NAME}/contents/${encodePath(path)}?ref=${BRANCH}`);
+      return result.sha;
+    }
+
+    async function updateFile(path, content, message) {
+      let sha = null;
+      try {
+        sha = await getFileSha(path);
+      } catch (error) {
+        sha = null;
+      }
+      return githubRequest(`/repos/${REPO_OWNER}/${REPO_NAME}/contents/${encodePath(path)}`, {
+        method: "PUT",
+        body: JSON.stringify({
+          message,
+          content: toBase64Utf8(content),
+          branch: BRANCH,
+          sha
+        })
+      });
+    }
+
+    function serializeDataScript(data) {
+      return `window.SITE_DATA = ${JSON.stringify(data, null, 2)};\n`;
+    }
+
+    async function verifyToken() {
+      githubToken = document.getElementById("github-token").value.trim();
+      if (!githubToken) {
+        setLog("请先输入 GitHub token。");
+        return;
+      }
+      setLog("正在验证 GitHub 连接...");
+      const user = await githubRequest("/user");
+      setLog(`连接成功。\n当前账号：${user.login}\n仓库：${REPO_OWNER}/${REPO_NAME}`);
+    }
+
+    async function publishAll() {
+      githubToken = document.getElementById("github-token").value.trim();
+      const commitMessage = document.getElementById("commit-message").value.trim() || "更新网站内容";
+      if (!githubToken) {
+        setLog("请先输入 GitHub token。");
+        return;
+      }
+
+      const files = [
+        { path: "admin/site-data.js", content: serializeDataScript(state) },
+        { path: "index.html", content: generateHomeHtml(state) },
+        { path: "portfolio.html", content: generatePortfolioHtml(state) },
+        { path: "resume.html", content: generateResumeHtml(state) }
+      ];
+
+      setLog("开始发布...\n");
+      for (const file of files) {
+        setLog(`${document.getElementById("publish-log").textContent}更新 ${file.path}...\n`);
+        await updateFile(file.path, file.content, commitMessage);
+      }
+      setLog(`${document.getElementById("publish-log").textContent}\n发布完成。\nGitHub Pages 通常会在 1-3 分钟内更新。`);
+    }
+
+    function block(title, content) {
+      return `<section style="padding:72px 0"><div style="width:min(1120px,calc(100% - 40px));margin:0 auto">${title ? `<div style="display:grid;grid-template-columns:.65fr 1.35fr;gap:28px;margin-bottom:28px"><h2 style="margin:0;font-size:34px">${escapeHtml(title)}</h2><p style="margin:0;color:#5d6572">${escapeHtml(content || "")}</p></div>` : content}</div></section>`;
+    }
+
+    function generateHomeHtml(data) {
+      const metricCards = data.home.metrics.map((item) => `
+        <article style="padding:18px;border:1px solid #dfe4ea;border-radius:8px;background:#fff">
+          <strong style="display:block;font-size:34px;line-height:1">${escapeHtml(item.value)}</strong>
+          <span style="display:block;margin-top:8px;font-weight:800">${escapeHtml(item.label)}</span>
+          <small style="display:block;margin-top:6px;color:#5d6572">${escapeHtml(item.note || "")}</small>
+        </article>
+      `).join("");
+
+      const highlightCards = data.home.highlights.map((item) => `
+        <article style="padding:22px;border:1px solid #dfe4ea;border-radius:8px;background:#fff;box-shadow:0 12px 30px rgba(16,19,24,.05)">
+          <strong style="display:block;margin-bottom:10px;font-size:20px">${escapeHtml(item.title)}</strong>
+          <p style="margin:0 0 14px;color:#4f5865">${escapeHtml(item.summary)}</p>
+          <span style="display:inline-flex;padding:6px 10px;border-radius:999px;background:#edf8f6;color:#0b6e63;font-size:12px;font-weight:900">${escapeHtml(item.proof)}</span>
+        </article>
+      `).join("");
+
+      const strengths = data.home.strengths.map((item) => `
+        <li style="padding:12px 0;border-top:1px solid #dfe4ea">${escapeHtml(item)}</li>
+      `).join("");
+
+      const emails = data.site.emails.filter(Boolean).map((email) => `
+        <a href="mailto:${escapeHtml(email)}" style="display:block;padding:10px 12px;border:1px solid rgba(255,255,255,.2);border-radius:8px">${escapeHtml(email)}</a>
+      `).join("");
+
+      return `<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>${escapeHtml(data.site.siteName)}</title>
+  <meta name="description" content="${escapeHtml(data.site.tagline)}">
+  <style>
+    :root{--bg:#f5f7fa;--paper:#fff;--ink:#101318;--muted:#5d6572;--line:#dfe4ea;--accent:#0b6e63;--shadow:0 18px 50px rgba(16,19,24,.08);--radius:8px}
+    *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;color:var(--ink);background:linear-gradient(rgba(16,19,24,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(16,19,24,.025) 1px,transparent 1px),var(--bg);background-size:48px 48px;font-family:"Segoe UI Variable","PingFang SC","Microsoft YaHei",Arial,sans-serif;line-height:1.6}
+    a{text-decoration:none;color:inherit}.shell{width:min(1120px,calc(100% - 40px));margin:0 auto}.topbar{position:sticky;top:0;z-index:20;border-bottom:1px solid rgba(223,228,234,.9);background:rgba(245,247,250,.88);backdrop-filter:blur(14px)}.nav{display:flex;align-items:center;justify-content:space-between;gap:18px;min-height:68px}.brand{display:flex;align-items:center;gap:12px;font-weight:900}.mark{display:grid;place-items:center;width:38px;height:38px;color:#fff;background:linear-gradient(135deg,var(--ink),#303844);border-radius:8px;font-size:14px}.navlinks{display:flex;gap:6px;color:var(--muted);font-size:14px}.navlinks a{padding:8px 12px;border-radius:8px}.navlinks a:hover{background:rgba(255,255,255,.75);color:var(--ink)}
+    .hero{min-height:calc(100svh - 68px);display:grid;align-items:center;padding:54px 0 64px}.hero-grid{display:grid;grid-template-columns:minmax(0,1.06fr) minmax(360px,.84fr);gap:54px;align-items:center}.eyebrow{display:inline-flex;align-items:center;gap:8px;margin:0 0 18px;color:var(--accent);font-size:14px;font-weight:800}.eyebrow:before{content:"";width:32px;height:2px;background:currentColor}h1,h2,h3,p{margin-top:0}h1{margin-bottom:18px;font-size:clamp(44px,6.4vw,76px);line-height:1.02;letter-spacing:0}.lead{max-width:700px;color:#4f5865;font-size:19px}.actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px}.btn{display:inline-flex;align-items:center;justify-content:center;padding:10px 16px;border-radius:8px;font-weight:800}.btn.primary{color:#fff;background:var(--ink);box-shadow:0 10px 24px rgba(35,33,31,.18)}.btn.secondary{color:var(--ink);background:rgba(255,255,255,.86);border:1px solid var(--line)}
+    .portrait-wrap{position:relative;min-height:460px}.portrait{position:absolute;inset:0;overflow:hidden;border-radius:8px;background:linear-gradient(145deg,rgba(16,19,24,.12),rgba(0,104,217,.18)),url("https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1200&q=85") center/cover;box-shadow:var(--shadow)}.portrait:before{content:"PRODUCT / PROJECT";position:absolute;top:22px;right:22px;z-index:2;padding:7px 9px;color:#fff;border:1px solid rgba(255,255,255,.42);background:rgba(10,14,20,.48);font-size:10px;font-weight:900}.portrait:after{content:"";position:absolute;inset:auto 0 0;height:48%;background:linear-gradient(to top,rgba(10,14,20,.72),transparent)}.status{position:absolute;left:24px;right:24px;bottom:24px;z-index:1;padding:18px;color:#fff;border:1px solid rgba(255,255,255,.24);border-radius:8px;background:rgba(10,14,20,.68);backdrop-filter:blur(12px)}.status strong{display:block;margin-bottom:4px;font-size:18px}.status span{color:rgba(255,255,255,.78)}
+    .metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}.highlights{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}.strength-grid{display:grid;grid-template-columns:.8fr 1.2fr;gap:28px;align-items:start}.contact{padding:60px 0;color:#fff;background:#11151b}.contact-grid{display:flex;justify-content:space-between;align-items:flex-start;gap:30px}.contact h2{margin:0 0 8px;font-size:36px}.contact p{margin:0;color:rgba(255,255,255,.65)}.contact-links{display:grid;gap:8px;min-width:290px}
+    @media(max-width:900px){.hero-grid,.strength-grid,.highlights,.metrics{grid-template-columns:1fr 1fr}.hero-grid{grid-template-columns:1fr}.contact-grid{flex-direction:column}.portrait-wrap{min-height:380px}}@media(max-width:620px){.shell{width:min(100% - 28px,1120px)}.nav{align-items:flex-start;flex-direction:column;padding:12px 0}.navlinks{width:100%;overflow-x:auto}.hero{padding-top:42px}.metrics,.highlights,.strength-grid{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <nav class="shell nav" aria-label="主导航">
+      <a class="brand" href="index.html"><span class="mark">ZZJ</span><span>${escapeHtml(data.site.siteName)}</span></a>
+      <div class="navlinks">
+        <a href="#about">简介</a>
+        <a href="#highlights">作品亮点</a>
+        <a href="portfolio.html">作品集</a>
+        <a href="resume.html">打印简历</a>
+        <a href="#contact">联系</a>
+      </div>
+    </nav>
+  </header>
+  <main>
+    <section class="hero" id="about">
+      <div class="shell hero-grid">
+        <div>
+          <p class="eyebrow">${escapeHtml(data.home.eyebrow)}</p>
+          <h1>${escapeHtml(data.home.title)}</h1>
+          <p class="lead">${escapeHtml(data.home.lead)}</p>
+          <div class="actions">
+            <a class="btn primary" href="portfolio.html">查看作品集</a>
+            <a class="btn secondary" href="resume.html">查看打印简历</a>
+          </div>
+        </div>
+        <div class="portrait-wrap">
+          <div class="portrait"></div>
+          <div class="status">
+            <strong>${escapeHtml(data.home.heroStatusTitle)}</strong>
+            <span>${escapeHtml(data.home.heroStatusText)}</span>
+          </div>
         </div>
       </div>
     </section>
-
-    <section class="section">
-      <div class="shell workbench">
-        <article class="panel">
-          <h3>发布流程</h3>
-          <ol class="steps">
-            <li><span>点击上方对应页面的“编辑”按钮，确认浏览器已经登录有权限的 GitHub 账号。</span></li>
-            <li><span>修改文字或结构后，点击页面底部的 <strong>Commit changes</strong>。</span></li>
-            <li><span>提交说明建议写清楚，例如“更新作品集案例”或“优化打印简历”。</span></li>
-            <li><span>回到公开网站刷新查看，GitHub Pages 通常需要 1-3 分钟同步。</span></li>
-          </ol>
-          <div class="notice">建议不要在同一时间让多人编辑同一个页面，避免后提交的人覆盖前一个人的内容。</div>
-        </article>
-
-        <article class="panel">
-          <h3>权限与安全</h3>
-          <ol class="steps">
-            <li><span>协作者需要先登录自己的 GitHub 账号，并接受仓库邀请。</span></li>
-            <li><span>仓库权限建议给 <strong>Write</strong>，这样可以编辑和发布，但不会拥有仓库所有权。</span></li>
-            <li><span>不要把 GitHub token、密码、验证码写进网页、聊天记录或代码文件。</span></li>
-            <li><span>如果 token 已经发出，请在 GitHub 设置里撤销旧 token，再重新生成。</span></li>
-          </ol>
-          <div class="notice danger">当前后台不需要填写 token。保存内容依赖 GitHub 登录和仓库协作者权限。</div>
-        </article>
+    <section style="padding:0 0 72px">
+      <div class="shell">
+        <div class="metrics">${metricCards}</div>
       </div>
     </section>
-
-    <section class="section">
-      <div class="shell panel">
-        <h3>常用入口</h3>
-        <div class="quick-links">
-          <a href="https://github.com/Vincentzozo/product-portfolio" target="_blank" rel="noreferrer">仓库首页</a>
-          <a href="https://github.com/Vincentzozo/product-portfolio/actions" target="_blank" rel="noreferrer">发布状态</a>
-          <a href="https://github.com/Vincentzozo/product-portfolio/settings/access" target="_blank" rel="noreferrer">协作者权限</a>
-          <a href="https://github.com/settings/tokens" target="_blank" rel="noreferrer">管理 Token</a>
+    <section id="highlights" style="padding:72px 0">
+      <div class="shell">
+        <div style="display:grid;grid-template-columns:.65fr 1.35fr;gap:28px;margin-bottom:28px">
+          <h2 style="margin:0;font-size:34px">精选亮点</h2>
+          <p style="margin:0;color:#5d6572">${escapeHtml(data.site.tagline)}</p>
         </div>
+        <div class="highlights">${highlightCards}</div>
+      </div>
+    </section>
+    <section style="padding:72px 0">
+      <div class="shell strength-grid">
+        <div>
+          <h2 style="margin:0 0 14px;font-size:34px">适合的岗位方向</h2>
+          <p style="margin:0;color:#5d6572">${escapeHtml(data.site.role)}。更偏产品定义、项目推进、解决方案落地和测试闭环类工作。</p>
+        </div>
+        <ul style="margin:0;padding:0;list-style:none">${strengths}</ul>
       </div>
     </section>
   </main>
-
-  <footer>
-    <div class="shell">郑柱坚个人网站后台 · 仅作为维护入口，实际保存权限由 GitHub 仓库控制。</div>
+  <footer class="contact" id="contact">
+    <div class="shell contact-grid">
+      <div>
+        <h2>${escapeHtml(data.site.contactTitle)}</h2>
+        <p>${escapeHtml(data.site.personName)} · ${escapeHtml(data.site.role)}</p>
+      </div>
+      <div class="contact-links">${emails}</div>
+    </div>
   </footer>
+</body>
+</html>`;
+    }
+
+    function generatePortfolioHtml(data) {
+      const proofCards = data.portfolio.metrics.map((item) => `
+        <div><b>${escapeHtml(item.value)}</b><span>${escapeHtml(item.label)}</span></div>
+      `).join("");
+
+      const cases = data.portfolio.cases.map((item, index) => `
+        <article class="case">
+          <div class="case-side" style="--tone:${["#0b6e63", "#0068d9", "#6d4aff", "#44505f", "#9b5b00"][index % 5]}">
+            <small>${escapeHtml(item.badge)}</small>
+            <b>${escapeHtml(item.metric)}</b>
+            <span>${escapeHtml(item.duration)}</span>
+          </div>
+          <div class="case-main">
+            <h3>${escapeHtml(item.title)}</h3>
+            <p>${escapeHtml(item.summary)}</p>
+            <div class="case-grid">
+              <div class="block"><h4>问题</h4><p>${escapeHtml(item.problem)}</p></div>
+              <div class="block"><h4>动作</h4><p>${escapeHtml(item.action)}</p></div>
+              <div class="block"><h4>结果</h4><p>${escapeHtml(item.result)}</p></div>
+            </div>
+          </div>
+        </article>
+      `).join("");
+
+      const method = data.portfolio.method.map((item, index) => `
+        <div><b>${String(index + 1).padStart(2, "0")}</b><span>${escapeHtml(item)}</span></div>
+      `).join("");
+
+      const emails = data.site.emails.filter(Boolean).map((email) => `
+        <a href="mailto:${escapeHtml(email)}">${escapeHtml(email)}</a>
+      `).join("");
+
+      return `<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>${escapeHtml(data.site.personName)}作品集</title>
+  <meta name="description" content="${escapeHtml(data.portfolio.lead)}">
+  <style>
+    :root{--bg:#f4f6f9;--paper:#fff;--ink:#11151b;--muted:#606977;--line:#dce2e9;--green:#0b6e63;--blue:#0068d9}
+    *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;color:var(--ink);background:var(--bg);font-family:"Segoe UI Variable","PingFang SC","Microsoft YaHei",Arial,sans-serif;line-height:1.65}
+    a{color:inherit;text-decoration:none}.shell{width:min(1160px,calc(100% - 40px));margin:0 auto}.nav{position:sticky;top:0;z-index:10;border-bottom:1px solid var(--line);background:rgba(244,246,249,.9);backdrop-filter:blur(14px)}.nav-inner{display:flex;align-items:center;justify-content:space-between;min-height:66px;gap:18px}.brand{font-weight:900}.nav-links{display:flex;gap:8px;color:var(--muted);font-size:14px}.nav-links a{padding:8px 10px;border-radius:5px}.nav-links a:hover{color:var(--ink);background:#fff}
+    .hero{padding:78px 0 56px;background:#11151b;color:#fff}.hero-grid{display:grid;grid-template-columns:1.2fr .8fr;gap:60px;align-items:end}.eyebrow{color:#83e1d5;font-size:13px;font-weight:900}h1{max-width:790px;margin:12px 0 22px;font-size:clamp(44px,7vw,78px);line-height:1.02;letter-spacing:0}.hero p{max-width:720px;color:rgba(255,255,255,.7)}.hero-proof{display:grid;grid-template-columns:repeat(2,1fr);border:1px solid rgba(255,255,255,.18)}.hero-proof div{padding:18px;border-right:1px solid rgba(255,255,255,.18);border-bottom:1px solid rgba(255,255,255,.18)}.hero-proof div:nth-child(2n){border-right:0}.hero-proof div:nth-child(n+3){border-bottom:0}.hero-proof b{display:block;font-size:23px}.hero-proof span{color:rgba(255,255,255,.6);font-size:11px}
+    .section{padding:72px 0}.head{display:grid;grid-template-columns:.65fr 1.35fr;gap:32px;margin-bottom:30px}.head h2{margin:0;font-size:34px}.head p{margin:0;color:var(--muted)}.case-list{display:grid;gap:22px}.case{display:grid;grid-template-columns:220px minmax(0,1fr);overflow:hidden;border:1px solid var(--line);border-radius:8px;background:var(--paper);box-shadow:0 14px 34px rgba(17,21,27,.06)}.case-side{padding:26px;color:#fff;background:var(--tone,#0b6e63)}.case-side small{display:block;margin-bottom:54px;opacity:.7;font-weight:900}.case-side b{display:block;font-size:38px;line-height:1}.case-side span{font-size:12px;opacity:.78}.case-main{padding:26px 28px}.case-main h3{margin:0 0 7px;font-size:24px}.case-main>p{margin:0 0 18px;color:var(--muted)}.case-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}.block{padding-top:12px;border-top:2px solid var(--line)}.block h4{margin:0 0 7px;color:var(--blue);font-size:12px}.block p{margin:0;color:#424b57;font-size:13px}.method{display:grid;grid-template-columns:repeat(6,1fr);gap:1px;background:var(--line);border:1px solid var(--line)}.method div{min-height:120px;padding:18px 14px;background:#fff}.method b{display:block;margin-bottom:18px;color:var(--green);font-size:12px}.method span{font-size:13px;font-weight:800}
+    .contact{padding:60px 0;color:#fff;background:#11151b}.contact-grid{display:flex;justify-content:space-between;align-items:center;gap:30px}.contact h2{margin:0 0 8px;font-size:36px}.contact p{margin:0;color:rgba(255,255,255,.65)}.contact-links{display:grid;gap:8px;min-width:270px}.contact-links a{padding:10px 12px;border:1px solid rgba(255,255,255,.18);border-radius:8px}
+    @media(max-width:850px){.hero-grid,.head,.case{grid-template-columns:1fr}.case-grid{grid-template-columns:1fr}.method{grid-template-columns:repeat(2,1fr)}.contact-grid{align-items:flex-start;flex-direction:column}.case-side small{margin-bottom:24px}}@media(max-width:560px){.shell{width:min(100% - 28px,1160px)}.nav-inner{align-items:flex-start;flex-direction:column;padding:12px 0}.nav-links{width:100%;overflow-x:auto}.hero{padding-top:52px}.hero-proof{grid-template-columns:1fr}.hero-proof div{border-right:0}.hero-proof div:nth-child(3){border-bottom:1px solid rgba(255,255,255,.18)}.method{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+  <header class="nav">
+    <nav class="shell nav-inner" aria-label="作品集导航">
+      <a class="brand" href="index.html">${escapeHtml(data.site.siteName)}</a>
+      <div class="nav-links">
+        <a href="index.html">首页</a>
+        <a href="#cases">案例</a>
+        <a href="#method">方法</a>
+        <a href="resume.html">打印简历</a>
+        <a href="#contact">联系</a>
+      </div>
+    </nav>
+  </header>
+  <main>
+    <section class="hero">
+      <div class="shell hero-grid">
+        <div>
+          <span class="eyebrow">${escapeHtml(data.portfolio.eyebrow)}</span>
+          <h1>${escapeHtml(data.portfolio.title)}</h1>
+          <p>${escapeHtml(data.portfolio.lead)}</p>
+        </div>
+        <div class="hero-proof">${proofCards}</div>
+      </div>
+    </section>
+    <section class="section" id="cases">
+      <div class="shell">
+        <div class="head"><h2>精选案例</h2><p>${escapeHtml(data.site.tagline)}</p></div>
+        <div class="case-list">${cases}</div>
+      </div>
+    </section>
+    <section class="section" id="method">
+      <div class="shell">
+        <div class="head"><h2>工作方法</h2><p>通过固定步骤降低信息损耗，让现场、产品、研发和测试更容易形成同一套语言。</p></div>
+        <div class="method">${method}</div>
+      </div>
+    </section>
+  </main>
+  <footer class="contact" id="contact">
+    <div class="shell contact-grid">
+      <div><h2>${escapeHtml(data.site.contactTitle)}</h2><p>${escapeHtml(data.site.role)}</p></div>
+      <div class="contact-links">${emails}</div>
+    </div>
+  </footer>
+</body>
+</html>`;
+    }
+
+    function generateResumeHtml(data) {
+      const proofs = data.resume.proofs.map((item) => `
+        <div><b>${escapeHtml(item.value)}</b><span>${escapeHtml(item.label)}</span></div>
+      `).join("");
+
+      const experience = data.resume.experience.map((item) => `
+        <div class="item">
+          <div class="item-head"><h3>${escapeHtml(item.company)}｜${escapeHtml(item.role)}</h3><span class="date">${escapeHtml(item.date)}</span></div>
+          <ul>${item.bullets.map((bullet) => `<li>${escapeHtml(bullet)}</li>`).join("")}</ul>
+        </div>
+      `).join("");
+
+      const projects = data.resume.projects.map((item) => `
+        <div class="project item">
+          <div class="item-head"><h3>${escapeHtml(item.title)}</h3><span class="date">${escapeHtml(item.date)}</span></div>
+          <p>${escapeHtml(item.summary)}</p>
+          <ul>${item.bullets.map((bullet) => `<li>${escapeHtml(bullet)}</li>`).join("")}</ul>
+        </div>
+      `).join("");
+
+      const skills = data.resume.skills.map((item) => `<span class="tag">${escapeHtml(item)}</span>`).join("");
+      const tools = data.resume.tools.map((item) => `<li>${escapeHtml(item)}</li>`).join("");
+      const emails = data.site.emails.filter(Boolean).map((email) => `<span>${escapeHtml(email)}</span>`).join("");
+
+      return `<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>${escapeHtml(data.site.personName)}产品项目简历</title>
+  <style>
+    :root{--ink:#12161c;--muted:#59616d;--line:#d9dee5;--accent:#0b6e63;--soft:#edf7f5}
+    *{box-sizing:border-box}body{margin:0;color:var(--ink);background:#e9edf2;font-family:"Segoe UI Variable","PingFang SC","Microsoft YaHei",Arial,sans-serif;line-height:1.45}
+    .toolbar{position:sticky;top:0;z-index:10;display:flex;justify-content:center;gap:10px;padding:12px;background:rgba(18,22,28,.94)}.toolbar a,.toolbar button{min-height:38px;padding:8px 14px;color:#fff;border:1px solid rgba(255,255,255,.24);border-radius:5px;background:transparent;font:inherit;font-weight:700;cursor:pointer;text-decoration:none}.toolbar button{color:#101318;background:#fff}
+    .page{position:relative;width:210mm;min-height:297mm;margin:20px auto;overflow:hidden;padding:16mm 16mm 14mm 20mm;background:#fff;box-shadow:0 18px 50px rgba(20,28,38,.14)}.page:before{content:"";position:absolute;inset:0 auto 0 0;width:5mm;background:linear-gradient(to bottom,#101318 0 88mm,var(--accent) 88mm 100%)}
+    header{display:grid;grid-template-columns:1fr auto;gap:24px;margin:-16mm -16mm 0 -15mm;padding:14mm 16mm 12mm 15mm;color:#fff;background:linear-gradient(120deg,rgba(11,110,99,.36),transparent 55%),#101318}h1,h2,h3,p{margin-top:0}h1{margin-bottom:5px;font-size:30px;line-height:1}.position{margin:0;color:#86e3d7;font-size:14px;font-weight:800}.contact{display:grid;align-content:end;gap:3px;color:rgba(255,255,255,.72);font-size:11px;text-align:right}
+    .summary{margin:14px 0 13px;padding:10px 12px;color:#343b45;border-left:3px solid var(--accent);background:#f5f9f8;font-size:11.5px}.proof{display:grid;grid-template-columns:repeat(4,1fr);margin-bottom:15px;border:1px solid #cfd6df;background:#fff}.proof div{padding:8px 10px;border-right:1px solid var(--line)}.proof div:last-child{border-right:0}.proof b{display:block;margin-bottom:2px;font-size:14px}.proof span{color:var(--muted);font-size:9.5px}
+    .layout{display:grid;grid-template-columns:1.55fr .75fr;gap:20px}section{margin-bottom:14px}h2{margin-bottom:8px;padding-bottom:5px;color:var(--ink);border-bottom:2px solid var(--ink);font-size:14px}.item{margin-bottom:11px;break-inside:avoid}.item-head{display:grid;grid-template-columns:1fr auto;gap:12px;align-items:baseline;margin-bottom:3px}h3{margin-bottom:0;font-size:11.5px}.date{color:var(--muted);font-size:9.5px;font-weight:700}ul{margin:4px 0 0;padding-left:16px;color:#343b45;font-size:10.2px}li+li{margin-top:2px}
+    .project{position:relative;padding:9px 10px 9px 13px;border-left:3px solid var(--accent);background:linear-gradient(90deg,#f4f8f7,transparent)}.project p{margin-bottom:4px;color:var(--muted);font-size:10px}.side-block{padding:11px;border:1px solid var(--line);border-top:3px solid var(--accent);background:#f8fafb}.side-block+.side-block{margin-top:10px}.side-block h2{border-color:var(--line)}.tags{display:flex;flex-wrap:wrap;gap:5px}.tag{padding:3px 6px;color:#155f58;border:1px solid #c6dfdb;background:var(--soft);font-size:9.5px;font-weight:700}.compact-list{margin-top:0;font-size:9.8px}.education p{margin-bottom:2px;font-size:10.5px;font-weight:700}.education span{color:var(--muted);font-size:9.5px}.note{margin-top:8px;color:var(--muted);font-size:8.5px}
+    @media (max-width:850px){.page{width:100%;min-height:0;margin:0;padding:22px 18px;box-shadow:none}.layout{grid-template-columns:1fr}header{grid-template-columns:1fr}.contact{text-align:left}.proof{grid-template-columns:repeat(2,1fr)}.proof div:nth-child(2){border-right:0}}
+    @media print{body{background:#fff}.toolbar{display:none}.page{margin:0;box-shadow:none}}
+  </style>
+</head>
+<body>
+  <div class="toolbar">
+    <a href="index.html">返回网站</a>
+    <a href="portfolio.html">查看作品集</a>
+    <button onclick="window.print()">打印 / 导出 PDF</button>
+  </div>
+  <article class="page">
+    <header>
+      <div>
+        <h1>${escapeHtml(data.site.personName)}</h1>
+        <p class="position">${escapeHtml(data.site.role)}</p>
+      </div>
+      <div class="contact">${emails}</div>
+    </header>
+    <p class="summary">${escapeHtml(data.resume.summary)}</p>
+    <div class="proof">${proofs}</div>
+    <div class="layout">
+      <div>
+        <section>
+          <h2>工作经历</h2>
+          ${experience}
+        </section>
+        <section>
+          <h2>项目经历</h2>
+          ${projects}
+        </section>
+      </div>
+      <aside>
+        <section class="side-block">
+          <h2>核心技能</h2>
+          <div class="tags">${skills}</div>
+        </section>
+        <section class="side-block">
+          <h2>工具与协作</h2>
+          <ul class="compact-list">${tools}</ul>
+        </section>
+        <section class="side-block education">
+          <h2>教育</h2>
+          <p>${escapeHtml(data.resume.education.school)}</p>
+          <span>${escapeHtml(data.resume.education.degree)}｜${escapeHtml(data.resume.education.date)}</span>
+        </section>
+      </aside>
+    </div>
+  </article>
+</body>
+</html>`;
+    }
+
+    editorTabs.addEventListener("click", (event) => {
+      const button = event.target.closest("[data-editor-tab]");
+      if (!button) return;
+      currentEditor = button.dataset.editorTab;
+      render();
+    });
+
+    previewTabs.addEventListener("click", (event) => {
+      const button = event.target.closest("[data-preview-tab]");
+      if (!button) return;
+      currentPreview = button.dataset.previewTab;
+      render();
+    });
+
+    editorBody.addEventListener("input", (event) => {
+      const element = event.target;
+      if (element.matches("[data-path]")) {
+        const path = element.dataset.path;
+        const isLineArray = ["home.strengths", "portfolio.method", "resume.skills", "resume.tools"].includes(path) || /\.bullets$/.test(path);
+        updateAtPath(path, isLineArray ? splitLines(element.value) : element.value);
+      }
+    });
+
+    editorBody.addEventListener("click", async (event) => {
+      const removeBtn = event.target.closest("[data-remove]");
+      if (removeBtn) {
+        removeArrayItem(removeBtn.dataset.remove, Number(removeBtn.dataset.index));
+        return;
+      }
+
+      const addBtn = event.target.closest("[data-add]");
+      if (addBtn) {
+        addArrayItem(addBtn.dataset.add, addBtn.dataset.kind);
+        return;
+      }
+
+      const verifyBtn = event.target.closest("#verify-token");
+      if (verifyBtn) {
+        try {
+          await verifyToken();
+        } catch (error) {
+          setLog(`验证失败。\n${error.message}`);
+        }
+        return;
+      }
+
+      const publishBtn = event.target.closest("#publish-all");
+      if (publishBtn) {
+        try {
+          await publishAll();
+        } catch (error) {
+          setLog(`${document.getElementById("publish-log").textContent}\n发布失败。\n${error.message}`);
+        }
+        return;
+      }
+
+      const openPreviewBtn = event.target.closest("[data-open-preview]");
+      if (openPreviewBtn) {
+        currentPreview = openPreviewBtn.dataset.openPreview;
+        render();
+      }
+    });
+
+    document.getElementById("export-json").addEventListener("click", downloadJson);
+    document.getElementById("import-trigger").addEventListener("click", () => importFile.click());
+    document.getElementById("reset-draft").addEventListener("click", () => {
+      state = deepClone(publishedData);
+      localStorage.removeItem(STORAGE_KEY);
+      render();
+    });
+
+    importFile.addEventListener("change", async () => {
+      const file = importFile.files[0];
+      if (!file) return;
+      try {
+        state = await readImportedFile(file);
+        saveDraft();
+        render();
+      } catch (error) {
+        alert("导入失败，请确认是后台导出的 JSON 文件。");
+      }
+      importFile.value = "";
+    });
+
+    render();
+  </script>
 </body>
 </html>
