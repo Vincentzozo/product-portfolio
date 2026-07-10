@@ -485,7 +485,7 @@
         <article class="hero-card">
           <p>VISUAL CONTENT ADMIN</p>
           <h1>给小白用的内容后台，不再直接改 HTML。</h1>
-          <p>左边按表单改内容，右边看页面实时预览。确认无误后，在发布页填入 GitHub token，就能直接更新 `index.html`、`portfolio.html`、`resume.html` 和内容配置文件。</p>
+          <p>左边按表单改内容，右边看页面实时预览。确认无误后，在发布页填入 GitHub token，就能直接更新首页、作品集、简历页和内容配置文件。</p>
         </article>
         <aside class="status-card">
           <h2>当前状态</h2>
@@ -493,7 +493,7 @@
           <ul class="status-list">
             <li><b>编辑方式</b><span>表单化内容编辑</span></li>
             <li><b>预览方式</b><span>后台右侧 iframe 实时预览</span></li>
-            <li><b>发布目标</b><span>GitHub Pages / `main` 分支</span></li>
+            <li><b>发布目标</b><span>GitHub Pages / main 分支</span></li>
             <li><b>安全原则</b><span>Token 不写入仓库，不存浏览器</span></li>
           </ul>
         </aside>
@@ -821,7 +821,7 @@
           <div class="publish-grid">
             <div class="panel">
               <h2>发布到 GitHub Pages</h2>
-              <p class="helper">这里只提交内容文件，不会把 token 写进仓库。发布时会更新 `admin/site-data.js`、`index.html`、`portfolio.html`、`resume.html`。</p>
+              <p class="helper">这里只提交内容文件，不会把 token 写进仓库。发布时会更新 `admin/site-data.js`、首页、作品集和简历文件。</p>
               <div class="token-row">
                 <input id="github-token" type="password" placeholder="粘贴 GitHub token，仅当前会话使用">
                 <input id="commit-message" type="text" placeholder="提交说明，例如：更新首页和简历内容" value="更新网站内容">
