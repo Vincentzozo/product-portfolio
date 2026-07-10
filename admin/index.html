@@ -1180,7 +1180,9 @@
         return;
       }
 
+      const adminSource = await fetch(window.location.href, { cache: "no-store" }).then((response) => response.text());
       const files = [
+        { path: "admin/index.html", content: adminSource },
         { path: "admin/site-data.js", content: serializeDataScript(state) },
         { path: "index.html", content: generateHomeHtml(state) },
         { path: "portfolio.html", content: generatePortfolioHtml(state) },
