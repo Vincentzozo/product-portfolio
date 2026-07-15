@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>测试用例与验收清单样例</title>
+  <style>
+    :root{--bg:#f5f7fa;--paper:#fff;--ink:#11151b;--muted:#606977;--line:#dce2e9;--green:#0b6e63;--danger:#b42318;--warn:#b45309}
+    *{box-sizing:border-box}body{margin:0;color:var(--ink);background:var(--bg);font-family:"Segoe UI Variable","PingFang SC","Microsoft YaHei",Arial,sans-serif;line-height:1.6}
+    .page{width:min(1100px,calc(100% - 32px));margin:0 auto;padding:38px 0 58px}header{margin-bottom:24px}h1{margin:6px 0 10px;font-size:40px;line-height:1.08}.eyebrow{color:var(--green);font-size:13px;font-weight:900}p{color:#404a57}.board{display:grid;grid-template-columns:1fr 1fr;gap:16px}.panel{border:1px solid var(--line);border-radius:8px;background:var(--paper);box-shadow:0 12px 28px rgba(15,23,42,.05)}.panel h2{margin:0;padding:16px 18px;border-bottom:1px solid var(--line);font-size:20px}.case{display:grid;grid-template-columns:96px 1fr auto;gap:12px;align-items:start;padding:14px 18px;border-bottom:1px solid var(--line)}.case:last-child{border-bottom:0}.case b{font-size:13px}.case p{margin:0;color:var(--muted);font-size:14px}.tag{padding:4px 7px;border-radius:999px;font-size:11px;font-weight:900}.pass{color:var(--green);background:#edf8f6}.warn{color:var(--warn);background:#fff8e8}.block{margin-top:16px;padding:18px;border:1px solid var(--line);border-radius:8px;background:#fff}.block h2{margin:0 0 12px;font-size:22px}.checks{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.check{padding:12px;border:1px solid var(--line);border-radius:8px;background:#fafcff}.check b{display:block;margin-bottom:4px;color:var(--green);font-size:12px}.check span{font-size:13px;color:#3f4854}@media(max-width:860px){.board,.checks{grid-template-columns:1fr}.case{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+  <main class="page">
+    <header>
+      <div class="eyebrow">SANITIZED TEST SAMPLE</div>
+      <h1>测试用例与验收清单样例</h1>
+      <p>这是一份脱敏后的测试设计样例，展示如何从需求规则拆出主流程、异常场景、边界条件和回归确认口径。</p>
+    </header>
+
+    <section class="board">
+      <article class="panel">
+        <h2>主流程用例</h2>
+        <div class="case"><b>TC-001</b><p>目标资源空闲，提交提前申请，系统生成占用记录并更新状态。</p><span class="tag pass">通过口径</span></div>
+        <div class="case"><b>TC-002</b><p>目标资源未来存在计划，系统提示风险并要求人工确认。</p><span class="tag pass">通过口径</span></div>
+        <div class="case"><b>TC-003</b><p>用户确认冲突后提交，系统生成异常记录并保留追踪链路。</p><span class="tag warn">需回归</span></div>
+      </article>
+
+      <article class="panel">
+        <h2>异常与边界</h2>
+        <div class="case"><b>TC-011</b><p>目标资源当前占用，系统禁止提交并提示更换资源。</p><span class="tag pass">阻断</span></div>
+        <div class="case"><b>TC-012</b><p>提前日期早于允许窗口，系统拦截并提示原因。</p><span class="tag pass">阻断</span></div>
+        <div class="case"><b>TC-013</b><p>中途取消后资源保留留空规则，后续工单不可误占。</p><span class="tag warn">重点</span></div>
+      </article>
+    </section>
+
+    <section class="block">
+      <h2>验收清单</h2>
+      <div class="checks">
+        <div class="check"><b>状态一致</b><span>提交后看板、详情、记录三处状态一致。</span></div>
+        <div class="check"><b>异常可追溯</b><span>冲突原因、确认人、处理结果可查询。</span></div>
+        <div class="check"><b>权限受控</b><span>只有指定角色可确认高风险操作。</span></div>
+        <div class="check"><b>回归稳定</b><span>修复后主流程和异常流都需重新验证。</span></div>
+      </div>
+    </section>
+  </main>
+</body>
+</html>
