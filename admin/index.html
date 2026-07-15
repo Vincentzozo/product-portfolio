@@ -431,6 +431,52 @@
       background: #fff1f1;
     }
 
+    .completion-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 10px;
+      margin-top: 12px;
+    }
+
+    .completion-card {
+      padding: 12px;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: #f9fbfc;
+    }
+
+    .completion-card b {
+      display: block;
+      margin-bottom: 4px;
+      font-size: 18px;
+    }
+
+    .completion-card span {
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .fold-editor {
+      margin-top: 8px;
+    }
+
+    .fold-editor summary {
+      padding: 8px 10px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fff;
+      color: var(--accent-strong);
+      font-size: 13px;
+      font-weight: 800;
+      cursor: pointer;
+    }
+
+    .fold-content {
+      display: grid;
+      gap: 12px;
+      padding-top: 12px;
+    }
+
     .danger-text { color: var(--danger); }
 
     .preview-shell {
@@ -825,6 +871,37 @@
       `;
     }
 
+    function getPortfolioCompletion(data) {
+      const works = data.portfolio.works || [];
+      const assets = data.portfolio.assets || [];
+      const fullWorks = works.filter((item) => item.title && item.context && item.outputs && item.judgement && item.value).length;
+      const linkedAssets = assets.filter((item) => item.title && item.file).length;
+      return [
+        { label: "定位卡片", value: `${data.portfolio.capabilityBlocks.length}/3`, done: data.portfolio.capabilityBlocks.length >= 3 },
+        { label: "工作样本", value: `${fullWorks}/${works.length || 0}`, done: works.length > 0 && fullWorks === works.length },
+        { label: "实际附件", value: `${linkedAssets}/${assets.length || 0}`, done: linkedAssets >= 3 },
+        { label: "方法步骤", value: `${data.portfolio.method.length}/4`, done: data.portfolio.method.length >= 4 }
+      ];
+    }
+
+    function renderPortfolioCompletion(data) {
+      const items = getPortfolioCompletion(data);
+      return `
+        <div class="panel">
+          <h3>作品集完成度</h3>
+          <p class="helper">优先保证工作样本和实际附件完整。绿色代表已经达到当前求职展示的最低要求。</p>
+          <div class="completion-grid">
+            ${items.map((item) => `
+              <div class="completion-card">
+                <b style="color:${item.done ? "var(--accent)" : "var(--danger)"}">${escapeHtml(item.value)}</b>
+                <span>${escapeHtml(item.label)}</span>
+              </div>
+            `).join("")}
+          </div>
+        </div>
+      `;
+    }
+
     function renderMetricsEditor(path, items) {
       return `
         <div class="panel">
@@ -913,13 +990,18 @@
                   ${renderField("标题", `${path}.${index}.title`, item.title)}
                   ${renderField("角色", `${path}.${index}.role`, item.role)}
                 </div>
-                ${renderField("背景", `${path}.${index}.context`, item.context, "textarea")}
-                ${renderField("产出物", `${path}.${index}.outputs`, item.outputs, "textarea")}
-                <div class="field-grid">
-                  ${renderField("关键判断", `${path}.${index}.judgement`, item.judgement, "textarea")}
-                  ${renderField("协作方式", `${path}.${index}.collaboration`, item.collaboration, "textarea")}
-                </div>
-                ${renderField("这个样本证明了什么", `${path}.${index}.value`, item.value, "textarea")}
+                <details class="fold-editor" ${index === 0 ? "open" : ""}>
+                  <summary>编辑样本详情</summary>
+                  <div class="fold-content">
+                    ${renderField("背景", `${path}.${index}.context`, item.context, "textarea")}
+                    ${renderField("产出物", `${path}.${index}.outputs`, item.outputs, "textarea")}
+                    <div class="field-grid">
+                      ${renderField("关键判断", `${path}.${index}.judgement`, item.judgement, "textarea")}
+                      ${renderField("协作方式", `${path}.${index}.collaboration`, item.collaboration, "textarea")}
+                    </div>
+                    ${renderField("这个样本证明了什么", `${path}.${index}.value`, item.value, "textarea")}
+                  </div>
+                </details>
               </div>
             `).join("")}
           </div>
@@ -1052,6 +1134,7 @@
 
       if (currentEditor === "portfolio") {
         editorBody.innerHTML = `
+          ${renderPortfolioCompletion(state)}
           <div class="panel">
             <h2>作品集头图</h2>
             <div class="field-grid">
