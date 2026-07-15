@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>植物工厂生产流程图样例</title>
+  <style>
+    :root{--bg:#f4f7f8;--ink:#10151b;--muted:#5b6572;--line:#d9e2e7;--green:#0b6e63;--blue:#1667d8;--paper:#fff}
+    *{box-sizing:border-box}body{margin:0;color:var(--ink);background:var(--bg);font-family:"Segoe UI Variable","PingFang SC","Microsoft YaHei",Arial,sans-serif;line-height:1.65}
+    .page{width:min(1120px,calc(100% - 32px));margin:0 auto;padding:42px 0 64px}header{padding:34px 0 26px;border-bottom:1px solid var(--line)}.eyebrow{color:var(--green);font-size:13px;font-weight:900}h1{margin:8px 0 12px;font-size:42px;line-height:1.08}.lead{max-width:780px;color:var(--muted)}section{padding:30px 0;border-bottom:1px solid var(--line)}h2{margin:0 0 16px;font-size:25px}.flow{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}.node{position:relative;min-height:156px;padding:18px;border:1px solid var(--line);border-radius:8px;background:var(--paper);box-shadow:0 12px 26px rgba(16,21,27,.06)}.node b{display:inline-grid;place-items:center;width:30px;height:30px;margin-bottom:12px;color:#fff;border-radius:6px;background:var(--ink);font-size:12px}.node h3{margin:0 0 8px;font-size:18px}.node p{margin:0;color:var(--muted);font-size:14px}.node:after{content:"";position:absolute;top:32px;right:-11px;width:20px;height:2px;background:var(--line)}.node:nth-child(4n):after,.node:last-child:after{display:none}.detail{display:grid;grid-template-columns:1fr 1fr;gap:16px}.card{padding:18px;border:1px solid var(--line);border-radius:8px;background:#fff}.card h3{margin:0 0 10px;font-size:18px}.card ul{margin:0;padding-left:18px;color:#3f4854}.card li+li{margin-top:6px}.metric{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}.metric div{padding:16px;border:1px solid #cfe2df;border-radius:8px;background:#f6fbfa}.metric b{display:block;color:var(--green);font-size:20px}.metric span{color:var(--muted);font-size:13px}@media(max-width:860px){.flow,.detail,.metric{grid-template-columns:1fr 1fr}.node:after{display:none}}@media(max-width:560px){h1{font-size:32px}.flow,.detail,.metric{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+  <main class="page">
+    <header>
+      <div class="eyebrow">SANITIZED CEA MES SAMPLE</div>
+      <h1>植物工厂生产流程图样例</h1>
+      <p class="lead">这是一份脱敏样例，用于展示如何把植物工厂从播种到出库的生产动作拆成系统节点。重点不是种植技术细节，而是 MES 需要记录什么、谁来操作、什么时候触发异常。</p>
+    </header>
+
+    <section>
+      <h2>主流程</h2>
+      <div class="flow">
+        <article class="node"><b>01</b><h3>生产计划</h3><p>创建批次、品种、目标数量、计划周期和责任人。</p></article>
+        <article class="node"><b>02</b><h3>播种</h3><p>记录播种时间、穴盘/托盘、数量、操作人和批次码。</p></article>
+        <article class="node"><b>03</b><h3>催芽</h3><p>记录进入时间、环境参数、异常记录和转出条件。</p></article>
+        <article class="node"><b>04</b><h3>育苗</h3><p>跟踪苗龄、补光策略、巡检结果和损耗。</p></article>
+        <article class="node"><b>05</b><h3>移栽/定植</h3><p>绑定栽培位、定植数量、操作班组和资源占用。</p></article>
+        <article class="node"><b>06</b><h3>生长期巡检</h3><p>记录环境达标、设备状态、异常派单和复核结果。</p></article>
+        <article class="node"><b>07</b><h3>采收</h3><p>记录采收量、商品率、损耗原因和批次完成状态。</p></article>
+        <article class="node"><b>08</b><h3>包装出库</h3><p>关联包装、客户/订单、质检结果、出库和追溯码。</p></article>
+      </div>
+    </section>
+
+    <section>
+      <h2>系统需要沉淀的记录</h2>
+      <div class="detail">
+        <div class="card"><h3>人工操作记录</h3><ul><li>操作人、时间、批次、位置、数量</li><li>复核人、异常说明、处理结果</li><li>报损、返工、补录原因</li></ul></div>
+        <div class="card"><h3>设备与环境记录</h3><ul><li>DLI、PPFD、VPD、温湿度、CO2</li><li>EC、pH、水温、液位、阀门状态</li><li>设备在线率、传感器离线时长</li></ul></div>
+      </div>
+    </section>
+
+    <section>
+      <h2>看板指标入口</h2>
+      <div class="metric">
+        <div><b>批次进度</b><span>当前环节、计划偏差、预计采收</span></div>
+        <div><b>工单完成率</b><span>每日任务完成、超时、复核</span></div>
+        <div><b>环境达标率</b><span>参数越界、持续时长、影响批次</span></div>
+        <div><b>损耗与产出</b><span>采收量、商品率、损耗原因</span></div>
+      </div>
+    </section>
+  </main>
+</body>
+</html>
