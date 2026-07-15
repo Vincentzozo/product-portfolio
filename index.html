@@ -4,12 +4,12 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>郑柱坚个人网站</title>
-  <meta name="description" content="擅长需求梳理、流程拆解、原型表达、项目推进和测试收口。">
+  <meta name="description" content="专注业务系统与智能硬件落地，覆盖需求、原型、跟进、测试全链路，保障项目高质量交付。">
   <style>
     :root{--bg:#f5f7fa;--paper:#fff;--ink:#101318;--muted:#5d6572;--line:#dfe4ea;--accent:#0b6e63;--shadow:0 18px 50px rgba(16,19,24,.08);--radius:8px}
     *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;color:var(--ink);background:linear-gradient(rgba(16,19,24,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(16,19,24,.025) 1px,transparent 1px),var(--bg);background-size:48px 48px;font-family:"Segoe UI Variable","PingFang SC","Microsoft YaHei",Arial,sans-serif;line-height:1.6}
     a{text-decoration:none;color:inherit}.shell{width:min(1120px,calc(100% - 40px));margin:0 auto}.topbar{position:sticky;top:0;z-index:20;border-bottom:1px solid rgba(223,228,234,.9);background:rgba(245,247,250,.88);backdrop-filter:blur(14px)}.nav{display:flex;align-items:center;justify-content:space-between;gap:18px;min-height:68px}.brand{display:flex;align-items:center;gap:12px;font-weight:900}.mark{display:grid;place-items:center;width:38px;height:38px;color:#fff;background:linear-gradient(135deg,var(--ink),#303844);border-radius:8px;font-size:14px}.navlinks{display:flex;gap:6px;color:var(--muted);font-size:14px}.navlinks a{padding:8px 12px;border-radius:8px}.navlinks a:hover{background:rgba(255,255,255,.75);color:var(--ink)}
-    .hero{min-height:calc(100svh - 68px);display:grid;align-items:center;padding:54px 0 64px}.hero-grid{display:grid;grid-template-columns:minmax(0,1.06fr) minmax(360px,.84fr);gap:54px;align-items:center}.eyebrow{display:inline-flex;align-items:center;gap:8px;margin:0 0 18px;color:var(--accent);font-size:14px;font-weight:800}.eyebrow:before{content:"";width:32px;height:2px;background:currentColor}h1,h2,h3,p{margin-top:0}h1{margin-bottom:18px;font-size:clamp(44px,6.4vw,76px);line-height:1.02;letter-spacing:0}.lead{max-width:700px;color:#4f5865;font-size:19px}.actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px}.btn{display:inline-flex;align-items:center;justify-content:center;padding:10px 16px;border-radius:8px;font-weight:800}.btn.primary{color:#fff;background:var(--ink);box-shadow:0 10px 24px rgba(35,33,31,.18)}.btn.secondary{color:var(--ink);background:rgba(255,255,255,.86);border:1px solid var(--line)}
+    .hero{min-height:calc(100svh - 68px);display:grid;align-items:center;padding:54px 0 64px}.hero-grid{display:grid;grid-template-columns:minmax(0,1.06fr) minmax(360px,.84fr);gap:54px;align-items:center}.eyebrow{display:inline-flex;align-items:center;gap:8px;margin:0 0 18px;color:var(--accent);font-size:14px;font-weight:800}.eyebrow:before{content:"";width:32px;height:2px;background:currentColor}h1,h2,h3,p{margin-top:0}h1{margin-bottom:18px;font-size:clamp(44px,6.4vw,76px);line-height:1.02;letter-spacing:0}.lead{max-width:700px;color:#4f5865;font-size:19px}.action-note{margin:22px 0 8px;color:#5d6572;font-size:13px;font-weight:800}.actions{display:flex;flex-wrap:wrap;gap:12px}.btn{display:inline-flex;align-items:center;justify-content:center;padding:10px 16px;border-radius:8px;font-weight:800}.btn.primary{color:#fff;background:var(--ink);box-shadow:0 10px 24px rgba(35,33,31,.18)}.btn.secondary{color:var(--ink);background:rgba(255,255,255,.86);border:1px solid var(--line)}
     .portrait-wrap{position:relative;min-height:460px}.portrait{position:absolute;inset:0;overflow:hidden;border-radius:8px;background:linear-gradient(145deg,rgba(16,19,24,.12),rgba(0,104,217,.18)),url("https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1200&q=85") center/cover;box-shadow:var(--shadow)}.portrait:before{content:"PRODUCT / PROJECT";position:absolute;top:22px;right:22px;z-index:2;padding:7px 9px;color:#fff;border:1px solid rgba(255,255,255,.42);background:rgba(10,14,20,.48);font-size:10px;font-weight:900}.portrait:after{content:"";position:absolute;inset:auto 0 0;height:48%;background:linear-gradient(to top,rgba(10,14,20,.72),transparent)}.status{position:absolute;left:24px;right:24px;bottom:24px;z-index:1;padding:18px;color:#fff;border:1px solid rgba(255,255,255,.24);border-radius:8px;background:rgba(10,14,20,.68);backdrop-filter:blur(12px)}.status strong{display:block;margin-bottom:4px;font-size:18px}.status span{color:rgba(255,255,255,.78)}
     .metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}.metric-card{position:relative;overflow:hidden;min-height:176px;padding:18px;border:1px solid #dfe4ea;border-radius:8px;background:linear-gradient(180deg,#fff,#f7fbfa);box-shadow:0 12px 28px rgba(16,19,24,.06)}.metric-card:before{content:"";position:absolute;left:0;right:0;top:0;height:4px;background:linear-gradient(90deg,var(--accent),var(--accent-2))}.metric-kicker{display:inline-flex;margin-bottom:14px;padding:4px 7px;border:1px solid #cfe7e3;border-radius:999px;background:#eefaf7;color:#0b6e63;font-size:11px;font-weight:900}.metric-value{font-size:40px;line-height:1;font-weight:950;letter-spacing:0;color:#11151b}.metric-label{margin-top:10px;font-size:16px;font-weight:900}.metric-card p{margin:12px 0 0;padding-top:12px;border-top:1px solid #e3e9ef;color:#4f5865;font-size:13px;line-height:1.48}.highlights{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}.strength-grid{display:grid;grid-template-columns:.8fr 1.2fr;gap:28px;align-items:start}.contact{padding:60px 0;color:#fff;background:#11151b}.contact-grid{display:flex;justify-content:space-between;align-items:flex-start;gap:30px}.contact h2{margin:0 0 8px;font-size:36px}.contact p{margin:0;color:rgba(255,255,255,.65)}.contact-links{display:grid;gap:8px;min-width:290px}
     @media(max-width:900px){.hero-grid,.strength-grid,.highlights,.metrics{grid-template-columns:1fr 1fr}.hero-grid{grid-template-columns:1fr}.contact-grid{flex-direction:column}.portrait-wrap{min-height:380px}}@media(max-width:620px){.shell{width:min(100% - 28px,1120px)}.nav{align-items:flex-start;flex-direction:column;padding:12px 0}.navlinks{width:100%;overflow-x:auto}.hero{padding-top:42px}.metrics,.highlights,.strength-grid{grid-template-columns:1fr}}
@@ -33,78 +33,80 @@
         <div>
           <p class="eyebrow">PRODUCT / PROJECT DELIVERY</p>
           <h1>产品项目推进，把问题变成可执行方案。</h1>
-          <p class="lead">适合产品专员、项目专员、产品助理、项目助理等岗位。能做需求、原型、跟进、测试和交付收口。</p>
+          <p class="lead">专注业务系统与智能硬件落地，覆盖需求、原型、跟进、测试全链路，保障项目高质量交付。</p>
+          <p class="action-note">收录完整项目案例与交付物样本</p>
           <div class="actions">
             <a class="btn primary" href="portfolio.html">查看作品集</a>
-            <a class="btn secondary" href="resume.html">查看打印简历</a>
+            <a class="btn secondary" href="resume.html">下载完整简历</a>
           </div>
         </div>
         <div class="portrait-wrap">
           <div class="portrait"></div>
           <div class="status">
             <strong>当前主线：业务系统需求与交付推进</strong>
-            <span>把流程、规则、异常和反馈整理成可跟进的任务和交付物。</span>
+            <span>将复杂业务的流程规则、异常场景与用户反馈，拆解为可跟进的任务项与标准化交付物，推动业务需求平稳转化为系统能力。</span>
           </div>
         </div>
       </div>
     </section>
     <section style="padding:0 0 72px">
       <div class="shell">
+        <h2 style="margin:0 0 22px;font-size:34px">核心能力沉淀</h2>
         <div class="metrics">
         <article class="metric-card">
           <span class="metric-kicker">履历证据</span>
           <div class="metric-value">8类</div>
-          <div class="metric-label">系统模块</div>
-          <p>流程、工单、规则、数据、设备、追溯、成本、预警</p>
+          <div class="metric-label">系统模块覆盖</div>
+          <p>流程、工单、规则、数据、设备、追溯、成本、预警，具备全业务域需求拆解能力</p>
         </article>
       
         <article class="metric-card">
           <span class="metric-kicker">履历证据</span>
           <div class="metric-value">4份</div>
           <div class="metric-label">核心作品样本</div>
-          <p>生产流程图、批次状态流、异常 PRD、数据看板原型</p>
+          <p>生产流程图、批次状态流、异常 PRD、数据看板原型，可快速输出标准化交付物</p>
         </article>
       
         <article class="metric-card">
           <span class="metric-kicker">履历证据</span>
           <div class="metric-value">6类</div>
-          <div class="metric-label">交付产物</div>
-          <p>PRD、原型、需求清单、状态流、指标表、测试场景</p>
+          <div class="metric-label">交付产物体系</div>
+          <p>PRD、原型、需求清单、状态流、指标表、测试场景，覆盖项目全周期产出</p>
         </article>
       
         <article class="metric-card">
           <span class="metric-kicker">履历证据</span>
           <div class="metric-value">3端</div>
-          <div class="metric-label">协同载体</div>
-          <p>后台系统、硬件界面、APP 与设备数据场景</p>
+          <div class="metric-label">协同落地经验</div>
+          <p>后台系统、硬件界面、APP 与设备数据场景，熟悉软硬件联动项目推进</p>
         </article>
       
         <article class="metric-card">
           <span class="metric-kicker">履历证据</span>
           <div class="metric-value">3轮</div>
-          <div class="metric-label">交互原型验证</div>
-          <p>用户路径、页面反馈、异常提示和 HMI 联动逐轮收敛</p>
+          <div class="metric-label">原型迭代验证</div>
+          <p>用户路径、页面反馈、异常提示与 HMI 联动逐轮收敛，降低落地偏差</p>
         </article>
       
         <article class="metric-card">
           <span class="metric-kicker">履历证据</span>
           <div class="metric-value">200+</div>
-          <div class="metric-label">测试场景设计</div>
-          <p>按主流程、边界输入、设备连接和异常状态分层拆解</p>
+          <div class="metric-label">分层测试场景</div>
+          <p>按主流程、边界输入、设备连接、异常状态分层拆解，全面保障交付质量</p>
         </article>
       
         <article class="metric-card">
           <span class="metric-kicker">履历证据</span>
           <div class="metric-value">3轮</div>
-          <div class="metric-label">回归闭环</div>
-          <p>复现、修复确认、复测和风险复盘推进到可交付状态</p>
+          <div class="metric-label">回归闭环机制</div>
+          <p>复现、修复确认、复测与风险复盘全链路跟进，推动问题清零</p>
         </article>
       
         <article class="metric-card">
           <span class="metric-kicker">履历证据</span>
           <div class="metric-value">9项</div>
-          <div class="metric-label">生产指标意识</div>
-          <p>DLI、PPFD、VPD、EC、pH、CO2、在线率、完成率、损耗率</p>
+          <div class="metric-label">生产指标认知</div>
+          <p>DLI、PPFD、VPD、EC、pH、CO₂、在线率、完成率、损耗率，懂业务、懂现场</p>
         </article>
       </div>
       </div>
@@ -112,25 +114,25 @@
     <section id="highlights" style="padding:72px 0">
       <div class="shell">
         <div style="display:grid;grid-template-columns:.65fr 1.35fr;gap:28px;margin-bottom:28px">
-          <h2 style="margin:0;font-size:34px">精选亮点</h2>
-          <p style="margin:0;color:#5d6572">擅长需求梳理、流程拆解、原型表达、项目推进和测试收口。</p>
+          <h2 style="margin:0;font-size:34px">核心项目经验</h2>
+          <p style="margin:0;color:#5d6572">专注业务系统与智能硬件落地，覆盖需求、原型、跟进、测试全链路，保障项目高质量交付。</p>
         </div>
         <div class="highlights">
         <article style="padding:22px;border:1px solid #dfe4ea;border-radius:8px;background:#fff;box-shadow:0 12px 30px rgba(16,19,24,.05)">
-          <strong style="display:block;margin-bottom:10px;font-size:20px">业务系统需求</strong>
-          <p style="margin:0 0 14px;color:#4f5865">梳理流程、规则、角色和异常，输出需求清单、状态流与验收口径。</p>
-          <span style="display:inline-flex;padding:6px 10px;border-radius:999px;background:#edf8f6;color:#0b6e63;font-size:12px;font-weight:900">生产流程建模 / 需求清单 / 联调闭环</span>
+          <strong style="display:block;margin-bottom:10px;font-size:20px">业务系统需求落地</strong>
+          <p style="margin:0 0 14px;color:#4f5865">梳理全链路流程、规则、角色与异常场景，输出标准化需求清单、状态流转图与验收口径，完成生产流程建模与需求联调闭环。</p>
+          <span style="display:inline-flex;padding:6px 10px;border-radius:999px;background:#edf8f6;color:#0b6e63;font-size:12px;font-weight:900">流程建模 / 需求清单 / 联调闭环</span>
         </article>
       
         <article style="padding:22px;border:1px solid #dfe4ea;border-radius:8px;background:#fff;box-shadow:0 12px 30px rgba(16,19,24,.05)">
-          <strong style="display:block;margin-bottom:10px;font-size:20px">智能控制器产品</strong>
-          <p style="margin:0 0 14px;color:#4f5865">参与需求、PRD、原型、HMI 和试产验证，推进硬件、软件和 APP 协同。</p>
+          <strong style="display:block;margin-bottom:10px;font-size:20px">智能控制器产品从0到1</strong>
+          <p style="margin:0 0 14px;color:#4f5865">全程参与产品需求定义、PRD 撰写、原型设计、HMI 交互与试产验证，推动硬件、软件、APP 三端协同落地，完成一代产品量产交付。</p>
           <span style="display:inline-flex;padding:6px 10px;border-radius:999px;background:#edf8f6;color:#0b6e63;font-size:12px;font-weight:900">0-1 产品定义 / 3轮原型验证 / 一代量产</span>
         </article>
       
         <article style="padding:22px;border:1px solid #dfe4ea;border-radius:8px;background:#fff;box-shadow:0 12px 30px rgba(16,19,24,.05)">
           <strong style="display:block;margin-bottom:10px;font-size:20px">APP 测试与质量收口</strong>
-          <p style="margin:0 0 14px;color:#4f5865">围绕 APP、设备连接和异常流程设计测试场景，推动问题修复和版本稳定。</p>
+          <p style="margin:0 0 14px;color:#4f5865">围绕 APP 功能、设备连接与异常流程设计全量测试场景，推动问题修复与版本迭代；经 3 轮回归闭环，显著提升产品交付稳定性。</p>
           <span style="display:inline-flex;padding:6px 10px;border-radius:999px;background:#edf8f6;color:#0b6e63;font-size:12px;font-weight:900">200+ 场景 / 3轮回归闭环 / 交付稳定性提升</span>
         </article>
       </div>
@@ -139,17 +141,17 @@
     <section style="padding:72px 0">
       <div class="shell strength-grid">
         <div>
-          <h2 style="margin:0 0 14px;font-size:34px">岗位方向</h2>
-          <p style="margin:0;color:#5d6572">产品专员、项目专员、产品助理、项目助理、解决方案交付等岗位。</p>
+          <h2 style="margin:0 0 14px;font-size:34px">适配岗位与核心价值</h2>
+          <p style="margin:0;color:#5d6572">可胜任产品专员、项目专员、产品助理、项目助理、解决方案交付等岗位。</p>
         </div>
         <ul style="margin:0;padding:0;list-style:none">
-        <li style="padding:12px 0;border-top:1px solid #dfe4ea">能把问题整理成清晰需求</li>
+        <li style="padding:12px 0;border-top:1px solid #dfe4ea">擅长将复杂业务问题，拆解为清晰可落地的需求方案</li>
       
-        <li style="padding:12px 0;border-top:1px solid #dfe4ea">熟悉流程、角色、状态和异常拆解</li>
+        <li style="padding:12px 0;border-top:1px solid #dfe4ea">熟悉流程、角色、状态与异常拆解，逻辑严谨，闭环意识强</li>
       
-        <li style="padding:12px 0;border-top:1px solid #dfe4ea">能写 PRD、做原型、跟测试、推协同</li>
+        <li style="padding:12px 0;border-top:1px solid #dfe4ea">可独立输出 PRD、交互原型，跟进测试与跨团队协同</li>
       
-        <li style="padding:12px 0;border-top:1px solid #dfe4ea">关注进度、质量、风险和交付结果</li>
+        <li style="padding:12px 0;border-top:1px solid #dfe4ea">始终锚定进度、质量、风险，以最终交付结果为导向</li>
       </ul>
       </div>
     </section>
