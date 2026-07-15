@@ -228,6 +228,7 @@ window.SITE_DATA = {
     ]
   },
   resume: {
+    photo: "assets/profile-photo.jpg",
     summary: "求职方向：产品专员 / 项目专员 / 产品助理 / 项目助理。具备产品项目支持、需求文档、原型设计、测试跟进、跨部门协作和客户交付经验，能把业务问题整理成清晰的需求、任务和交付物，并持续推进到结果闭环。",
     proofs: [
       { value: "8类", label: "系统模块" },
