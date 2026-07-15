@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>作物批次状态流样例</title>
+  <style>
+    :root{--bg:#f5f7fa;--ink:#11151b;--muted:#5d6673;--line:#dce3ea;--green:#0b6e63;--blue:#1267d8}
+    *{box-sizing:border-box}body{margin:0;color:var(--ink);background:var(--bg);font-family:"Segoe UI Variable","PingFang SC","Microsoft YaHei",Arial,sans-serif;line-height:1.6}
+    .page{width:min(1080px,calc(100% - 32px));margin:0 auto;padding:42px 0 64px}header{padding-bottom:28px;border-bottom:1px solid var(--line)}.eyebrow{color:var(--green);font-size:13px;font-weight:900}h1{margin:8px 0 12px;font-size:42px;line-height:1.08}.lead{max-width:760px;color:var(--muted)}section{padding:30px 0;border-bottom:1px solid var(--line)}h2{margin:0 0 16px;font-size:25px}.state-line{display:grid;gap:10px}.state{display:grid;grid-template-columns:190px 1fr 1fr;gap:14px;align-items:stretch}.name{padding:16px;border-radius:8px;background:#11151b;color:#fff;font-weight:900}.box{padding:16px;border:1px solid var(--line);border-radius:8px;background:#fff}.box h3{margin:0 0 8px;color:var(--blue);font-size:13px}.box p{margin:0;color:#3f4854;font-size:14px}.branches{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.branch{padding:18px;border:1px solid #cfe2df;border-radius:8px;background:#fff}.branch h3{margin:0 0 8px;color:var(--green)}.branch ul{margin:0;padding-left:18px;color:#3f4854}.branch li+li{margin-top:6px}@media(max-width:760px){h1{font-size:32px}.state{grid-template-columns:1fr}.branches{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+  <main class="page">
+    <header>
+      <div class="eyebrow">BATCH STATE FLOW SAMPLE</div>
+      <h1>作物批次状态流样例</h1>
+      <p class="lead">批次状态流用于回答三个问题：当前批次在哪里、下一步由谁操作、哪些异常会导致暂停或报损。它是生产追溯、工单派发和看板统计的基础。</p>
+    </header>
+
+    <section>
+      <h2>主状态流</h2>
+      <div class="state-line">
+        <div class="state"><div class="name">待播种</div><div class="box"><h3>进入条件</h3><p>生产计划确认，品种、数量、计划日期和责任人已建立。</p></div><div class="box"><h3>系统记录</h3><p>批次号、目标数量、计划周期、物料准备状态。</p></div></div>
+        <div class="state"><div class="name">育苗中</div><div class="box"><h3>进入条件</h3><p>播种完成并完成批次码绑定。</p></div><div class="box"><h3>系统记录</h3><p>苗龄、巡检、补光策略、损耗、异常。</p></div></div>
+        <div class="state"><div class="name">可移栽</div><div class="box"><h3>进入条件</h3><p>苗龄、长势或人工复核达到移栽标准。</p></div><div class="box"><h3>系统记录</h3><p>待派工单、目标栽培位、预计转入数量。</p></div></div>
+        <div class="state"><div class="name">定植中</div><div class="box"><h3>进入条件</h3><p>移栽工单开始执行，资源位被占用。</p></div><div class="box"><h3>系统记录</h3><p>操作人、栽培位、实际数量、空位和异常。</p></div></div>
+        <div class="state"><div class="name">生长期</div><div class="box"><h3>进入条件</h3><p>定植完成并进入生长环境策略。</p></div><div class="box"><h3>系统记录</h3><p>环境参数、设备联动、巡检、异常派单。</p></div></div>
+        <div class="state"><div class="name">待采收</div><div class="box"><h3>进入条件</h3><p>达到采收周期或人工判定可采收。</p></div><div class="box"><h3>系统记录</h3><p>计划采收日期、预估产量、采收工单。</p></div></div>
+        <div class="state"><div class="name">已采收/已出库</div><div class="box"><h3>进入条件</h3><p>采收、包装、质检、出库动作完成。</p></div><div class="box"><h3>系统记录</h3><p>采收量、商品率、损耗率、追溯码、客户反馈。</p></div></div>
+      </div>
+    </section>
+
+    <section>
+      <h2>异常分支</h2>
+      <div class="branches">
+        <div class="branch"><h3>暂停</h3><ul><li>设备离线或环境持续越界</li><li>工单无法继续执行</li><li>需主管复核后恢复</li></ul></div>
+        <div class="branch"><h3>报损</h3><ul><li>批次质量不达标</li><li>病害或环境事故影响</li><li>记录原因、数量、责任环节</li></ul></div>
+        <div class="branch"><h3>补录/更正</h3><ul><li>人工漏记或设备数据缺失</li><li>保留修改人和修改原因</li><li>影响指标需重新计算</li></ul></div>
+      </div>
+    </section>
+  </main>
+</body>
+</html>
