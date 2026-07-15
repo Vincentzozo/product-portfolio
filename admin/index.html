@@ -1017,7 +1017,7 @@
       return `
         <div class="panel">
           <h3>可展示产物</h3>
-          <p class="helper">这里放你真能展示的文档、原型、清单和测试材料，不写空泛概念。</p>
+          <p class="helper">文档、原型、清单和测试材料。</p>
           <div class="array-list">
             ${items.map((item, index) => `
               <div class="array-item">
@@ -1358,15 +1358,15 @@
           {
             title: "MES 工单与资源冲突控制交互原型",
             type: "可点击原型",
-            description: "脱敏版交互原型，展示资源占用、工单提前、冲突提醒和异常处理如何落到页面动作。",
+            description: "资源占用、工单提前、冲突提醒和异常处理的页面动作原型。",
             file: "assets/portfolio/mes-location-prototype.html",
             preview: "",
             tags: ["交互原型", "MES", "流程设计"]
           },
           {
-            title: "复杂规则需求说明样例",
-            type: "脱敏文档",
-            description: "脱敏版 PRD 样例，展示如何把冲突判断、状态流转、人工确认和异常拦截写成开发可理解的需求。",
+            title: "复杂规则需求说明",
+            type: "PRD",
+            description: "冲突判断、状态流转、人工确认和异常拦截的开发需求说明。",
             file: "assets/portfolio/mes-rule-brief-sanitized.html",
             preview: "",
             tags: ["PRD", "规则定义", "需求拆解"]
@@ -1762,31 +1762,31 @@
     </section>
     <section class="section" id="overview">
       <div class="shell">
-        <div class="head"><h2>这份作品集在展示什么</h2><p>${escapeHtml(data.site.tagline)}</p></div>
+        <div class="head"><h2>能力定位</h2><p>${escapeHtml(data.site.tagline)}</p></div>
         <div class="capability-grid">${capabilityCards}</div>
       </div>
     </section>
     <section class="section" id="works">
       <div class="shell">
-        <div class="head"><h2>代表工作样本</h2><p>重点不是项目名称，而是这些样本如何证明你能把问题推进成结果。</p></div>
+        <div class="head"><h2>代表工作样本</h2><p>植物工厂生产系统、MES 需求分析、软硬件协同和交付闭环的代表材料。</p></div>
         <div class="work-list">${works}</div>
       </div>
     </section>
     <section class="section" id="artifacts">
       <div class="shell">
-        <div class="head"><h2>可展示产物</h2><p>面试时可以围绕这些产物展开，而不是只口头讲经历。</p></div>
+        <div class="head"><h2>可展示产物</h2><p>需求定义、流程建模、原型表达、测试验证和交付复盘材料。</p></div>
         <div class="artifact-grid">${artifacts}</div>
       </div>
     </section>
     <section class="section alt" id="asset-gallery">
       <div class="shell">
-        <div class="head"><h2>实际作品附件</h2><p>这里放可直接打开的交付物。面试时可以围绕这些材料讲清楚需求如何拆、规则如何定义、原型如何表达、问题如何收口。</p></div>
+        <div class="head"><h2>实际作品附件</h2><p>可直接打开的流程图、状态流、需求说明、看板原型和测试清单。</p></div>
         <div class="asset-grid">${assets}</div>
       </div>
     </section>
     <section class="section" id="method">
       <div class="shell">
-        <div class="head"><h2>工作方式</h2><p>这一页最终想传达的是：你不是参与过项目，而是能稳定地产出、推进和收口。</p></div>
+        <div class="head"><h2>工作方式</h2><p>从现场流程、系统模型、原型说明到测试反馈的闭环推进路径。</p></div>
         <div class="method">${method}</div>
       </div>
     </section>
