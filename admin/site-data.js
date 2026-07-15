@@ -17,10 +17,14 @@ window.SITE_DATA = {
     heroStatusTitle: "当前主线：植物工厂 MES 需求与生产数字化",
     heroStatusText: "把批次、工单、环境参数、设备联动和异常处理从人工经验推进为系统化、可追踪、可优化的生产管理方案。",
     metrics: [
-      { value: "5类", label: "项目实践", note: "覆盖系统需求、硬件协同、测试收口与交付推进" },
+      { value: "8类", label: "生产系统模块", note: "批次、工单、配方、环境、设备、追溯、成本、预警" },
+      { value: "4份", label: "脱敏作品样例", note: "生产流程图、批次状态流、异常 PRD、数据看板原型" },
+      { value: "6类", label: "可展示产物", note: "PRD、原型、需求清单、状态流、指标表、测试场景" },
+      { value: "3端", label: "协同载体", note: "MES、控制器 / HMI、APP 与传感器配套场景" },
       { value: "3轮", label: "交互原型验证", note: "用户路径、页面反馈、异常提示和 HMI 联动逐轮收敛" },
       { value: "61项", label: "测试场景设计", note: "按主流程、边界输入、设备连接和异常状态分层拆解" },
-      { value: "3轮", label: "回归闭环", note: "复现、修复确认、复测和风险复盘推进到可交付状态" }
+      { value: "3轮", label: "回归闭环", note: "复现、修复确认、复测和风险复盘推进到可交付状态" },
+      { value: "9项", label: "生产指标意识", note: "DLI、PPFD、VPD、EC、pH、CO2、在线率、完成率、损耗率" }
     ],
     highlights: [
       {
@@ -52,9 +56,13 @@ window.SITE_DATA = {
     lead: "这份作品集重点展示我如何把植物工厂生产流程、设备数据、作物配方和异常管理，拆解成可开发、可测试、可追踪的数字化生产系统方案。",
     metrics: [
       { value: "8类", label: "生产系统模块", note: "批次、工单、配方、环境、设备、追溯、成本、预警" },
-      { value: "6类", label: "可展示产物", note: "流程图、状态流、异常清单、看板原型、PRD、测试场景" },
-      { value: "3种", label: "协同对象", note: "现场、研发、硬件与设备侧" },
-      { value: "1条", label: "主线定位", note: "CEA 生产数字化产品人才" }
+      { value: "4份", label: "脱敏作品样例", note: "流程图、状态流、异常 PRD、看板原型" },
+      { value: "6类", label: "可展示产物", note: "PRD、原型、需求清单、状态流、指标表、测试场景" },
+      { value: "3端", label: "协同载体", note: "MES、控制器 / HMI、APP 与传感器" },
+      { value: "3轮", label: "原型验证", note: "控制器交互与 HMI 页面逻辑" },
+      { value: "61项", label: "测试场景", note: "主流程、边界输入、设备连接、异常状态" },
+      { value: "3轮", label: "回归闭环", note: "复现、修复确认、复测与交付收口" },
+      { value: "9项", label: "数据指标", note: "环境、设备、工单、产出和损耗指标" }
     ],
     capabilityBlocks: [
       {
@@ -222,10 +230,14 @@ window.SITE_DATA = {
   resume: {
     summary: "定位为植物工厂生产系统产品 / MES 需求分析 / 软硬件协同交付。优势在于把种植流程、设备数据、作物配方和现场异常转化为可开发、可测试、可追踪的系统需求，并推进原型、开发、测试和上线闭环。",
     proofs: [
-      { value: "5类", label: "项目实践" },
+      { value: "8类", label: "系统模块" },
+      { value: "4份", label: "作品样例" },
+      { value: "6类", label: "交付产物" },
+      { value: "3端", label: "协同载体" },
       { value: "3轮", label: "原型验证" },
       { value: "61项", label: "测试场景" },
-      { value: "3轮", label: "回归闭环" }
+      { value: "3轮", label: "回归闭环" },
+      { value: "9项", label: "指标意识" }
     ],
     experience: [
       {
