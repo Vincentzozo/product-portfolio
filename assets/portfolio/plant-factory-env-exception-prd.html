@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>环境异常需求说明样例</title>
+  <style>
+    :root{--bg:#f4f6f9;--paper:#fff;--ink:#10151b;--muted:#5d6673;--line:#dce3ea;--green:#0b6e63;--red:#b42318;--blue:#1267d8}
+    *{box-sizing:border-box}body{margin:0;color:var(--ink);background:var(--bg);font-family:"Segoe UI Variable","PingFang SC","Microsoft YaHei",Arial,sans-serif;line-height:1.65}
+    .page{width:min(1120px,calc(100% - 32px));margin:0 auto;padding:42px 0 64px}header{padding-bottom:28px;border-bottom:1px solid var(--line)}.eyebrow{color:var(--green);font-size:13px;font-weight:900}h1{margin:8px 0 12px;font-size:42px;line-height:1.08}.lead{max-width:820px;color:var(--muted)}section{padding:30px 0;border-bottom:1px solid var(--line)}h2{margin:0 0 16px;font-size:25px}.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.card{padding:18px;border:1px solid var(--line);border-radius:8px;background:#fff;box-shadow:0 12px 26px rgba(16,21,27,.05)}.card h3{margin:0 0 8px;font-size:18px}.card p{margin:0;color:var(--muted);font-size:14px}table{width:100%;border-collapse:collapse;background:#fff;border:1px solid var(--line)}th,td{padding:12px 14px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top;font-size:14px}th{background:#f8fbfd}.risk{color:var(--red);font-weight:900}.ok{color:var(--green);font-weight:900}.note{padding:16px 18px;border-left:4px solid var(--blue);background:#fff;color:#3f4854}.note a{color:var(--blue);font-weight:800}@media(max-width:760px){h1{font-size:32px}.grid{grid-template-columns:1fr}th,td{display:block;width:100%}}
+  </style>
+</head>
+<body>
+  <main class="page">
+    <header>
+      <div class="eyebrow">SANITIZED PRD SAMPLE</div>
+      <h1>环境异常需求说明样例</h1>
+      <p class="lead">本样例展示如何把 EC、pH、DLI、VPD、传感器离线等环境异常，转化成系统提醒、记录、派单、复核和看板统计需求。</p>
+    </header>
+
+    <section>
+      <h2>需求背景</h2>
+      <div class="grid">
+        <div class="card"><h3>业务目标</h3><p>让关键环境异常从“人发现”转为“系统发现、自动记录、责任到人、处理可追踪”。</p></div>
+        <div class="card"><h3>系统边界</h3><p>系统负责提醒、记录、派单和复核，不直接替代种植判断；高风险动作需人工确认。</p></div>
+        <div class="card"><h3>指标意识</h3><p>照明与 HVAC 能耗是人工光植物工厂的重要约束，异常管理需与能耗和产量指标联动。</p></div>
+      </div>
+    </section>
+
+    <section>
+      <h2>异常规则样例</h2>
+      <table>
+        <thead><tr><th>异常类型</th><th>触发条件</th><th>系统动作</th><th>验收标准</th></tr></thead>
+        <tbody>
+          <tr><td>EC 超标</td><td>连续 10 分钟超过作物阶段阈值</td><td>生成异常记录，通知责任人，建议复测营养液</td><td class="ok">异常、处理、复核均可追踪</td></tr>
+          <tr><td>pH 偏移</td><td>低于/高于配方区间并持续超过设定时间</td><td>推送预警，关联当前批次和水肥设备</td><td class="ok">可按批次回看异常时段</td></tr>
+          <tr><td>DLI 不达标</td><td>日累计光量低于目标策略</td><td>提示补光风险，记录影响区域与作物阶段</td><td class="risk">不得只显示瞬时 PPFD</td></tr>
+          <tr><td>VPD 长时异常</td><td>连续越界超过阈值</td><td>生成巡检任务，要求填写现场确认结果</td><td class="ok">任务闭环后异常才可关闭</td></tr>
+          <tr><td>传感器离线</td><td>设备无数据上报超过设定时间</td><td>提示设备离线，标记该时段数据不可用</td><td class="risk">看板统计需排除无效数据</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section>
+      <h2>处理闭环</h2>
+      <div class="grid">
+        <div class="card"><h3>提醒</h3><p>按异常等级推送到操作人、主管或设备维护人员。</p></div>
+        <div class="card"><h3>派单</h3><p>严重异常自动生成处理工单，要求填写原因、动作和结果。</p></div>
+        <div class="card"><h3>复核</h3><p>复测参数恢复并确认影响范围后，异常才允许关闭。</p></div>
+      </div>
+    </section>
+
+    <section>
+      <h2>参考依据</h2>
+      <p class="note">PFAL 能耗研究指出，人工光植物工厂的照明和 HVAC 系统能耗显著影响规模化应用，因此生产系统不仅要记录作业，还应关注环境达标率、设备在线率和单位产量能耗等指标。参考：<a href="https://arxiv.org/abs/2405.09643" target="_blank" rel="noreferrer">Energy Consumption of Plant Factory with Artificial Light</a></p>
+    </section>
+  </main>
+</body>
+</html>
