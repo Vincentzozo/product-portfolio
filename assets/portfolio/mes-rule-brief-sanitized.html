@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>复杂规则需求说明样例</title>
+  <style>
+    :root{--bg:#f4f6f9;--paper:#fff;--ink:#101318;--muted:#5f6875;--line:#dbe3ec;--green:#0b6e63;--blue:#1769e0}
+    *{box-sizing:border-box}body{margin:0;color:var(--ink);background:var(--bg);font-family:"Segoe UI Variable","PingFang SC","Microsoft YaHei",Arial,sans-serif;line-height:1.65}
+    .page{width:min(1040px,calc(100% - 32px));margin:0 auto;padding:40px 0 60px}
+    header{padding:34px 0 26px;border-bottom:1px solid var(--line)}.eyebrow{color:var(--green);font-size:13px;font-weight:900}h1{margin:8px 0 12px;font-size:42px;line-height:1.08}p{color:#3f4854}.meta{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}.meta span{padding:6px 9px;border:1px solid #cde1dd;border-radius:999px;color:var(--green);background:#f2faf8;font-size:12px;font-weight:800}
+    section{padding:28px 0;border-bottom:1px solid var(--line)}h2{margin:0 0 14px;font-size:24px}.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.card{padding:18px;border:1px solid var(--line);border-radius:8px;background:var(--paper);box-shadow:0 12px 28px rgba(15,23,42,.05)}.card h3{margin:0 0 8px;font-size:17px}.card p{margin:0;color:var(--muted);font-size:14px}
+    table{width:100%;border-collapse:collapse;background:var(--paper);border:1px solid var(--line)}th,td{padding:12px 14px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top;font-size:14px}th{background:#f8fbfd;color:#2f3a47}
+    .note{padding:16px 18px;border-left:4px solid var(--blue);background:#fff;color:#344054}
+    @media(max-width:760px){h1{font-size:32px}.grid{grid-template-columns:1fr}th,td{display:block;width:100%}}
+  </style>
+</head>
+<body>
+  <main class="page">
+    <header>
+      <div class="eyebrow">SANITIZED PRD SAMPLE</div>
+      <h1>复杂规则需求说明样例</h1>
+      <p>这是一份脱敏后的需求说明样例，用于展示如何把“资源占用、工单提前、冲突校验、人工确认、异常拦截”拆成开发可理解、测试可验证的规则。</p>
+      <div class="meta"><span>需求拆解</span><span>状态规则</span><span>开发协同</span><span>验收标准</span></div>
+    </header>
+
+    <section>
+      <h2>需求背景</h2>
+      <p>当生产计划发生提前、取消或资源调整时，系统需要同时处理时间、资源、状态和人工确认逻辑。如果只按页面功能描述，研发容易忽略边界条件，测试也难以形成稳定验收标准。</p>
+      <div class="note">产品判断：先定义状态和规则，再定义页面动作。否则页面可以做出来，但异常流会在联调和上线后反复暴露。</div>
+    </section>
+
+    <section>
+      <h2>核心对象</h2>
+      <div class="grid">
+        <div class="card"><h3>工单</h3><p>包含计划时间、执行状态、是否允许提前、是否存在未关闭异常。</p></div>
+        <div class="card"><h3>资源位</h3><p>包含当前占用、未来占用、锁定状态和释放规则。</p></div>
+        <div class="card"><h3>异常记录</h3><p>记录冲突原因、人工确认、处理结果和回归验证状态。</p></div>
+      </div>
+    </section>
+
+    <section>
+      <h2>规则拆解</h2>
+      <table>
+        <thead><tr><th>场景</th><th>系统判断</th><th>页面反馈</th><th>验收口径</th></tr></thead>
+        <tbody>
+          <tr><td>资源位空闲</td><td>目标时间段无占用记录</td><td>允许提交，生成提前占用</td><td>提交后状态同步更新</td></tr>
+          <tr><td>未来存在占用</td><td>提前后与未来计划有重叠</td><td>提示风险，要求人工确认</td><td>确认记录可追溯</td></tr>
+          <tr><td>当前已占用</td><td>资源位处于生产或锁定状态</td><td>禁止提交，提示更换资源</td><td>不得生成错误占用</td></tr>
+          <tr><td>中途取消</td><td>原占用不能直接释放</td><td>保留留空规则，等待重新排程</td><td>后续工单不能误占</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section>
+      <h2>交付价值</h2>
+      <div class="grid">
+        <div class="card"><h3>对研发</h3><p>把判断条件、状态变化和异常结果写清楚，减少反复追问。</p></div>
+        <div class="card"><h3>对测试</h3><p>每条规则都能映射测试用例，方便回归验证。</p></div>
+        <div class="card"><h3>对业务</h3><p>保留人工确认入口，避免系统规则过硬导致现场无法处理。</p></div>
+      </div>
+    </section>
+  </main>
+</body>
+</html>
