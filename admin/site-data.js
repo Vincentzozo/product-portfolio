@@ -18,7 +18,7 @@ window.SITE_DATA = {
     heroStatusText: "把批次、工单、环境参数、设备联动和异常处理从人工经验推进为系统化、可追踪、可优化的生产管理方案。",
     metrics: [
       { value: "8类", label: "生产系统模块", note: "批次、工单、配方、环境、设备、追溯、成本、预警" },
-      { value: "4份", label: "脱敏作品样例", note: "生产流程图、批次状态流、异常 PRD、数据看板原型" },
+      { value: "4份", label: "核心作品样本", note: "生产流程图、批次状态流、异常 PRD、数据看板原型" },
       { value: "6类", label: "可展示产物", note: "PRD、原型、需求清单、状态流、指标表、测试场景" },
       { value: "3端", label: "协同载体", note: "MES、控制器 / HMI、APP 与传感器配套场景" },
       { value: "3轮", label: "交互原型验证", note: "用户路径、页面反馈、异常提示和 HMI 联动逐轮收敛" },
@@ -53,10 +53,10 @@ window.SITE_DATA = {
   portfolio: {
     eyebrow: "CEA MES / PRODUCTION DIGITALIZATION",
     title: "植物工厂生产系统作品集：从现场流程到 MES 可落地需求。",
-    lead: "这份作品集重点展示我如何把植物工厂生产流程、设备数据、作物配方和异常管理，拆解成可开发、可测试、可追踪的数字化生产系统方案。",
+    lead: "聚焦植物工厂生产流程、设备数据、作物配方和异常管理，形成可开发、可测试、可追踪的数字化生产系统方案。",
     metrics: [
       { value: "8类", label: "生产系统模块", note: "批次、工单、配方、环境、设备、追溯、成本、预警" },
-      { value: "4份", label: "脱敏作品样例", note: "流程图、状态流、异常 PRD、看板原型" },
+      { value: "4份", label: "核心作品样本", note: "流程图、状态流、异常 PRD、看板原型" },
       { value: "6类", label: "可展示产物", note: "PRD、原型、需求清单、状态流、指标表、测试场景" },
       { value: "3端", label: "协同载体", note: "MES、控制器 / HMI、APP 与传感器" },
       { value: "3轮", label: "原型验证", note: "控制器交互与 HMI 页面逻辑" },
@@ -70,19 +70,19 @@ window.SITE_DATA = {
         summary: "植物工厂生产系统产品 / MES 需求分析 / 软硬件协同交付。"
       },
       {
-        title: "我能交付什么",
+        title: "交付产物",
         summary: "生产流程图、批次状态流、异常需求说明、数据看板原型、PRD、测试场景清单。"
       },
       {
-        title: "我适合什么岗位",
+        title: "适配岗位",
         summary: "植物工厂 MES、CEA 生产数字化、农业设施软硬件协同、解决方案交付相关岗位。"
       }
     ],
     works: [
       {
         title: "植物工厂生产系统需求模型",
-        role: "行业产品建模 / MES 需求样例 / 数据指标拆解",
-        context: "植物工厂不是单一设备或普通后台，而是批次、工单、配方、环境、设备、质量追溯和成本指标共同作用的高频生产系统。",
+        role: "行业产品建模 / MES 需求模型 / 数据指标拆解",
+        context: "植物工厂生产系统由批次、工单、配方、环境、设备、质量追溯和成本指标共同构成，需要同时处理现场操作、设备数据和异常闭环。",
         outputs: "生产流程图、作物批次状态流、环境异常需求说明、生产数据看板原型、指标口径表。",
         judgement: "需求不能停留在“记录操作”，要进一步定义状态流、参数来源、异常触发、责任人、复核动作和数据指标，才能形成真正可追踪、可优化的生产管理方案。",
         collaboration: "将种植、设备、研发和测试语言统一成系统需求模型，减少现场经验与研发实现之间的理解偏差。",
@@ -111,7 +111,7 @@ window.SITE_DATA = {
         role: "测试设计 / 质量收口",
         context: "PAR 传感器配套 APP 在交付前需要把设备连接、数据采集、主流程、异常场景和界面细节都验证到位。",
         outputs: "61 项测试场景、3轮回归记录、问题清单和修复确认结果。",
-        judgement: "测试价值不只是找 bug，而是建立一套交付前可验证的质量标准。",
+        judgement: "测试工作围绕交付前可验证的质量标准展开，覆盖主流程、异常路径和设备连接状态。",
         collaboration: "与研发反复确认问题复现路径、修复结果和版本风险点。",
         value: "体现结构化测试思维和交付收口能力。"
       },
@@ -120,7 +120,7 @@ window.SITE_DATA = {
         role: "客户对接 / 执行闭环",
         context: "园艺礼品订单需要从客户需求确认一路跟到生产、发货和验收。",
         outputs: "需求确认、执行跟进、异常协调、交付闭环记录。",
-        judgement: "订单不是事务处理，而是对需求边界、节奏和风险的持续管理。",
+        judgement: "订单交付围绕需求边界、执行节奏和风险控制展开，需要持续跟进关键节点。",
         collaboration: "客户、生产、供应环节之间多线沟通，减少信息偏差和返工。",
         value: "体现执行力、对外沟通和全流程交付能力。"
       }
@@ -156,33 +156,33 @@ window.SITE_DATA = {
     ],
     assets: [
       {
-        title: "植物工厂生产流程图样例",
-        type: "脱敏流程图",
-        description: "展示播种、催芽、育苗、移栽、定植、巡检、采收、包装、出库和报损如何拆成系统可记录节点。",
+        title: "植物工厂生产流程图",
+        type: "流程图",
+        description: "播种、催芽、育苗、移栽、定植、巡检、采收、包装、出库和报损的系统记录节点。",
         file: "assets/portfolio/plant-factory-production-flow.html",
         preview: "",
         tags: ["生产流程", "CEA", "MES"]
       },
       {
-        title: "作物批次状态流样例",
-        type: "脱敏状态流",
-        description: "展示作物批次从待播种到已出库/报损的状态流转，以及每个状态的触发条件和系统记录。",
+        title: "作物批次状态流",
+        type: "状态流",
+        description: "作物批次从待播种到已出库/报损的状态流转、触发条件和系统记录。",
         file: "assets/portfolio/plant-factory-batch-state-flow.html",
         preview: "",
         tags: ["批次管理", "状态流", "追溯"]
       },
       {
-        title: "环境异常需求说明样例",
-        type: "脱敏 PRD",
-        description: "以 EC、pH、DLI、VPD、传感器离线等异常为例，说明提醒、记录、派单和复核如何设计。",
+        title: "环境异常需求说明",
+        type: "PRD",
+        description: "EC、pH、DLI、VPD、传感器离线等异常的提醒、记录、派单和复核规则。",
         file: "assets/portfolio/plant-factory-env-exception-prd.html",
         preview: "",
         tags: ["异常管理", "环境参数", "PRD"]
       },
       {
-        title: "生产数据看板原型样例",
+        title: "生产数据看板原型",
         type: "可点击原型",
-        description: "展示今日批次、工单完成率、环境达标率、采收量、损耗率、电耗和异常数量等关键指标。",
+        description: "今日批次、工单完成率、环境达标率、采收量、损耗率、电耗和异常数量等关键指标。",
         file: "assets/portfolio/plant-factory-dashboard-prototype.html",
         preview: "",
         tags: ["数据看板", "指标体系", "原型"]
@@ -190,31 +190,31 @@ window.SITE_DATA = {
       {
         title: "MES 工单与资源冲突控制交互原型",
         type: "可点击原型",
-        description: "脱敏版交互原型，展示资源占用、工单提前、冲突提醒和异常处理如何落到页面动作。",
+        description: "资源占用、工单提前、冲突提醒和异常处理的页面动作原型。",
         file: "assets/portfolio/mes-location-prototype.html",
         preview: "",
         tags: ["交互原型", "MES", "规则设计"]
       },
       {
-        title: "复杂规则需求说明样例",
-        type: "脱敏文档",
-        description: "脱敏版 PRD 样例，展示如何把冲突判断、状态流转、人工确认和异常拦截写成开发可理解的需求。",
+        title: "复杂规则需求说明",
+        type: "PRD",
+        description: "冲突判断、状态流转、人工确认和异常拦截的开发需求说明。",
         file: "assets/portfolio/mes-rule-brief-sanitized.html",
         preview: "",
         tags: ["PRD", "规则定义", "需求拆解"]
       },
       {
-        title: "测试场景与验收清单样例",
-        type: "脱敏清单",
-        description: "脱敏版测试与验收样例，展示主流程、异常场景、边界条件和回归确认如何设计。",
+        title: "测试场景与验收清单",
+        type: "清单",
+        description: "主流程、异常场景、边界条件和回归确认口径。",
         file: "assets/portfolio/mes-test-checklist-sanitized.html",
         preview: "",
         tags: ["测试场景", "验收标准", "质量收口"]
       },
       {
-        title: "状态流与异常处理说明样例",
-        type: "脱敏流程",
-        description: "脱敏版流程说明，展示从提交、校验、冲突处理到关闭的状态拆解方式。",
+        title: "状态流与异常处理说明",
+        type: "流程",
+        description: "提交、校验、冲突处理到关闭的状态拆解方式。",
         file: "assets/portfolio/mes-state-flow-sanitized.html",
         preview: "",
         tags: ["状态流", "异常处理", "流程设计"]
@@ -231,7 +231,7 @@ window.SITE_DATA = {
     summary: "定位为植物工厂生产系统产品 / MES 需求分析 / 软硬件协同交付。优势在于把种植流程、设备数据、作物配方和现场异常转化为可开发、可测试、可追踪的系统需求，并推进原型、开发、测试和上线闭环。",
     proofs: [
       { value: "8类", label: "系统模块" },
-      { value: "4份", label: "作品样例" },
+      { value: "4份", label: "作品样本" },
       { value: "6类", label: "交付产物" },
       { value: "3端", label: "协同载体" },
       { value: "3轮", label: "原型验证" },
@@ -263,11 +263,11 @@ window.SITE_DATA = {
     projects: [
       {
         title: "植物工厂生产系统需求模型",
-        date: "作品集深化样例",
+        date: "作品集深化",
         summary: "CEA 生产数字化与 MES 需求建模",
         bullets: [
           "梳理播种、育苗、移栽、定植、巡检、采收、包装、出库和报损等生产流程，形成系统节点与状态流。",
-          "围绕 DLI、PPFD、VPD、EC、pH、CO2、设备在线率、工单完成率等指标，设计异常提醒和数据看板样例。"
+          "围绕 DLI、PPFD、VPD、EC、pH、CO2、设备在线率、工单完成率等指标，设计异常提醒和数据看板。"
         ]
       },
       {
