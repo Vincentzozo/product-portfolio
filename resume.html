@@ -8,12 +8,9 @@
     :root{--ink:#12161c;--muted:#59616d;--line:#d9dee5;--accent:#0b6e63;--soft:#edf7f5}
     *{box-sizing:border-box}body{margin:0;color:var(--ink);background:#e9edf2;font-family:"Segoe UI Variable","PingFang SC","Microsoft YaHei",Arial,sans-serif;line-height:1.45}
     .toolbar{position:sticky;top:0;z-index:10;display:flex;justify-content:center;gap:10px;padding:12px;background:rgba(18,22,28,.94)}.toolbar a,.toolbar button{min-height:38px;padding:8px 14px;color:#fff;border:1px solid rgba(255,255,255,.24);border-radius:5px;background:transparent;font:inherit;font-weight:700;cursor:pointer;text-decoration:none}.toolbar button{color:#101318;background:#fff}
-    .page{position:relative;width:210mm;min-height:297mm;margin:20px auto;overflow:hidden;padding:16mm 16mm 14mm 20mm;background:#fff;box-shadow:0 18px 50px rgba(20,28,38,.14)}.page:before{content:"";position:absolute;inset:0 auto 0 0;width:5mm;background:linear-gradient(to bottom,#101318 0 88mm,var(--accent) 88mm 100%)}
-    header{display:grid;grid-template-columns:1fr auto;gap:24px;margin:-16mm -16mm 0 -15mm;padding:14mm 16mm 12mm 15mm;color:#fff;background:linear-gradient(120deg,rgba(11,110,99,.36),transparent 55%),#101318}h1,h2,h3,p{margin-top:0}h1{margin-bottom:5px;font-size:30px;line-height:1}.position{margin:0;color:#86e3d7;font-size:14px;font-weight:800}.contact{display:grid;align-content:end;gap:3px;color:rgba(255,255,255,.72);font-size:11px;text-align:right}
-    .summary{margin:14px 0 13px;padding:10px 12px;color:#343b45;border-left:3px solid var(--accent);background:#f5f9f8;font-size:11.5px}.proof{display:grid;grid-template-columns:repeat(4,1fr);margin-bottom:15px;border:1px solid #cfd6df;background:#fff}.proof div{padding:7px 9px;border-right:1px solid var(--line);border-bottom:1px solid var(--line)}.proof div:nth-child(4n){border-right:0}.proof div:nth-last-child(-n+4){border-bottom:0}.proof b{display:block;margin-bottom:2px;font-size:13.5px}.proof span{color:var(--muted);font-size:9.2px}
-    .layout{display:grid;grid-template-columns:1.55fr .75fr;gap:20px}section{margin-bottom:14px}h2{margin-bottom:8px;padding-bottom:5px;color:var(--ink);border-bottom:2px solid var(--ink);font-size:14px}.item{margin-bottom:11px;break-inside:avoid}.item-head{display:grid;grid-template-columns:1fr auto;gap:12px;align-items:baseline;margin-bottom:3px}h3{margin-bottom:0;font-size:11.5px}.date{color:var(--muted);font-size:9.5px;font-weight:700}ul{margin:4px 0 0;padding-left:16px;color:#343b45;font-size:10.2px}li+li{margin-top:2px}
-    .project{position:relative;padding:9px 10px 9px 13px;border-left:3px solid var(--accent);background:linear-gradient(90deg,#f4f8f7,transparent)}.project p{margin-bottom:4px;color:var(--muted);font-size:10px}.side-block{padding:11px;border:1px solid var(--line);border-top:3px solid var(--accent);background:#f8fafb}.side-block+.side-block{margin-top:10px}.side-block h2{border-color:var(--line)}.tags{display:flex;flex-wrap:wrap;gap:5px}.tag{padding:3px 6px;color:#155f58;border:1px solid #c6dfdb;background:var(--soft);font-size:9.5px;font-weight:700}.compact-list{margin-top:0;font-size:9.8px}.education p{margin-bottom:2px;font-size:10.5px;font-weight:700}.education span{color:var(--muted);font-size:9.5px}.note{margin-top:8px;color:var(--muted);font-size:8.5px}
-    @media (max-width:850px){.page{width:100%;min-height:0;margin:0;padding:22px 18px;box-shadow:none}.layout{grid-template-columns:1fr}header{grid-template-columns:1fr}.contact{text-align:left}.proof{grid-template-columns:repeat(2,1fr)}.proof div:nth-child(2){border-right:0}}
+    .page{width:210mm;min-height:297mm;margin:20px auto;padding:16mm 18mm;background:#fff;box-shadow:0 18px 50px rgba(20,28,38,.14)}header{padding-bottom:10px;border-bottom:2px solid #12161c}h1,h2,h3,p{margin-top:0}h1{margin:0 0 6px;text-align:center;font-size:26px;line-height:1.1}.position{margin:0 0 7px;text-align:center;color:#12161c;font-size:13px;font-weight:800}.contact{display:flex;justify-content:center;gap:18px;flex-wrap:wrap;color:#4d5663;font-size:10.5px}
+    .summary{margin:11px 0 12px;color:#27313d;font-size:10.8px;line-height:1.58}.proof{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 12px}.proof div{padding:4px 8px;border:1px solid #d9dee5;border-radius:4px;background:#f8fafb}.proof b{margin-right:4px;font-size:11px}.proof span{color:#59616d;font-size:9.5px}.layout{display:block}section{margin-bottom:12px}h2{margin-bottom:7px;padding-bottom:4px;color:#12161c;border-bottom:1.5px solid #12161c;font-size:13.5px}.item{margin-bottom:9px;break-inside:avoid}.item-head{display:grid;grid-template-columns:1fr auto;gap:12px;align-items:baseline;margin-bottom:3px}h3{margin-bottom:0;font-size:10.9px}.date{color:#4d5663;font-size:9.5px;font-weight:700}ul{margin:3px 0 0;padding-left:15px;color:#27313d;font-size:9.8px;line-height:1.48}li+li{margin-top:1px}.project{padding:0;background:transparent}.project p{margin-bottom:3px;color:#59616d;font-size:9.5px}.side-block{padding:0;border:0;background:transparent}.side-block+.side-block{margin-top:0}.side-block h2{border-color:#12161c}.tags{display:flex;flex-wrap:wrap;gap:5px}.tag{padding:2px 6px;color:#27313d;border:1px solid #d9dee5;background:#f8fafb;font-size:9.2px}.compact-list{margin-top:0;font-size:9.6px}.education p{margin-bottom:2px;font-size:10px;font-weight:700}.education span{color:#59616d;font-size:9.5px}.aside-grid{display:grid;grid-template-columns:1.2fr .8fr .7fr;gap:18px;margin-top:2px}
+    @media (max-width:850px){.page{width:100%;min-height:0;margin:0;padding:22px 18px;box-shadow:none}.item-head{grid-template-columns:1fr}.aside-grid{grid-template-columns:1fr}.contact{justify-content:flex-start}h1,.position{text-align:left}}
     @media print{body{background:#fff}.toolbar{display:none}.page{margin:0;box-shadow:none}}
   </style>
 </head>
@@ -21,7 +18,6 @@
   <div class="toolbar">
     <a href="index.html">返回网站</a>
     <a href="portfolio.html">查看作品集</a>
-    <a href="assets/zzj_resume_product_project.docx" download>下载 Word 简历</a>
     <button onclick="window.print()">打印 / 导出 PDF</button>
   </div>
   <article class="page">
@@ -32,7 +28,7 @@
       </div>
       <div class="contact"><span>835771382@qq.com</span><span>zzj13414967756@gmail.com</span></div>
     </header>
-    <p class="summary">面向产品专员、项目专员、产品助理和项目助理岗位。擅长把复杂业务问题拆解为流程、角色、状态、规则和验收口径，输出 PRD、原型、需求清单、测试场景等交付物，并推进研发、测试和业务侧协同闭环。</p>
+    <p class="summary">求职方向：产品专员 / 项目专员 / 产品助理 / 项目助理。具备产品项目支持、需求文档、原型设计、测试跟进、跨部门协作和客户交付经验，能把业务问题整理成清晰的需求、任务和交付物，并持续推进到结果闭环。</p>
     <div class="proof">
         <div><b>8类</b><span>系统模块</span></div>
       
@@ -51,65 +47,69 @@
         <div><b>9项</b><span>指标认知</span></div>
       </div>
     <div class="layout">
-      <div>
-        <section>
-          <h2>工作经历</h2>
-          
+      <section>
+        <h2>工作经历</h2>
+        
         <div class="item">
-          <div class="item-head"><h3>广东云山农业科技有限公司｜产品专员 / 项目推进</h3><span class="date">2022.06 - 至今</span></div>
-          <ul><li>负责业务系统需求梳理，输出需求清单、流程图、状态流与验收口径，推进评审、研发联调和版本迭代。</li><li>参与智能控制器产品从需求定义、PRD、交互原型到 HMI 页面逻辑和试产验证，协调硬件、软件、APP 三端协同。</li><li>围绕 APP 功能、设备连接、异常流程设计 200+ 分层测试场景，组织 3 轮回归并推动问题复现、修复确认和风险复盘。</li></ul>
+          <div class="item-head"><h3>中实创科技（广东）有限公司｜市场助理 / 产品项目支持</h3><span class="date">2021.03 - 至今</span></div>
+          <ul><li>参与智能控制器、HMI 界面、传感器配套 APP 等产品项目支持工作，协助完成需求调研、PRD、交互原型、测试跟进和版本反馈。</li><li>负责产品资料、项目文档、演示材料和跨部门协作流程整理，推动市场、研发、设计、供应链之间的信息同步和节点跟进。</li><li>参与配套 APP 测试与回归验证，按模块拆解主流程、设备连接、数据展示和异常场景，输出问题清单、测试记录和修复确认结果。</li></ul>
         </div>
       
         <div class="item">
-          <div class="item-head"><h3>客户订单与项目交付经历｜项目执行 / 客户对接</h3><span class="date">2021.04 - 2021.11</span></div>
-          <ul><li>独立负责客户需求沟通、方案确认、执行跟进、交付验收和发货闭环，保证关键节点按计划推进。</li><li>处理执行过程中的需求变更、物料协调和交付异常，沉淀问题记录并推动相关方确认。</li></ul>
+          <div class="item-head"><h3>中实创科技（广东）有限公司｜农业技术员</h3><span class="date">2019.06 - 2021.02</span></div>
+          <ul><li>负责工厂化育苗、水培系统运行维护、环境设备巡检和操作流程记录，积累一线业务流程和设备使用经验。</li><li>参与种植环境参数记录、设备运行跟进和现场异常处理，为后续产品需求、系统流程和设备协同理解提供业务基础。</li></ul>
         </div>
       
-        </section>
-        <section>
-          <h2>项目经历</h2>
-          
+      </section>
+      <section>
+        <h2>项目经历</h2>
+        
         <div class="project item">
-          <div class="item-head"><h3>业务系统需求落地</h3><span class="date">2024.04 - 至今</span></div>
+          <div class="item-head"><h3>业务系统需求推进</h3><span class="date">2024.04 - 至今</span></div>
           <p>流程建模 / 需求清单 / 联调闭环</p>
-          <ul><li>梳理全链路流程、规则、角色与异常场景，沉淀标准化需求清单、状态流转图和验收口径。</li><li>跟进需求评审、研发联调、测试反馈和版本迭代，推动复杂需求从口头描述转为可交付系统能力。</li></ul>
+          <ul><li>参与业务系统需求梳理，整理现场流程、角色职责、异常节点和系统记录要求，形成需求清单和状态流转说明。</li><li>对接终端使用反馈和研发实现过程，持续更新问题记录、优化建议和版本跟进事项，推动需求逐步落地。</li></ul>
         </div>
       
         <div class="project item">
-          <div class="item-head"><h3>智能控制器产品从0到1</h3><span class="date">2022.07 - 至今</span></div>
+          <div class="item-head"><h3>智能控制器项目</h3><span class="date">2022.07 - 至今</span></div>
           <p>PRD / 原型验证 / 三端协同</p>
-          <ul><li>参与产品需求定义、PRD 撰写、交互原型设计和 HMI 页面逻辑配置，完成 3 轮原型迭代验证。</li><li>对接 UI、软件、硬件和供应链协同推进，推动一代产品量产交付，并持续跟进二代产品迭代。</li></ul>
+          <ul><li>负责项目需求调研梳理，协助撰写 PRD 并制作交互原型，对接 UI、软件、硬件团队推进开发。</li><li>参与一代产品落地量产和二代产品原型设计，同时支持 HMI 交互界面、操作流程和页面逻辑优化。</li></ul>
         </div>
       
         <div class="project item">
-          <div class="item-head"><h3>APP 测试与质量收口</h3><span class="date">2024 - 2025</span></div>
+          <div class="item-head"><h3>PAR 传感器配套 APP 测试项目</h3><span class="date">2024 - 2025</span></div>
           <p>200+ 场景 / 3轮回归 / 问题闭环</p>
-          <ul><li>按主流程、边界输入、设备连接、数据展示和异常状态分层拆解 200+ 测试场景。</li><li>组织 3 轮回归验证，维护问题清单、复现路径和修复确认结果，推动版本达到可交付状态。</li></ul>
+          <ul><li>参与配套 APP 产品定义与全量测试，覆盖引导页、设备管理、测量页、记录、国际化和异常场景等模块。</li><li>按主流程、设备连接、数据展示、边界输入和异常状态拆解测试场景，组织 3 轮回归并推动 UI 与功能缺陷修复。</li></ul>
         </div>
       
         <div class="project item">
-          <div class="item-head"><h3>项目交付与客户对接</h3><span class="date">2021.04 - 2021.11</span></div>
-          <p>需求确认 / 执行跟进 / 验收闭环</p>
-          <ul><li>负责客户需求确认、执行计划跟进、过程异常协调和交付验收，形成从需求到交付的完整闭环。</li><li>在多方沟通中保持节点、风险和责任人清晰，保障项目按预期推进。</li></ul>
+          <div class="item-head"><h3>理疗灯系列产品开发</h3><span class="date">2022.06 - 至今</span></div>
+          <p>产品资料 / 样机测试 / 协同推进</p>
+          <ul><li>统筹家用款、手持款外观设计资料和样机测试推进，协助协调设计、研发和供应链资源。</li><li>整理产品概念资料、测试反馈和迭代建议，推动项目按阶段推进。</li></ul>
         </div>
       
-        </section>
-      </div>
-      <aside>
+        <div class="project item">
+          <div class="item-head"><h3>园艺小礼品订单</h3><span class="date">2021.04 - 2021.11</span></div>
+          <p>客户沟通 / 生产跟进 / 验收发货</p>
+          <ul><li>独立完成客户需求沟通、合同确认、生产跟进、验收和发货，形成从需求到交付的完整闭环。</li><li>处理订单过程中的沟通偏差和执行异常，保障交付节奏和客户确认结果。</li></ul>
+        </div>
+      
+      </section>
+      <div class="aside-grid">
         <section class="side-block">
           <h2>核心技能</h2>
           <div class="tags"><span class="tag">需求分析</span><span class="tag">业务流程梳理</span><span class="tag">系统需求建模</span><span class="tag">PRD 编写</span><span class="tag">交互原型</span><span class="tag">项目推进</span><span class="tag">测试场景设计</span><span class="tag">回归测试</span><span class="tag">软硬件协同</span><span class="tag">验收口径</span><span class="tag">跨团队协作</span><span class="tag">问题闭环</span></div>
         </section>
         <section class="side-block">
           <h2>工具与协作</h2>
-          <ul class="compact-list"><li>墨刀</li><li>XMind</li><li>Word / Excel / PPT</li><li>基础 HMI 配置</li><li>飞书文档 / 多维表</li><li>需求清单管理</li></ul>
+          <ul class="compact-list"><li>墨刀</li><li>XMind</li><li>Word / Excel / PPT</li><li>HMI 配置工具</li><li>飞书文档 / 多维表</li><li>需求清单管理</li></ul>
         </section>
         <section class="side-block education">
           <h2>教育</h2>
-          <p>华南农业大学珠江学院</p>
-          <span>本科｜2017 - 2021</span>
+          <p>广东海洋大学</p>
+          <span>本科</span>
         </section>
-      </aside>
+      </div>
     </div>
   </article>
 </body>
