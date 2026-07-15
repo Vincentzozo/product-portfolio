@@ -739,6 +739,7 @@
         resume: {
           ...base.resume,
           ...(data.resume || {}),
+          photo: String(data.resume?.photo ?? base.resume.photo ?? ""),
           proofs: normalizeObjectArray(data.resume?.proofs, base.resume.proofs, (item) => ({
             value: String(item?.value ?? ""),
             label: String(item?.label ?? "")
@@ -1159,6 +1160,7 @@
         editorBody.innerHTML = `
           <div class="panel">
             <h2>简历摘要</h2>
+            ${renderField("头像路径", "resume.photo", state.resume.photo, "text", "例如 assets/profile-photo.jpg")}
             ${renderField("摘要", "resume.summary", state.resume.summary, "textarea")}
           </div>
           ${renderMetricsEditor("resume.proofs", state.resume.proofs)}
@@ -1800,6 +1802,9 @@
     }
 
     function generateResumeHtml(data) {
+      const photo = data.resume.photo
+        ? `<img class="resume-photo" src="${escapeHtml(data.resume.photo)}" alt="${escapeHtml(data.site.personName)}头像">`
+        : "";
       const experience = data.resume.experience.map((item) => `
         <div class="item">
           <div class="item-head"><h3>${escapeHtml(item.company)}｜${escapeHtml(item.role)}</h3><span class="date">${escapeHtml(item.date)}</span></div>
@@ -1829,9 +1834,9 @@
     :root{--ink:#12161c;--muted:#59616d;--line:#d9dee5;--accent:#0b6e63;--soft:#edf7f5}
     *{box-sizing:border-box}body{margin:0;color:var(--ink);background:#e9edf2;font-family:"Segoe UI Variable","PingFang SC","Microsoft YaHei",Arial,sans-serif;line-height:1.45}
     .toolbar{position:sticky;top:0;z-index:10;display:flex;justify-content:center;gap:10px;padding:12px;background:rgba(18,22,28,.94)}.toolbar a,.toolbar button{min-height:38px;padding:8px 14px;color:#fff;border:1px solid rgba(255,255,255,.24);border-radius:5px;background:transparent;font:inherit;font-weight:700;cursor:pointer;text-decoration:none}.toolbar button{color:#101318;background:#fff}
-    .page{width:210mm;min-height:297mm;margin:20px auto;padding:16mm 18mm;background:#fff;box-shadow:0 18px 50px rgba(20,28,38,.14)}header{padding-bottom:10px;border-bottom:2px solid #12161c}h1,h2,h3,p{margin-top:0}h1{margin:0 0 6px;text-align:center;font-size:26px;line-height:1.1}.position{margin:0 0 7px;text-align:center;color:#12161c;font-size:13px;font-weight:800}.contact{display:flex;justify-content:center;gap:18px;flex-wrap:wrap;color:#4d5663;font-size:10.5px}
+    .page{width:210mm;min-height:297mm;margin:20px auto;padding:16mm 18mm;background:#fff;box-shadow:0 18px 50px rgba(20,28,38,.14)}header{position:relative;min-height:42mm;padding:0 36mm 10px 0;border-bottom:2px solid #12161c}.identity{padding-top:3mm}h1,h2,h3,p{margin-top:0}h1{margin:0 0 6px;text-align:center;font-size:26px;line-height:1.1}.position{margin:0 0 7px;text-align:center;color:#12161c;font-size:13px;font-weight:800}.contact{display:flex;justify-content:center;gap:18px;flex-wrap:wrap;color:#4d5663;font-size:10.5px}.resume-photo{position:absolute;top:0;right:0;width:30mm;height:40mm;object-fit:cover;object-position:50% 38%;border:1px solid #d9dee5;background:#fff}
     .summary{margin:11px 0 14px;color:#27313d;font-size:10.8px;line-height:1.58}.layout{display:block}section{margin-bottom:12px}h2{margin-bottom:7px;padding-bottom:4px;color:#12161c;border-bottom:1.5px solid #12161c;font-size:13.5px}.item{margin-bottom:9px;break-inside:avoid}.item-head{display:grid;grid-template-columns:1fr auto;gap:12px;align-items:baseline;margin-bottom:3px}h3{margin-bottom:0;font-size:10.9px}.date{color:#4d5663;font-size:9.5px;font-weight:700}ul{margin:3px 0 0;padding-left:15px;color:#27313d;font-size:9.8px;line-height:1.48}li+li{margin-top:1px}.project{padding:0;background:transparent}.project p{margin-bottom:3px;color:#59616d;font-size:9.5px}.side-block{padding:0;border:0;background:transparent}.side-block+.side-block{margin-top:0}.side-block h2{border-color:#12161c}.tags{display:flex;flex-wrap:wrap;gap:5px}.tag{padding:2px 6px;color:#27313d;border:1px solid #d9dee5;background:#f8fafb;font-size:9.2px}.compact-list{margin-top:0;font-size:9.6px}.education p{margin-bottom:2px;font-size:10px;font-weight:700}.education span{color:#59616d;font-size:9.5px}.aside-grid{display:grid;grid-template-columns:1.2fr .8fr .7fr;gap:18px;margin-top:2px}
-    @media (max-width:850px){.page{width:100%;min-height:0;margin:0;padding:22px 18px;box-shadow:none}.item-head{grid-template-columns:1fr}.aside-grid{grid-template-columns:1fr}.contact{justify-content:flex-start}h1,.position{text-align:left}}
+    @media (max-width:850px){.page{width:100%;min-height:0;margin:0;padding:22px 18px;box-shadow:none}header{min-height:0;padding-right:0}.identity{padding-top:0}.resume-photo{position:static;width:88px;height:118px;margin:12px 0 0}.item-head{grid-template-columns:1fr}.aside-grid{grid-template-columns:1fr}.contact{justify-content:flex-start}h1,.position{text-align:left}}
     @media print{body{background:#fff}.toolbar{display:none}.page{margin:0;box-shadow:none}}
   </style>
 </head>
@@ -1843,11 +1848,12 @@
   </div>
   <article class="page">
     <header>
-      <div>
+      <div class="identity">
         <h1>${escapeHtml(data.site.personName)}</h1>
         <p class="position">${escapeHtml(data.site.role)}</p>
       </div>
       <div class="contact">${emails}</div>
+      ${photo}
     </header>
     <p class="summary">${escapeHtml(data.resume.summary)}</p>
     <div class="layout">
