@@ -21,7 +21,7 @@
     <section class="board">
       <article class="panel">
         <h2>主流程用例</h2>
-        <div class="case"><b>TC-001</b><p>目标资源空闲，提交提前申请，系统生成占用记录并更新状态。</p><span class="tag pass">通过口径</span></div>
+        <div class="case"><b>TC-001</b><p>目标资源空闲，提交调整申请，系统生成占用记录并更新状态。</p><span class="tag pass">通过口径</span></div>
         <div class="case"><b>TC-002</b><p>目标资源未来存在计划，系统提示风险并要求人工确认。</p><span class="tag pass">通过口径</span></div>
         <div class="case"><b>TC-003</b><p>用户确认冲突后提交，系统生成异常记录并保留追踪链路。</p><span class="tag warn">需回归</span></div>
       </article>
@@ -29,8 +29,8 @@
       <article class="panel">
         <h2>异常与边界</h2>
         <div class="case"><b>TC-011</b><p>目标资源当前占用，系统禁止提交并提示更换资源。</p><span class="tag pass">阻断</span></div>
-        <div class="case"><b>TC-012</b><p>提前日期早于允许窗口，系统拦截并提示原因。</p><span class="tag pass">阻断</span></div>
-        <div class="case"><b>TC-013</b><p>中途取消后资源保留留空规则，后续工单不可误占。</p><span class="tag warn">重点</span></div>
+        <div class="case"><b>TC-012</b><p>调整日期早于允许窗口，系统拦截并提示原因。</p><span class="tag pass">阻断</span></div>
+        <div class="case"><b>TC-013</b><p>中途取消后资源保留原因和记录，后续任务不可误占。</p><span class="tag warn">重点</span></div>
       </article>
     </section>
 
