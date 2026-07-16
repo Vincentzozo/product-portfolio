@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>工单与资源冲突控制原型</title>
+  <title>任务与资源冲突控制原型</title>
   <style>
     :root {
       --bg: #f4f6f9;
@@ -228,14 +228,14 @@
     <header>
       <div class="top">
         <div>
-          <h1>工单与资源冲突控制原型</h1>
+          <h1>任务与资源冲突控制原型</h1>
           <p class="subtitle">用于演示需求规则、异常判断、资源占用状态和跨角色协同。</p>
         </div>
         <button class="btn secondary" onclick="window.print()">打印当前方案</button>
       </div>
       <div class="tabs" role="tablist">
         <button class="active" data-view="overview" type="button">资源看板</button>
-        <button data-view="advance" type="button">工单提前</button>
+        <button data-view="advance" type="button">任务调整</button>
         <button data-view="rules" type="button">规则说明</button>
       </div>
     </header>
@@ -262,12 +262,12 @@
         <div class="grid">
           <div class="panel">
             <div class="panel-head">
-              <div><h2>工单提前申请</h2><p>原型展示提前日期、目标资源位和冲突策略如何联动。</p></div>
+              <div><h2>任务调整申请</h2><p>原型展示调整日期、目标资源和冲突策略如何联动。</p></div>
             </div>
             <div class="panel-body">
               <div class="form-grid">
-                <label>工单<select id="order"><option>WO-240714-A01 A线生产</option><option>WO-240714-B03 B线调整</option><option>WO-240715-C02 C线交付</option></select></label>
-                <label>目标资源位<select id="bed"><option value="A03">A03</option><option value="B02">B02</option><option value="C01">C01</option></select></label>
+                <label>任务<select id="order"><option>TASK-240714-A01 需求评审</option><option>TASK-240714-B03 版本调整</option><option>TASK-240715-C02 交付确认</option></select></label>
+                <label>目标资源<select id="bed"><option value="A03">A03</option><option value="B02">B02</option><option value="C01">C01</option></select></label>
                 <label>提前到<input id="date" type="date" value="2026-07-18"></label>
                 <label>冲突处理<select id="policy"><option value="warn">仅提醒，人工确认</option><option value="lock">自动锁定冲突资源位</option><option value="reject">不允许提交</option></select></label>
                 <button class="btn" id="simulate" type="button">模拟规则校验</button>
@@ -281,9 +281,9 @@
             </div>
             <div class="panel-body">
               <div class="flow">
-      <div class="step"><b>01 先判断状态</b><p>目标资源位是否已被占用、是否存在提前占用记录。</p></div>
-                <div class="step"><b>02 再判断时间</b><p>提前日期是否早于当前排程，是否触发跨批次冲突。</p></div>
-      <div class="step"><b>03 最后给动作</b><p>允许提交、提醒人工确认、自动锁定或直接拦截。</p></div>
+      <div class="step"><b>01 先判断状态</b><p>目标资源是否已被占用、是否存在调整记录。</p></div>
+                <div class="step"><b>02 再判断时间</b><p>调整日期是否影响当前排期，是否触发任务冲突。</p></div>
+      <div class="step"><b>03 最后给动作</b><p>允许提交、提醒人工确认、锁定资源或直接拦截。</p></div>
               </div>
             </div>
           </div>
@@ -297,10 +297,10 @@
           </div>
           <div class="panel-body">
             <div class="flow">
-              <div class="step"><b>可提前</b><p>目标资源位为空，且提前日期不影响已有排程，系统直接生成提前占用记录。</p></div>
-              <div class="step"><b>需确认</b><p>资源位未来有计划占用，但时间窗口允许调整，系统提示风险并要求人工确认。</p></div>
-              <div class="step"><b>需拦截</b><p>目标资源位当前已占用，或提前动作会覆盖已有生产批次，系统禁止提交。</p></div>
-              <div class="step"><b>中途取消</b><p>取消后资源位不可简单释放，需要保留留空规则，避免后续工单误占。</p></div>
+              <div class="step"><b>可调整</b><p>目标资源为空，且调整日期不影响已有排期，系统直接生成调整记录。</p></div>
+              <div class="step"><b>需确认</b><p>资源未来有计划占用，但时间窗口允许调整，系统提示风险并要求人工确认。</p></div>
+              <div class="step"><b>需拦截</b><p>目标资源当前已占用，或调整动作会覆盖关键任务，系统禁止提交。</p></div>
+              <div class="step"><b>中途取消</b><p>取消后资源不可简单释放，需要保留原因和记录，避免后续任务误占。</p></div>
             </div>
           </div>
         </div>
@@ -310,7 +310,7 @@
 
   <script>
     const beds = [
-      ["A01", "occupied", "生产中"], ["A02", "free", "可用"], ["A03", "locked", "冲突"],
+      ["A01", "occupied", "执行中"], ["A02", "free", "可用"], ["A03", "locked", "冲突"],
       ["B01", "occupied", "执行中"], ["B02", "free", "可提前"], ["B03", "locked", "待确认"],
       ["C01", "free", "可用"], ["C02", "occupied", "交付中"]
     ];
@@ -336,7 +336,7 @@
       const conflict = bed === "A03";
       if (!conflict) {
         result.className = "result ok";
-        result.textContent = `${bed} 当前可提前占用，系统将生成提前占用记录并同步更新排程。`;
+        result.textContent = `${bed} 当前可调整，系统将生成调整记录并同步更新排期。`;
         return;
       }
       result.className = "result";
