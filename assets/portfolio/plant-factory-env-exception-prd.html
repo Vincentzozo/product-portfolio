@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>环境异常需求说明</title>
+  <title>异常场景需求说明</title>
   <style>
     :root{--bg:#f4f6f9;--paper:#fff;--ink:#10151b;--muted:#5d6673;--line:#dce3ea;--green:#0b6e63;--red:#b42318;--blue:#1267d8}
     *{box-sizing:border-box}body{margin:0;color:var(--ink);background:var(--bg);font-family:"Segoe UI Variable","PingFang SC","Microsoft YaHei",Arial,sans-serif;line-height:1.65}
@@ -14,16 +14,16 @@
   <main class="page">
     <header>
       <div class="eyebrow">SANITIZED PRD SAMPLE</div>
-      <h1>环境异常需求说明</h1>
-      <p class="lead">EC、pH、DLI、VPD、传感器离线等环境异常的系统提醒、记录、派单、复核和看板统计需求。</p>
+      <h1>异常场景需求说明</h1>
+      <p class="lead">围绕设备离线、数据缺失、任务超时、状态冲突等异常场景，整理系统提醒、记录、派单、复核和看板统计需求。</p>
     </header>
 
     <section>
       <h2>需求背景</h2>
       <div class="grid">
-        <div class="card"><h3>业务目标</h3><p>让关键环境异常从“人发现”转为“系统发现、自动记录、责任到人、处理可追踪”。</p></div>
-        <div class="card"><h3>系统边界</h3><p>系统负责提醒、记录、派单和复核，不直接替代种植判断；高风险动作需人工确认。</p></div>
-        <div class="card"><h3>指标意识</h3><p>能耗、设备在线率和产出指标会影响生产管理决策，异常管理需与数据指标联动。</p></div>
+        <div class="card"><h3>业务目标</h3><p>让关键异常从“人发现”转为“系统提醒、自动记录、责任到人、处理可追踪”。</p></div>
+        <div class="card"><h3>系统边界</h3><p>系统负责提醒、记录、派单和复核；高风险动作仍需人工确认。</p></div>
+        <div class="card"><h3>指标意识</h3><p>异常数量、处理时长、复测通过率和任务超时率会影响项目交付判断。</p></div>
       </div>
     </section>
 
@@ -32,11 +32,11 @@
       <table>
         <thead><tr><th>异常类型</th><th>触发条件</th><th>系统动作</th><th>验收标准</th></tr></thead>
         <tbody>
-          <tr><td>EC 超标</td><td>连续 10 分钟超过作物阶段阈值</td><td>生成异常记录，通知责任人，建议复测营养液</td><td class="ok">异常、处理、复核均可追踪</td></tr>
-          <tr><td>pH 偏移</td><td>低于/高于配方区间并持续超过设定时间</td><td>推送预警，关联当前批次和水肥设备</td><td class="ok">可按批次回看异常时段</td></tr>
-          <tr><td>DLI 不达标</td><td>日累计光量低于目标策略</td><td>提示补光风险，记录影响区域与作物阶段</td><td class="risk">不得只显示瞬时 PPFD</td></tr>
-          <tr><td>VPD 长时异常</td><td>连续越界超过阈值</td><td>生成巡检任务，要求填写现场确认结果</td><td class="ok">任务闭环后异常才可关闭</td></tr>
-          <tr><td>传感器离线</td><td>设备无数据上报超过设定时间</td><td>提示设备离线，标记该时段数据不可用</td><td class="risk">看板统计需排除无效数据</td></tr>
+          <tr><td>设备离线</td><td>设备无数据上报超过设定时间</td><td>生成异常记录，通知责任人，标记数据不可用</td><td class="ok">异常、处理、复核均可追踪</td></tr>
+          <tr><td>数据缺失</td><td>关键字段为空或数据连续中断</td><td>提示补录或重新采集，保留修改人和原因</td><td class="ok">可回看缺失时段和处理结果</td></tr>
+          <tr><td>任务超时</td><td>超过计划完成时间仍未关闭</td><td>推送提醒，标记风险等级，要求填写延期原因</td><td class="risk">不得只显示“进行中”</td></tr>
+          <tr><td>状态冲突</td><td>同一任务出现互斥状态或重复提交</td><td>拦截提交，提示冲突原因和处理建议</td><td class="ok">用户能明确下一步动作</td></tr>
+          <tr><td>权限受限</td><td>当前角色无权执行关键动作</td><td>给出权限提示，记录被拦截动作</td><td class="risk">避免无提示失败</td></tr>
         </tbody>
       </table>
     </section>
@@ -52,7 +52,7 @@
 
     <section>
       <h2>参考依据</h2>
-      <p class="note">生产管理系统不仅要记录作业，还应关注环境达标率、设备在线率、异常处理时长和单位产出成本等指标。</p>
+      <p class="note">业务系统不仅要记录操作，还应关注任务完成率、异常处理时长、复测通过率和超时风险等指标。</p>
     </section>
   </main>
 </body>
