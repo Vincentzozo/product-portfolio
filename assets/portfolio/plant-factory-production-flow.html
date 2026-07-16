@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>生产流程图</title>
+  <title>业务流程图</title>
   <style>
     :root{--bg:#f4f7f8;--ink:#10151b;--muted:#5b6572;--line:#d9e2e7;--green:#0b6e63;--blue:#1667d8;--paper:#fff}
     *{box-sizing:border-box}body{margin:0;color:var(--ink);background:var(--bg);font-family:"Segoe UI Variable","PingFang SC","Microsoft YaHei",Arial,sans-serif;line-height:1.65}
@@ -14,39 +14,39 @@
   <main class="page">
     <header>
       <div class="eyebrow">PROCESS FLOW SAMPLE</div>
-      <h1>生产流程图</h1>
-      <p class="lead">从计划到出库的生产动作拆解，覆盖系统记录节点、操作角色、触发条件和异常入口。</p>
+      <h1>业务流程图</h1>
+      <p class="lead">从需求确认到交付关闭的流程拆解，覆盖系统记录节点、操作角色、触发条件和异常入口。</p>
     </header>
 
     <section>
       <h2>主流程</h2>
       <div class="flow">
-        <article class="node"><b>01</b><h3>生产计划</h3><p>创建批次、品种、目标数量、计划周期和责任人。</p></article>
-        <article class="node"><b>02</b><h3>播种</h3><p>记录播种时间、穴盘/托盘、数量、操作人和批次码。</p></article>
-        <article class="node"><b>03</b><h3>催芽</h3><p>记录进入时间、环境参数、异常记录和转出条件。</p></article>
-        <article class="node"><b>04</b><h3>育苗</h3><p>跟踪苗龄、补光策略、巡检结果和损耗。</p></article>
-        <article class="node"><b>05</b><h3>移栽/定植</h3><p>绑定栽培位、定植数量、操作班组和资源占用。</p></article>
-        <article class="node"><b>06</b><h3>生长期巡检</h3><p>记录环境达标、设备状态、异常派单和复核结果。</p></article>
-        <article class="node"><b>07</b><h3>采收</h3><p>记录采收量、商品率、损耗原因和批次完成状态。</p></article>
-        <article class="node"><b>08</b><h3>包装出库</h3><p>关联包装、客户/订单、质检结果、出库和追溯码。</p></article>
+        <article class="node"><b>01</b><h3>需求确认</h3><p>确认需求背景、目标、范围、责任人和预期交付时间。</p></article>
+        <article class="node"><b>02</b><h3>流程梳理</h3><p>整理当前操作路径、角色分工、关键节点和输入输出。</p></article>
+        <article class="node"><b>03</b><h3>规则拆解</h3><p>明确触发条件、判断逻辑、异常入口和处理边界。</p></article>
+        <article class="node"><b>04</b><h3>文档输出</h3><p>形成需求清单、流程图、原型说明和验收要点。</p></article>
+        <article class="node"><b>05</b><h3>评审确认</h3><p>组织业务、研发、测试确认需求范围和实现优先级。</p></article>
+        <article class="node"><b>06</b><h3>开发跟进</h3><p>同步开发进度、问题反馈、变更影响和待确认事项。</p></article>
+        <article class="node"><b>07</b><h3>测试回归</h3><p>跟进测试场景、缺陷记录、复现路径和修复结果。</p></article>
+        <article class="node"><b>08</b><h3>交付关闭</h3><p>确认验收结果、遗留风险、版本记录和后续优化建议。</p></article>
       </div>
     </section>
 
     <section>
-      <h2>系统需要沉淀的记录</h2>
+      <h2>项目需要沉淀的记录</h2>
       <div class="detail">
-        <div class="card"><h3>人工操作记录</h3><ul><li>操作人、时间、批次、位置、数量</li><li>复核人、异常说明、处理结果</li><li>报损、返工、补录原因</li></ul></div>
-        <div class="card"><h3>设备与环境记录</h3><ul><li>DLI、PPFD、VPD、温湿度、CO2</li><li>EC、pH、水温、液位、阀门状态</li><li>设备在线率、传感器离线时长</li></ul></div>
+        <div class="card"><h3>需求与任务记录</h3><ul><li>提出人、背景、范围、优先级</li><li>责任人、截止时间、当前状态</li><li>变更原因、确认结果、遗留风险</li></ul></div>
+        <div class="card"><h3>测试与交付记录</h3><ul><li>测试场景、复现路径、问题等级</li><li>修复版本、复测结果、关闭时间</li><li>验收结论、上线范围、后续待办</li></ul></div>
       </div>
     </section>
 
     <section>
       <h2>看板指标入口</h2>
       <div class="metric">
-        <div><b>批次进度</b><span>当前环节、计划偏差、预计采收</span></div>
-        <div><b>工单完成率</b><span>每日任务完成、超时、复核</span></div>
-        <div><b>环境达标率</b><span>参数越界、持续时长、影响批次</span></div>
-        <div><b>损耗与产出</b><span>采收量、商品率、损耗原因</span></div>
+        <div><b>任务进度</b><span>当前环节、计划偏差、预计完成</span></div>
+        <div><b>完成率</b><span>每日任务完成、超时、复核</span></div>
+        <div><b>问题状态</b><span>新增、处理中、已修复、待复测</span></div>
+        <div><b>交付结果</b><span>验收结论、风险、后续待办</span></div>
       </div>
     </section>
   </main>
