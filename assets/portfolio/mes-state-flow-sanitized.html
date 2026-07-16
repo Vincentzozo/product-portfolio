@@ -14,21 +14,21 @@
     <header>
       <div class="eyebrow">SANITIZED FLOW SAMPLE</div>
       <h1>状态流与异常处理说明</h1>
-      <p>复杂业务动作的系统状态、触发条件、异常结果和人工处理节点。</p>
+      <p>复杂任务动作的系统状态、触发条件、异常结果和人工处理节点。</p>
     </header>
 
     <section class="flow">
-      <article class="node"><b>01</b><h2>创建申请</h2><p>用户选择工单、目标资源和调整时间，系统生成待校验记录。</p></article>
-      <article class="node"><b>02</b><h2>规则校验</h2><p>系统检查资源占用、时间窗口、角色权限和未关闭异常。</p></article>
+      <article class="node"><b>01</b><h2>创建申请</h2><p>用户选择任务、目标资源和调整时间，系统生成待校验记录。</p></article>
+      <article class="node"><b>02</b><h2>规则校验</h2><p>系统检查资源占用、时间窗口、角色权限和未关闭问题。</p></article>
       <article class="node"><b>03</b><h2>冲突处理</h2><p>无冲突直接通过；有冲突则进入提醒、确认或拦截。</p></article>
-      <article class="node"><b>04</b><h2>状态同步</h2><p>更新看板、工单详情、资源占用记录和异常台账。</p></article>
+      <article class="node"><b>04</b><h2>状态同步</h2><p>更新看板、任务详情、资源占用记录和问题台账。</p></article>
       <article class="node"><b>05</b><h2>关闭回归</h2><p>测试确认主流程和异常流，关闭问题并沉淀规则。</p></article>
     </section>
 
     <section class="rules">
       <article class="rule"><h2>允许通过</h2><p>目标资源空闲，调整动作不会影响已有计划，系统自动生成记录。</p></article>
       <article class="rule warn"><h2>人工确认</h2><p>存在未来计划冲突，但业务允许人工判断，系统保留确认链路。</p></article>
-      <article class="rule"><h2>系统拦截</h2><p>当前资源已占用，或调整动作会覆盖关键排程，系统禁止提交。</p></article>
+      <article class="rule"><h2>系统拦截</h2><p>当前资源已占用，或调整动作会覆盖关键排期，系统禁止提交。</p></article>
     </section>
   </main>
 </body>
