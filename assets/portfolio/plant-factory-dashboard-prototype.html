@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>生产数据看板原型</title>
+  <title>项目数据看板原型</title>
   <style>
     :root{--bg:#eef2f5;--panel:#fff;--ink:#10151b;--muted:#65707f;--line:#dce4ea;--green:#0b6e63;--blue:#1267d8;--red:#b42318;--amber:#a15c00}
     *{box-sizing:border-box}body{margin:0;color:var(--ink);background:var(--bg);font-family:"Segoe UI Variable","PingFang SC","Microsoft YaHei",Arial,sans-serif;line-height:1.55}
@@ -15,56 +15,56 @@
     <div class="top">
       <div>
         <div class="eyebrow">DASHBOARD PROTOTYPE SAMPLE</div>
-        <h1>生产数据看板原型</h1>
-        <p>生产、环境、设备、质量和能耗指标的日常管理界面。</p>
+        <h1>项目数据看板原型</h1>
+        <p>任务、进度、问题、质量和交付风险的日常管理界面。</p>
       </div>
       <div class="seg" aria-label="视图切换">
         <button class="active" type="button">今日</button>
         <button type="button">本周</button>
-        <button type="button">批次</button>
+        <button type="button">项目</button>
       </div>
     </div>
 
     <section class="kpis">
-      <article class="kpi"><span>今日批次</span><b>18</b><small>4 个待采收</small></article>
-      <article class="kpi"><span>工单完成率</span><b>86%</b><small>2 个超时</small></article>
-      <article class="kpi"><span>环境达标率</span><b>92%</b><small>VPD 有波动</small></article>
-      <article class="kpi"><span>采收量</span><b>126kg</b><small>较计划 +8%</small></article>
-      <article class="kpi"><span>损耗率</span><b>3.8%</b><small>低于阈值</small></article>
-      <article class="kpi"><span>单位电耗</span><b>kWh/kg</b><small>待接入电表</small></article>
+      <article class="kpi"><span>当前任务</span><b>18</b><small>4 个待确认</small></article>
+      <article class="kpi"><span>任务完成率</span><b>86%</b><small>2 个超时</small></article>
+      <article class="kpi"><span>问题关闭率</span><b>92%</b><small>3 个待复测</small></article>
+      <article class="kpi"><span>本周交付</span><b>6项</b><small>较计划 +1</small></article>
+      <article class="kpi"><span>风险事项</span><b>3</b><small>需跟进</small></article>
+      <article class="kpi"><span>待确认</span><b>5</b><small>业务/研发反馈</small></article>
     </section>
 
     <div class="layout">
       <section class="panel">
         <h2>关键指标达成</h2>
         <div class="bars">
-          <div class="bar-row"><span>DLI 达标</span><div class="track"><div class="fill" style="width:88%"></div></div><b>88%</b></div>
-          <div class="bar-row"><span>PPFD 稳定</span><div class="track"><div class="fill" style="width:91%"></div></div><b>91%</b></div>
-          <div class="bar-row"><span>VPD 达标</span><div class="track"><div class="fill" style="width:76%"></div></div><b>76%</b></div>
-          <div class="bar-row"><span>EC/pH 达标</span><div class="track"><div class="fill" style="width:94%"></div></div><b>94%</b></div>
-          <div class="bar-row"><span>设备在线</span><div class="track"><div class="fill" style="width:97%"></div></div><b>97%</b></div>
+          <div class="bar-row"><span>需求确认</span><div class="track"><div class="fill" style="width:88%"></div></div><b>88%</b></div>
+          <div class="bar-row"><span>原型完成</span><div class="track"><div class="fill" style="width:91%"></div></div><b>91%</b></div>
+          <div class="bar-row"><span>测试通过</span><div class="track"><div class="fill" style="width:76%"></div></div><b>76%</b></div>
+          <div class="bar-row"><span>问题关闭</span><div class="track"><div class="fill" style="width:94%"></div></div><b>94%</b></div>
+          <div class="bar-row"><span>节点准时</span><div class="track"><div class="fill" style="width:97%"></div></div><b>97%</b></div>
         </div>
       </section>
 
       <section class="panel">
         <h2>异常提醒</h2>
         <div class="alerts">
-          <div class="alert high"><b>VPD 连续越界 34 分钟</b><span>A 区生长期批次，已生成巡检任务。</span></div>
-          <div class="alert"><b>传感器离线</b><span>B 区 2 号温湿度传感器 12 分钟无数据。</span></div>
-          <div class="alert"><b>DLI 预计不达标</b><span>C 区今日累计光量低于目标策略。</span></div>
+          <div class="alert high"><b>关键需求待确认</b><span>影响本周提测，已生成跟进任务。</span></div>
+          <div class="alert"><b>问题待复测</b><span>3 个修复项等待测试确认。</span></div>
+          <div class="alert"><b>交付范围变更</b><span>需补充变更原因和相关方确认。</span></div>
         </div>
       </section>
     </div>
 
     <section class="panel" style="margin-top:16px">
-      <h2>批次与工单</h2>
+      <h2>任务与问题</h2>
       <table class="table">
-        <thead><tr><th>批次</th><th>阶段</th><th>位置</th><th>今日任务</th><th>状态</th></tr></thead>
+        <thead><tr><th>编号</th><th>类型</th><th>负责人</th><th>今日任务</th><th>状态</th></tr></thead>
         <tbody>
-          <tr><td>PF-2407-018</td><td>生长期</td><td>A 区 03 架</td><td>巡检 / 环境复核</td><td><span class="pill warn">处理中</span></td></tr>
-          <tr><td>PF-2407-022</td><td>待采收</td><td>B 区 01 架</td><td>采收 / 称重</td><td><span class="pill">正常</span></td></tr>
-          <tr><td>PF-2407-025</td><td>育苗中</td><td>育苗区 02</td><td>补光确认</td><td><span class="pill">正常</span></td></tr>
-          <tr><td>PF-2407-029</td><td>定植中</td><td>C 区 04 架</td><td>移栽复核</td><td><span class="pill risk">超时</span></td></tr>
+          <tr><td>REQ-018</td><td>需求</td><td>产品/研发</td><td>补充验收口径</td><td><span class="pill warn">处理中</span></td></tr>
+          <tr><td>BUG-022</td><td>缺陷</td><td>测试/研发</td><td>复测修复结果</td><td><span class="pill">正常</span></td></tr>
+          <tr><td>DOC-025</td><td>文档</td><td>产品助理</td><td>更新流程说明</td><td><span class="pill">正常</span></td></tr>
+          <tr><td>RISK-029</td><td>风险</td><td>项目协同</td><td>确认延期影响</td><td><span class="pill risk">超时</span></td></tr>
         </tbody>
       </table>
     </section>
