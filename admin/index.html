@@ -1823,6 +1823,9 @@
       const skills = data.resume.skills.map((item) => `<span class="tag">${escapeHtml(item)}</span>`).join("");
       const tools = data.resume.tools.map((item) => `<li>${escapeHtml(item)}</li>`).join("");
       const emails = data.site.emails.filter(Boolean).slice(0, 1).map((email) => `<span>${escapeHtml(email)}</span>`).join("");
+      const educationParts = [data.resume.education.school, data.resume.education.degree, data.resume.education.date].filter(Boolean);
+      const educationMain = educationParts.length ? educationParts[0] : "";
+      const educationSub = educationParts.slice(1).join("｜");
 
       return `<!doctype html>
 <html lang="zh-CN">
@@ -1876,8 +1879,8 @@
         </section>
         <section class="side-block education">
           <h2>教育</h2>
-          <p>${escapeHtml(data.resume.education.school)}</p>
-          <span>${[data.resume.education.degree, data.resume.education.date].filter(Boolean).map(escapeHtml).join("｜")}</span>
+          <p>${escapeHtml(educationMain)}</p>
+          ${educationSub ? `<span>${escapeHtml(educationSub)}</span>` : ""}
         </section>
       </div>
     </div>
