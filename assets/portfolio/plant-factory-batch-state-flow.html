@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>作物批次状态流</title>
+  <title>任务状态流</title>
   <style>
     :root{--bg:#f5f7fa;--ink:#11151b;--muted:#5d6673;--line:#dce3ea;--green:#0b6e63;--blue:#1267d8}
     *{box-sizing:border-box}body{margin:0;color:var(--ink);background:var(--bg);font-family:"Segoe UI Variable","PingFang SC","Microsoft YaHei",Arial,sans-serif;line-height:1.6}
@@ -13,30 +13,30 @@
 <body>
   <main class="page">
     <header>
-      <div class="eyebrow">BATCH STATE FLOW SAMPLE</div>
-      <h1>作物批次状态流</h1>
-      <p class="lead">批次状态流用于回答三个问题：当前批次在哪里、下一步由谁操作、哪些异常会导致暂停或报损。它是生产追溯、工单派发和看板统计的基础。</p>
+      <div class="eyebrow">TASK STATE FLOW SAMPLE</div>
+      <h1>任务状态流</h1>
+      <p class="lead">任务状态流用于回答三个问题：当前事项处在哪一步、下一步由谁处理、哪些异常会导致暂停或退回。它是需求跟进、测试回归和项目看板的基础。</p>
     </header>
 
     <section>
       <h2>主状态流</h2>
       <div class="state-line">
-        <div class="state"><div class="name">待播种</div><div class="box"><h3>进入条件</h3><p>生产计划确认，品种、数量、计划日期和责任人已建立。</p></div><div class="box"><h3>系统记录</h3><p>批次号、目标数量、计划周期、物料准备状态。</p></div></div>
-        <div class="state"><div class="name">育苗中</div><div class="box"><h3>进入条件</h3><p>播种完成并完成批次码绑定。</p></div><div class="box"><h3>系统记录</h3><p>苗龄、巡检、补光策略、损耗、异常。</p></div></div>
-        <div class="state"><div class="name">可移栽</div><div class="box"><h3>进入条件</h3><p>苗龄、长势或人工复核达到移栽标准。</p></div><div class="box"><h3>系统记录</h3><p>待派工单、目标栽培位、预计转入数量。</p></div></div>
-        <div class="state"><div class="name">定植中</div><div class="box"><h3>进入条件</h3><p>移栽工单开始执行，资源位被占用。</p></div><div class="box"><h3>系统记录</h3><p>操作人、栽培位、实际数量、空位和异常。</p></div></div>
-        <div class="state"><div class="name">生长期</div><div class="box"><h3>进入条件</h3><p>定植完成并进入生长环境策略。</p></div><div class="box"><h3>系统记录</h3><p>环境参数、设备联动、巡检、异常派单。</p></div></div>
-        <div class="state"><div class="name">待采收</div><div class="box"><h3>进入条件</h3><p>达到采收周期或人工判定可采收。</p></div><div class="box"><h3>系统记录</h3><p>计划采收日期、预估产量、采收工单。</p></div></div>
-        <div class="state"><div class="name">已采收/已出库</div><div class="box"><h3>进入条件</h3><p>采收、包装、质检、出库动作完成。</p></div><div class="box"><h3>系统记录</h3><p>采收量、商品率、损耗率、追溯码、客户反馈。</p></div></div>
+        <div class="state"><div class="name">待确认</div><div class="box"><h3>进入条件</h3><p>需求或问题已提交，等待确认背景、范围和优先级。</p></div><div class="box"><h3>系统记录</h3><p>提出人、需求来源、目标、影响范围、期望时间。</p></div></div>
+        <div class="state"><div class="name">梳理中</div><div class="box"><h3>进入条件</h3><p>需求已确认，开始整理流程、规则和页面说明。</p></div><div class="box"><h3>系统记录</h3><p>需求清单、流程图、异常场景、待确认问题。</p></div></div>
+        <div class="state"><div class="name">待评审</div><div class="box"><h3>进入条件</h3><p>文档和原型初稿完成，等待相关方评审。</p></div><div class="box"><h3>系统记录</h3><p>评审结论、修改意见、责任人和截止时间。</p></div></div>
+        <div class="state"><div class="name">开发中</div><div class="box"><h3>进入条件</h3><p>评审通过并排入开发计划。</p></div><div class="box"><h3>系统记录</h3><p>开发状态、阻塞点、变更影响和联调事项。</p></div></div>
+        <div class="state"><div class="name">测试中</div><div class="box"><h3>进入条件</h3><p>功能提测，开始执行测试场景和问题记录。</p></div><div class="box"><h3>系统记录</h3><p>测试用例、缺陷清单、复现路径、修复版本。</p></div></div>
+        <div class="state"><div class="name">待验收</div><div class="box"><h3>进入条件</h3><p>核心问题已修复，等待业务或项目侧确认。</p></div><div class="box"><h3>系统记录</h3><p>验收结果、遗留风险、上线范围、交付说明。</p></div></div>
+        <div class="state"><div class="name">已关闭</div><div class="box"><h3>进入条件</h3><p>验收通过或相关方确认关闭。</p></div><div class="box"><h3>系统记录</h3><p>关闭时间、交付版本、复盘记录、后续待办。</p></div></div>
       </div>
     </section>
 
     <section>
       <h2>异常分支</h2>
       <div class="branches">
-        <div class="branch"><h3>暂停</h3><ul><li>设备离线或环境持续越界</li><li>工单无法继续执行</li><li>需主管复核后恢复</li></ul></div>
-        <div class="branch"><h3>报损</h3><ul><li>批次质量不达标</li><li>病害或环境事故影响</li><li>记录原因、数量、责任环节</li></ul></div>
-        <div class="branch"><h3>补录/更正</h3><ul><li>人工漏记或设备数据缺失</li><li>保留修改人和修改原因</li><li>影响指标需重新计算</li></ul></div>
+        <div class="branch"><h3>暂停</h3><ul><li>需求范围不清或依赖未确认</li><li>关键资源暂时无法配合</li><li>需负责人复核后恢复</li></ul></div>
+        <div class="branch"><h3>退回</h3><ul><li>评审发现逻辑不完整</li><li>测试发现核心流程不通过</li><li>记录原因、责任人和修改期限</li></ul></div>
+        <div class="branch"><h3>补录/更正</h3><ul><li>沟通记录或测试记录缺失</li><li>保留修改人和修改原因</li><li>影响结论需重新确认</li></ul></div>
       </div>
     </section>
   </main>
