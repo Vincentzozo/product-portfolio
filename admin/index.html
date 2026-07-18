@@ -1806,41 +1806,42 @@
         ? `<img class="resume-photo" src="${escapeHtml(data.resume.photo)}" alt="${escapeHtml(data.site.personName)}头像">`
         : "";
       const experience = data.resume.experience.map((item) => `
-        <div class="item">
-          <div class="item-head"><h3>${escapeHtml(item.company)}｜${escapeHtml(item.role)}</h3><span class="date">${escapeHtml(item.date)}</span></div>
+        <div class="resume-item">
+          <div class="item-head"><h3>${escapeHtml(item.company)} <span>${escapeHtml(item.role)}</span></h3><time>${escapeHtml(item.date)}</time></div>
           <ul>${item.bullets.map((bullet) => `<li>${escapeHtml(bullet)}</li>`).join("")}</ul>
         </div>
       `).join("");
 
       const projects = data.resume.projects.map((item) => `
-        <div class="project item">
-          <div class="item-head"><h3>${escapeHtml(item.title)}</h3><span class="date">${escapeHtml(item.date)}</span></div>
-          <p>${escapeHtml(item.summary)}</p>
+        <div class="resume-item project">
+          <div class="item-head"><h3>${escapeHtml(item.title)}</h3><time>${escapeHtml(item.date)}</time></div>
+          <p class="project-meta">${escapeHtml(item.summary)}</p>
           <ul>${item.bullets.map((bullet) => `<li>${escapeHtml(bullet)}</li>`).join("")}</ul>
         </div>
       `).join("");
 
-      const skills = data.resume.skills.map((item) => `<span class="tag">${escapeHtml(item)}</span>`).join("");
+      const skills = data.resume.skills.map((item) => `<li>${escapeHtml(item)}</li>`).join("");
       const tools = data.resume.tools.map((item) => `<li>${escapeHtml(item)}</li>`).join("");
       const emails = data.site.emails.filter(Boolean).slice(0, 1).map((email) => `<span>${escapeHtml(email)}</span>`).join("");
       const educationParts = [data.resume.education.school, data.resume.education.degree, data.resume.education.date].filter(Boolean);
-      const educationMain = educationParts.length ? educationParts[0] : "";
-      const educationSub = educationParts.slice(1).join("｜");
+      const educationMain = educationParts[0] || "广东海洋大学";
+      const educationSub = educationParts.slice(1).join(" | ");
 
       return `<!doctype html>
 <html lang="zh-CN">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>${escapeHtml(data.site.personName)}产品项目简历</title>
+  <title>${escapeHtml(data.site.personName)}简历</title>
   <style>
-    :root{--ink:#12161c;--muted:#59616d;--line:#d9dee5;--accent:#0b6e63;--soft:#edf7f5}
-    *{box-sizing:border-box}body{margin:0;color:var(--ink);background:#e9edf2;font-family:"Segoe UI Variable","PingFang SC","Microsoft YaHei",Arial,sans-serif;line-height:1.45}
-    .toolbar{position:sticky;top:0;z-index:10;display:flex;justify-content:center;gap:10px;padding:12px;background:rgba(18,22,28,.94)}.toolbar a,.toolbar button{min-height:38px;padding:8px 14px;color:#fff;border:1px solid rgba(255,255,255,.24);border-radius:5px;background:transparent;font:inherit;font-weight:700;cursor:pointer;text-decoration:none}.toolbar button{color:#101318;background:#fff}
-    .page{width:210mm;min-height:297mm;margin:20px auto;padding:16mm 18mm;background:#fff;box-shadow:0 18px 50px rgba(20,28,38,.14)}header{position:relative;min-height:42mm;padding:0 36mm 10px 0;border-bottom:2px solid #12161c}.identity{padding-top:3mm}h1,h2,h3,p{margin-top:0}h1{margin:0 0 6px;text-align:center;font-size:26px;line-height:1.1}.position{margin:0 0 7px;text-align:center;color:#12161c;font-size:13px;font-weight:800}.contact{display:flex;justify-content:center;gap:18px;flex-wrap:wrap;color:#4d5663;font-size:10.5px}.resume-photo{position:absolute;top:0;right:0;width:30mm;height:40mm;object-fit:cover;object-position:50% 38%;border:1px solid #d9dee5;background:#fff}
-    .summary{margin:11px 0 14px;color:#27313d;font-size:10.8px;line-height:1.58}.layout{display:block}section{margin-bottom:12px}h2{margin-bottom:7px;padding-bottom:4px;color:#12161c;border-bottom:1.5px solid #12161c;font-size:13.5px}.item{margin-bottom:9px;break-inside:avoid}.item-head{display:grid;grid-template-columns:1fr auto;gap:12px;align-items:baseline;margin-bottom:3px}h3{margin-bottom:0;font-size:10.9px}.date{color:#4d5663;font-size:9.5px;font-weight:700}ul{margin:3px 0 0;padding-left:15px;color:#27313d;font-size:9.8px;line-height:1.48}li+li{margin-top:1px}.project{padding:0;background:transparent}.project p{margin-bottom:3px;color:#59616d;font-size:9.5px}.side-block{padding:0;border:0;background:transparent}.side-block+.side-block{margin-top:0}.side-block h2{border-color:#12161c}.tags{display:flex;flex-wrap:wrap;gap:5px}.tag{padding:2px 6px;color:#27313d;border:1px solid #d9dee5;background:#f8fafb;font-size:9.2px}.compact-list{margin-top:0;font-size:9.6px}.education p{margin-bottom:2px;font-size:10px;font-weight:700}.education span{color:#59616d;font-size:9.5px}.aside-grid{display:grid;grid-template-columns:1.2fr .8fr .7fr;gap:18px;margin-top:2px}
-    @media (max-width:850px){.page{width:100%;min-height:0;margin:0;padding:22px 18px;box-shadow:none}header{min-height:0;padding-right:0}.identity{padding-top:0}.resume-photo{position:static;width:88px;height:118px;margin:12px 0 0}.item-head{grid-template-columns:1fr}.aside-grid{grid-template-columns:1fr}.contact{justify-content:flex-start}h1,.position{text-align:left}}
-    @media print{body{background:#fff}.toolbar{display:none}.page{margin:0;box-shadow:none}}
+    :root{--blue:#365f86;--blue-dark:#294c70;--ink:#1d2938;--muted:#5d6a7a;--line:#d8e0e8;--soft:#f3f7fb}
+    *{box-sizing:border-box}body{margin:0;color:var(--ink);background:#e8eef4;font-family:"Segoe UI Variable","PingFang SC","Microsoft YaHei",Arial,sans-serif;line-height:1.48}
+    .toolbar{position:sticky;top:0;z-index:10;display:flex;justify-content:center;gap:10px;padding:12px;background:rgba(24,31,41,.94)}.toolbar a,.toolbar button{min-height:38px;padding:8px 14px;color:#fff;border:1px solid rgba(255,255,255,.25);border-radius:5px;background:transparent;font:inherit;font-weight:700;cursor:pointer;text-decoration:none}.toolbar button{color:#111827;background:#fff}
+    .resume-sheet{width:210mm;min-height:297mm;margin:18px auto;background:#fff;display:grid;grid-template-columns:66mm 1fr;box-shadow:0 22px 60px rgba(23,38,55,.16)}
+    .resume-side{background:linear-gradient(180deg,var(--blue),var(--blue-dark));color:#fff;padding:14mm 10mm}.photo-frame{width:43mm;margin:0 auto 7mm;padding:3mm;background:#fff}.resume-photo{display:block;width:100%;height:53mm;object-fit:cover;object-position:50% 34%}.side-name{margin:0 0 10mm;padding:3mm 0;text-align:center;color:#2b4968;background:#fff;font-size:22px;line-height:1;font-weight:900}.side-section{padding-top:8mm;margin-top:8mm;border-top:1px solid rgba(255,255,255,.38)}.side-section h2{margin:0 0 5mm;font-size:16px;letter-spacing:0;color:#fff}.info-row{display:grid;grid-template-columns:23mm 1fr;gap:5mm;margin:0 0 3.5mm;font-size:11px}.info-row b{font-weight:700;color:rgba(255,255,255,.82)}.info-row span{font-weight:700}.side-list{margin:0;padding-left:14px;font-size:10.5px;line-height:1.7}.contact-line{display:block;margin-top:4mm;font-size:10.5px;word-break:break-all}
+    .resume-main{padding:15mm 14mm 12mm 13mm}.resume-title{display:flex;align-items:baseline;gap:9px;margin:0 0 9mm;color:var(--blue-dark)}.resume-title strong{font-size:24px;line-height:1.1}.resume-title span{padding-left:9px;border-left:2px solid var(--blue);font-size:12px;letter-spacing:0;color:var(--muted);font-weight:700}.block{margin-bottom:7.5mm;break-inside:avoid}.block-title{display:flex;align-items:center;gap:8px;margin:0 0 4mm}.block-title b{display:inline-block;padding:3px 10px;background:var(--blue);color:#fff;font-size:14px;line-height:1}.block-title span{color:var(--muted);font-size:12px;font-weight:700;letter-spacing:0}.advantage-list,.plain-list{margin:0;padding-left:16px;color:#2d3948;font-size:10.8px}.advantage-list li+li,.plain-list li+li{margin-top:2mm}.resume-item{margin-bottom:4.5mm;break-inside:avoid}.item-head{display:grid;grid-template-columns:1fr auto;gap:10px;align-items:baseline;margin-bottom:1.5mm}.item-head h3{margin:0;color:#1d2938;font-size:12px}.item-head h3 span{margin-left:5px;color:#253d57;font-weight:800}.item-head time{color:#334155;font-size:10px;font-weight:800;white-space:nowrap}.resume-item ul{margin:0;padding-left:16px;color:#273444;font-size:10.2px;line-height:1.58}.project-meta{margin:0 0 1.5mm;color:var(--blue-dark);font-size:10px;font-weight:800}.edu-line{display:grid;grid-template-columns:1fr auto;gap:12px;margin:0;color:#1d2938;font-size:12px;font-weight:900}.edu-line span{color:#4b5b6d;font-size:11px}.summary-text{margin:0;color:#2d3948;font-size:10.8px;line-height:1.7}
+    @media (max-width:850px){.resume-sheet{width:100%;min-height:0;margin:0;grid-template-columns:1fr}.resume-side{padding:28px 22px}.resume-main{padding:28px 22px}.photo-frame{width:118px}.resume-photo{height:148px}.side-name{max-width:170px;margin-left:auto;margin-right:auto}.item-head{grid-template-columns:1fr}.toolbar{flex-wrap:wrap}}
+    @media print{@page{size:A4;margin:0}body{background:#fff}.toolbar{display:none}.resume-sheet{width:210mm;min-height:297mm;margin:0;box-shadow:none}.resume-side{print-color-adjust:exact;-webkit-print-color-adjust:exact}.block{margin-bottom:6mm}}
   </style>
 </head>
 <body>
@@ -1849,41 +1850,52 @@
     <a href="portfolio.html">查看作品集</a>
     <button onclick="window.print()">打印 / 导出 PDF</button>
   </div>
-  <article class="page">
-    <header>
-      <div class="identity">
-        <h1>${escapeHtml(data.site.personName)}</h1>
-        <p class="position">${escapeHtml(data.site.role)}</p>
-      </div>
-      <div class="contact">${emails}</div>
-      ${photo}
-    </header>
-    <p class="summary">${escapeHtml(data.resume.summary)}</p>
-    <div class="layout">
-      <section>
-        <h2>工作经历</h2>
+  <article class="resume-sheet">
+    <aside class="resume-side">
+      <div class="photo-frame">${photo}</div>
+      <h1 class="side-name">${escapeHtml(data.site.personName)}</h1>
+      <section class="side-section">
+        <h2>个人信息</h2>
+        <p class="info-row"><b>毕业院校</b><span>${escapeHtml(educationMain)}</span></p>
+        <p class="info-row"><b>学历</b><span>${escapeHtml(data.resume.education.degree || "本科")}</span></p>
+        <p class="info-row"><b>求职意向</b><span>产品助理 / 项目助理</span></p>
+      </section>
+      <section class="side-section">
+        <h2>技能工具</h2>
+        <ul class="side-list">${skills}${tools}</ul>
+      </section>
+      <section class="side-section">
+        <h2>联系方式</h2>
+        <span class="contact-line">${emails}</span>
+      </section>
+    </aside>
+    <main class="resume-main">
+      <div class="resume-title"><strong>个人优势</strong><span>PRODUCT / PROJECT ASSISTANT</span></div>
+      <section class="block">
+        <div class="block-title"><b>个人优势</b><span>ABOUT ME</span></div>
+        <ul class="advantage-list">
+          <li><strong>需求整理：</strong>能把业务反馈、流程规则和异常场景整理成需求清单、流程图、原型和验收要点。</li>
+          <li><strong>项目协同：</strong>熟悉研发、设计、供应链和业务侧协作节奏，能同步信息、跟进节点并推动问题闭环。</li>
+          <li><strong>测试跟进：</strong>可按主流程、边界条件和异常状态拆解测试场景，跟进问题记录、复测确认和版本反馈。</li>
+        </ul>
+      </section>
+      <section class="block">
+        <div class="block-title"><b>教育背景</b><span>EDUCATION</span></div>
+        <p class="edu-line"><strong>${escapeHtml(educationMain)}</strong><span>${escapeHtml(educationSub || "本科")}</span></p>
+      </section>
+      <section class="block">
+        <div class="block-title"><b>工作经历</b><span>EXPERIENCE</span></div>
         ${experience}
       </section>
-      <section>
-        <h2>项目经历</h2>
+      <section class="block">
+        <div class="block-title"><b>项目经历</b><span>PROJECTS</span></div>
         ${projects}
       </section>
-      <div class="aside-grid">
-        <section class="side-block">
-          <h2>核心技能</h2>
-          <div class="tags">${skills}</div>
-        </section>
-        <section class="side-block">
-          <h2>工具与协作</h2>
-          <ul class="compact-list">${tools}</ul>
-        </section>
-        <section class="side-block education">
-          <h2>教育</h2>
-          <p>${escapeHtml(educationMain)}</p>
-          ${educationSub ? `<span>${escapeHtml(educationSub)}</span>` : ""}
-        </section>
-      </div>
-    </div>
+      <section class="block">
+        <div class="block-title"><b>自我评价</b><span>SUMMARY</span></div>
+        <p class="summary-text">${escapeHtml(data.resume.summary)}</p>
+      </section>
+    </main>
   </article>
 </body>
 </html>`;
