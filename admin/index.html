@@ -643,7 +643,8 @@
     const PREVIEWS = [
       { key: "home", label: "首页预览" },
       { key: "portfolio", label: "作品集预览" },
-      { key: "resume", label: "简历预览" }
+      { key: "resume", label: "产品版简历" },
+      { key: "resumeProject", label: "项目版简历" }
     ];
 
     const publishedData = normalizeState(window.SITE_DATA);
@@ -1234,14 +1235,17 @@
       const pages = {
         home: generateHomeHtml(state),
         portfolio: generatePortfolioHtml(state),
-        resume: generateResumeHtml(state)
+        resume: generateResumeHtml(state, "product"),
+        resumeProject: generateResumeHtml(state, "project")
       };
       previewFrame.srcdoc = pages[currentPreview];
       previewMeta.textContent = currentPreview === "home"
         ? "首页预览：适合先确认首屏、数据卡片和亮点案例。"
         : currentPreview === "portfolio"
           ? "作品集预览：适合检查案例表达、文案长短和版式平衡。"
-          : "简历预览：适合检查 1-2 页打印版的压缩与阅读密度。";
+          : currentPreview === "resume"
+            ? "产品版简历：强调 PRD、原型、用户场景、控制器和 MES 需求。"
+            : "项目版简历：强调 MES 推进、跨部门协同、供应商/BOM、节点和闭环。";
       window.__generatedPages = pages;
     }
 
@@ -1523,7 +1527,9 @@
         { path: "admin/site-data.js", content: serializeDataScript(state) },
         { path: "index.html", content: generateHomeHtml(state) },
         { path: "portfolio.html", content: generatePortfolioHtml(state) },
-        { path: "resume.html", content: generateResumeHtml(state) }
+        { path: "resume.html", content: generateResumeHtml(state, "product") },
+        { path: "resume-product.html", content: generateResumeHtml(state, "product") },
+        { path: "resume-project.html", content: generateResumeHtml(state, "project") }
       ];
 
       setLog("开始发布...\n");
@@ -1801,18 +1807,157 @@
 </html>`;
     }
 
-    function generateResumeHtml(data) {
+    function generateResumeHtml(data, variant = "product") {
+      const profiles = {
+        product: {
+          file: "resume-product.html",
+          otherFile: "resume-project.html",
+          otherLabel: "切换项目版",
+          versionLabel: "产品版",
+          pageTitle: "农业科技产品/项目复合型专员",
+          intent: "产品专员/助理",
+          headline: "农业科技产品专员",
+          headlineEn: "PRODUCT ORIENTED",
+          summary: "主打产品方向：围绕智能控制器、MES 业务系统、配套 APP 和现场用户场景，参与需求调研、PRD、交互原型、供应商/BOM资料协同、测试验证和版本反馈，能把业务问题转成可评审、可开发、可验收的产品方案。",
+          advantages: [
+            ["用户场景", "能从现场流程、设备使用和用户反馈中提炼真实需求，减少产品定义和实际使用之间的偏差。"],
+            ["产品产出", "可输出 PRD、原型、需求清单、流程图、状态流和验收口径，支撑研发评审和版本落地。"],
+            ["软硬件协同", "熟悉控制器、HMI、APP、设备连接和数据展示场景，能协助推进软硬件联动产品。"],
+            ["测试反馈", "可按主流程、边界输入、异常状态拆解测试场景，推动问题修复和版本迭代。"]
+          ],
+          skills: [
+            "产品需求：用户场景、PRD、原型、验收口径",
+            "系统建模：流程图、状态流、异常规则、指标表",
+            "产品协同：供应商/BOM资料、UI/研发/硬件沟通",
+            "测试验证：APP测试、200+场景、3轮回归"
+          ],
+          currentBullets: [
+            "参与智能控制器、HMI、配套 APP 与 MES 相关业务系统需求支持，协助完成用户场景梳理、PRD、交互原型、验收口径和版本反馈。",
+            "协同产品资料、供应商/BOM信息、项目文档和演示材料整理，支撑研发、设计、供应链和业务侧的信息同步。",
+            "参与配套 APP 测试与回归验证，按模块拆解主流程、设备连接、数据展示和异常场景，输出问题清单、测试记录和修复确认结果。"
+          ],
+          projects: [
+            {
+              title: "智能控制器产品支持",
+              date: "2022.07 - 至今",
+              summary: "PRD / 原型 / HMI / 软硬件协同",
+              bullets: [
+                "参与控制器产品需求定义、交互原型、HMI 页面逻辑和试产验证，推动硬件、软件、APP 三端协同。",
+                "围绕设备操作、状态展示、异常提示和用户路径整理需求，协助完成一代产品交付和后续迭代。"
+              ]
+            },
+            {
+              title: "MES 业务系统需求推进",
+              date: "2024.04 - 至今",
+              summary: "流程建模 / 状态流 / 验收口径",
+              bullets: [
+                "梳理业务流程、角色职责、异常节点和系统记录要求，形成需求清单、状态流转说明和验收口径。",
+                "对接现场反馈和研发实现过程，持续更新问题记录、优化建议和版本跟进事项。"
+              ]
+            },
+            {
+              title: "配套 APP 测试与产品验证",
+              date: "2024 - 2025",
+              summary: "200+ 场景 / 3轮回归 / 版本反馈",
+              bullets: [
+                "参与 APP 产品定义与全量测试，覆盖引导页、设备管理、测量页、记录、国际化和异常场景等模块。",
+                "按主流程、设备连接、边界输入和异常状态拆解测试场景，推动 UI 与功能缺陷修复。"
+              ]
+            },
+            {
+              title: "产品资料与供应链协同",
+              date: "2022.06 - 至今",
+              summary: "产品资料 / BOM信息 / 样机测试",
+              bullets: [
+                "协助整理产品资料、供应商信息、BOM相关内容和样机测试反馈，支撑研发、设计和供应链沟通。",
+                "沉淀产品概念资料、测试记录和迭代建议，帮助项目从想法推进到可交付状态。"
+              ]
+            }
+          ]
+        },
+        project: {
+          file: "resume-project.html",
+          otherFile: "resume-product.html",
+          otherLabel: "切换产品版",
+          versionLabel: "项目版",
+          pageTitle: "农业科技产品/项目复合型专员",
+          intent: "项目专员/交付",
+          headline: "农业科技项目专员",
+          headlineEn: "PROJECT DELIVERY",
+          summary: "主打项目方向：围绕 MES 推进、智能硬件项目、跨部门协同、供应商/BOM资料跟进、交付节点、测试回归和问题闭环，能把项目事项拆解为任务、责任人、时间节点和验收结果，推动项目稳定落地。",
+          advantages: [
+            ["节点推进", "能把需求、开发、测试、供应链和交付事项拆成可跟进任务，明确负责人、时间点和输出物。"],
+            ["跨部门协同", "熟悉研发、设计、供应链、业务侧和客户之间的信息同步，能减少沟通遗漏和执行偏差。"],
+            ["供应商/BOM", "可协助跟进供应商资料、BOM信息、产品资料和样机反馈，支撑项目计划和交付节奏。"],
+            ["问题闭环", "能维护问题清单、测试记录、复测结果和版本反馈，推动问题从发现到确认关闭。"]
+          ],
+          skills: [
+            "项目推进：计划拆解、节点跟进、会议事项、风险记录",
+            "协同管理：研发、设计、供应链、客户信息同步",
+            "交付闭环：验收清单、测试反馈、问题复测",
+            "业务理解：MES流程、设备联动、现场异常"
+          ],
+          currentBullets: [
+            "参与 MES、智能控制器、HMI 和配套 APP 项目推进，协助拆解任务、跟进开发测试节点、同步跨部门进度。",
+            "协同供应商资料、BOM/产品资料、项目文档和会议事项，推动研发、设计、供应链、业务侧围绕交付目标对齐。",
+            "维护问题清单、测试记录、版本反馈和复测确认，推动异常问题从发现、分派、修复到验收闭环。"
+          ],
+          projects: [
+            {
+              title: "MES 项目推进",
+              date: "2024.04 - 至今",
+              summary: "需求拆解 / 节点跟进 / 联调闭环",
+              bullets: [
+                "围绕业务系统推进需求清单、流程图、状态流和验收事项，协助研发、测试和业务侧对齐交付口径。",
+                "持续跟进现场反馈、版本问题和优化事项，推动需求从评审、开发、联调到确认关闭。"
+              ]
+            },
+            {
+              title: "智能硬件项目协同",
+              date: "2022.07 - 至今",
+              summary: "三端协同 / 样机验证 / 版本反馈",
+              bullets: [
+                "参与控制器、HMI、APP 与设备场景的协同推进，跟进需求评审、设计开发、样机测试和问题反馈。",
+                "协调 UI、软件、硬件和供应链相关事项，保障项目节点和交付物持续推进。"
+              ]
+            },
+            {
+              title: "APP 测试回归与问题闭环",
+              date: "2024 - 2025",
+              summary: "200+ 场景 / 3轮回归 / 风险复盘",
+              bullets: [
+                "围绕 APP 功能、设备连接、数据展示和异常流程设计测试场景，形成测试记录和问题清单。",
+                "组织 3 轮回归跟进，推动缺陷修复、复测确认和版本反馈，提升交付稳定性。"
+              ]
+            },
+            {
+              title: "客户订单与交付跟进",
+              date: "2021.04 - 2021.11",
+              summary: "客户沟通 / 执行跟进 / 验收发货",
+              bullets: [
+                "独立完成客户需求沟通、合同确认、执行跟进、验收和发货，形成从需求到交付的完整闭环。",
+                "处理订单过程中的沟通偏差和执行异常，保障交付节奏和客户确认结果。"
+              ]
+            }
+          ]
+        }
+      };
+      const profile = profiles[variant] || profiles.product;
       const photo = data.resume.photo
         ? `<img class="resume-photo" src="${escapeHtml(data.resume.photo)}" alt="${escapeHtml(data.site.personName)}头像">`
         : "";
-      const experience = data.resume.experience.map((item) => `
+      const experience = data.resume.experience.map((item, index) => {
+        const bullets = index === 0 ? profile.currentBullets : item.bullets;
+        const role = index === 0 ? profile.pageTitle : item.role;
+        return `
         <div class="resume-item">
-          <div class="item-head"><h3>${escapeHtml(item.company)} <span>${escapeHtml(item.role)}</span></h3><time>${escapeHtml(item.date)}</time></div>
-          <ul>${item.bullets.map((bullet) => `<li>${escapeHtml(bullet)}</li>`).join("")}</ul>
+          <div class="item-head"><h3>${escapeHtml(item.company)} <span>${escapeHtml(role)}</span></h3><time>${escapeHtml(item.date)}</time></div>
+          <ul>${bullets.map((bullet) => `<li>${escapeHtml(bullet)}</li>`).join("")}</ul>
         </div>
-      `).join("");
+      `;
+      }).join("");
 
-      const projects = data.resume.projects.map((item) => `
+      const projects = profile.projects.map((item) => `
         <div class="resume-item project">
           <div class="item-head"><h3>${escapeHtml(item.title)}</h3><time>${escapeHtml(item.date)}</time></div>
           <p class="project-meta">${escapeHtml(item.summary)}</p>
@@ -1820,23 +1965,24 @@
         </div>
       `).join("");
 
-      const skills = data.resume.skills.map((item) => `<li>${escapeHtml(item)}</li>`).join("");
+      const skills = profile.skills.map((item) => `<li>${escapeHtml(item)}</li>`).join("");
       const tools = data.resume.tools.map((item) => `<li>${escapeHtml(item)}</li>`).join("");
       const emails = data.site.emails.filter(Boolean).slice(0, 1).map((email) => `<span>${escapeHtml(email)}</span>`).join("");
       const educationParts = [data.resume.education.school, data.resume.education.degree, data.resume.education.date].filter(Boolean);
       const educationMain = educationParts[0] || "广东海洋大学";
       const educationSub = educationParts.slice(1).join(" | ");
+      const advantages = profile.advantages.map(([title, text]) => `<li><strong>${escapeHtml(title)}：</strong>${escapeHtml(text)}</li>`).join("");
 
       return `<!doctype html>
 <html lang="zh-CN">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>${escapeHtml(data.site.personName)}简历</title>
+  <title>${escapeHtml(data.site.personName)}${escapeHtml(profile.versionLabel)}简历</title>
   <style>
     :root{--blue:#365f86;--blue-dark:#294c70;--ink:#1d2938;--muted:#5d6a7a;--line:#d8e0e8;--soft:#f3f7fb}
     *{box-sizing:border-box}body{margin:0;color:var(--ink);background:#e8eef4;font-family:Inter,"Segoe UI Variable","HarmonyOS Sans SC","MiSans","PingFang SC","Microsoft YaHei UI","Microsoft YaHei","Noto Sans CJK SC",Arial,sans-serif;line-height:1.48}
-    .toolbar{position:sticky;top:0;z-index:10;display:flex;justify-content:center;gap:10px;padding:12px;background:rgba(24,31,41,.94)}.toolbar a,.toolbar button{min-height:38px;padding:8px 14px;color:#fff;border:1px solid rgba(255,255,255,.25);border-radius:5px;background:transparent;font:inherit;font-weight:700;cursor:pointer;text-decoration:none}.toolbar button{color:#111827;background:#fff}
+    .toolbar{position:sticky;top:0;z-index:10;display:flex;justify-content:center;gap:10px;padding:12px;background:rgba(24,31,41,.94)}.toolbar a,.toolbar button{min-height:38px;padding:8px 14px;color:#fff;border:1px solid rgba(255,255,255,.25);border-radius:5px;background:transparent;font:inherit;font-weight:700;cursor:pointer;text-decoration:none}.toolbar a.active,.toolbar button{color:#111827;background:#fff}
     .resume-sheet{width:210mm;min-height:297mm;margin:18px auto;background:#fff;display:grid;grid-template-columns:66mm 1fr;box-shadow:0 22px 60px rgba(23,38,55,.16)}
     .resume-side{background:linear-gradient(180deg,var(--blue),var(--blue-dark));color:#fff;padding:14mm 10mm}.photo-frame{width:43mm;margin:0 auto 7mm;padding:3mm;background:#fff}.resume-photo{display:block;width:100%;height:53mm;object-fit:cover;object-position:50% 34%}.side-name{margin:0 0 10mm;padding:3mm 0;text-align:center;color:#2b4968;background:#fff;font-size:22px;line-height:1;font-weight:800}.side-section{padding-top:8mm;margin-top:8mm;border-top:1px solid rgba(255,255,255,.38)}.side-section h2{margin:0 0 5mm;font-size:16px;letter-spacing:0;color:#fff}.info-row{display:grid;grid-template-columns:18mm minmax(0,1fr);gap:4mm;margin:0 0 3.5mm;font-size:10.5px}.info-row b{font-weight:700;color:rgba(255,255,255,.82);white-space:nowrap}.info-row span{font-weight:700;white-space:nowrap}.side-list{margin:0;padding-left:14px;font-size:10.5px;line-height:1.7}.contact-line{display:block;margin-top:4mm;font-size:10.5px;word-break:break-all}
     .resume-main{padding:15mm 14mm 12mm 13mm}.resume-title{display:flex;align-items:baseline;gap:9px;margin:0 0 9mm;color:var(--blue-dark)}.resume-title strong{font-size:24px;line-height:1.1}.resume-title span{padding-left:9px;border-left:2px solid var(--blue);font-size:12px;letter-spacing:0;color:var(--muted);font-weight:700}.block{margin-bottom:7.5mm;break-inside:avoid}.block-title{display:flex;align-items:center;gap:8px;margin:0 0 4mm}.block-title b{display:inline-block;padding:3px 10px;background:var(--blue);color:#fff;font-size:14px;line-height:1}.block-title span{color:var(--muted);font-size:12px;font-weight:700;letter-spacing:0}.advantage-list,.plain-list{margin:0;padding-left:16px;color:#2d3948;font-size:10.8px}.advantage-list li+li,.plain-list li+li{margin-top:2mm}.resume-item{margin-bottom:4.5mm;break-inside:avoid}.item-head{display:grid;grid-template-columns:1fr auto;gap:10px;align-items:baseline;margin-bottom:1.5mm}.item-head h3{margin:0;color:#1d2938;font-size:12px}.item-head h3 span{margin-left:5px;color:#253d57;font-weight:800}.item-head time{color:#334155;font-size:10px;font-weight:800;white-space:nowrap}.resume-item ul{margin:0;padding-left:16px;color:#273444;font-size:10.2px;line-height:1.58}.project-meta{margin:0 0 1.5mm;color:var(--blue-dark);font-size:10px;font-weight:800}.edu-line{display:grid;grid-template-columns:1fr auto;gap:12px;margin:0;color:#1d2938;font-size:12px;font-weight:800}.edu-line span{color:#4b5b6d;font-size:11px}.summary-text{margin:0;color:#2d3948;font-size:10.8px;line-height:1.7}
@@ -1848,6 +1994,8 @@
   <div class="toolbar">
     <a href="index.html">返回网站</a>
     <a href="portfolio.html">查看作品集</a>
+    <a class="${variant === "product" ? "active" : ""}" href="resume-product.html">产品版</a>
+    <a class="${variant === "project" ? "active" : ""}" href="resume-project.html">项目版</a>
     <button onclick="window.print()">打印 / 导出 PDF</button>
   </div>
   <article class="resume-sheet">
@@ -1858,7 +2006,7 @@
         <h2>个人信息</h2>
         <p class="info-row"><b>毕业院校</b><span>${escapeHtml(educationMain)}</span></p>
         <p class="info-row"><b>学历</b><span>${escapeHtml(data.resume.education.degree || "本科")}</span></p>
-        <p class="info-row"><b>求职意向</b><span>产品/项目助理</span></p>
+        <p class="info-row"><b>求职意向</b><span>${escapeHtml(profile.intent)}</span></p>
       </section>
       <section class="side-section">
         <h2>技能工具</h2>
@@ -1870,14 +2018,10 @@
       </section>
     </aside>
     <main class="resume-main">
-      <div class="resume-title"><strong>个人优势</strong><span>PRODUCT / PROJECT ASSISTANT</span></div>
+      <div class="resume-title"><strong>${escapeHtml(profile.headline)}</strong><span>${escapeHtml(profile.headlineEn)}</span></div>
       <section class="block">
         <div class="block-title"><b>个人优势</b><span>ABOUT ME</span></div>
-        <ul class="advantage-list">
-          <li><strong>需求整理：</strong>能把业务反馈、流程规则和异常场景整理成需求清单、流程图、原型和验收要点。</li>
-          <li><strong>项目协同：</strong>熟悉研发、设计、供应链和业务侧协作节奏，能同步信息、跟进节点并推动问题闭环。</li>
-          <li><strong>测试跟进：</strong>可按主流程、边界条件和异常状态拆解测试场景，跟进问题记录、复测确认和版本反馈。</li>
-        </ul>
+        <ul class="advantage-list">${advantages}</ul>
       </section>
       <section class="block">
         <div class="block-title"><b>教育背景</b><span>EDUCATION</span></div>
@@ -1893,7 +2037,7 @@
       </section>
       <section class="block">
         <div class="block-title"><b>自我评价</b><span>SUMMARY</span></div>
-        <p class="summary-text">${escapeHtml(data.resume.summary)}</p>
+        <p class="summary-text">${escapeHtml(profile.summary)}</p>
       </section>
     </main>
   </article>
