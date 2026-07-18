@@ -331,7 +331,7 @@ window.SITE_DATA = {
       "需求清单管理"
     ],
     education: {
-      school: "",
+      school: "广东海洋大学",
       degree: "本科",
       date: ""
     }
